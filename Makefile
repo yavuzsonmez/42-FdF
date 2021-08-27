@@ -6,7 +6,7 @@
 #    By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/19 11:02:47 by ysonmez           #+#    #+#              #
-#    Updated: 2021/08/27 13:44:56 by ysonmez          ###   ########.fr        #
+#    Updated: 2021/08/27 16:43:39 by ysonmez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,18 +19,26 @@ OBJS			=		$(SRCS:.c=.o)
 
 LIB				=		make bonus -C ./libft
 
+MLX				=		make -C ./minilibx_macos
+
 CC				=		gcc
 
 CFLAGS			=		-Wall -Werror -Wextra
+
+MLXFLAGS		=		-framework OpenGL -framework AppKit
 
 RM				=		rm -f
 
 $(NAME)			:		$(OBJS)
 						$(LIB)
-						$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME)
+						$(MLX)
+						$(CC) $(CFLAGS) $(OBJS) libft/libft.a minilibx_macos/libmlx.a $(MLXFLAGS) -o $(NAME)
 
 lib				:
 						$(LIB)
+
+mlx				:
+						$(MLX)
 
 clean			:
 						$(RM) $(OBJS)
@@ -38,6 +46,7 @@ clean			:
 fclean			:		clean
 						$(RM) $(NAME)
 						cd ./libft && make fclean
+						cd ./minilibx_macos && make clean
 
 all				:		$(NAME)
 

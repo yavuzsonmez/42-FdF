@@ -2,5 +2,4 @@ a.out
 libft/*.o
 *.o
 fdftest
-test_maps/
 minilibx_macos/
