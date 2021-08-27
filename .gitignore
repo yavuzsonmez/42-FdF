@@ -1,3 +1,5 @@
 a.out
 libft/*.o
 *.o
+fdftest
+test_maps

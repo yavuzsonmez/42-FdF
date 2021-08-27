@@ -6,13 +6,14 @@
 #    By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/19 11:02:47 by ysonmez           #+#    #+#              #
-#    Updated: 2021/08/26 19:03:54 by ysonmez          ###   ########.fr        #
+#    Updated: 2021/08/27 13:44:56 by ysonmez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=		fdf
 
-SRCS			=		srcs/test.c \
+SRCS			=		srcs/get_next_line.c \
+						srcs/test.c \
 
 OBJS			=		$(SRCS:.c=.o)
 
