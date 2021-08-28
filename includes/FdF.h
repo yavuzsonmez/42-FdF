@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/08/27 18:48:05 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/08/28 12:19:44 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define BUFFER_SIZE 100
 
-# define ESCAPE 27
+# define ESCAPE 53
 
 char	*get_next_line(int fd);
 
@@ -33,7 +33,6 @@ typedef struct s_gnl
 	int		r;
 	int		i;
 }	t_gnl;
-
 
 typedef struct	s_vars {
 	void	*mlx;
@@ -47,5 +46,12 @@ typedef struct	s_data {
 	int		line_length;
 	int		endian;
 }	t_data;
+
+typedef struct	s_matrix {
+	int		x;
+	int		y;
+	int		z;
+	int		color;
+}	t_matrix;
 
 #endif

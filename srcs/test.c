@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:55:57 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/08/27 19:01:38 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/08/28 11:38:41 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int main(int argc, char **argv)
 
 	my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+
 	mlx_hook(vars.win, 2, 1L<<0, e_close, &vars);
 	mlx_loop(vars.mlx);
 
