@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 11:44:37 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/08/28 12:25:41 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/08/28 15:43:06 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct s_parse
 	char	**arr;
 }	t_parse;
 
-
 t_matrix *ft_get_data(char **argv)
 {
 	t_parse		parse;
@@ -33,14 +32,16 @@ t_matrix *ft_get_data(char **argv)
 	parse.tmp = get_next_line(fd);
 	parse.str = ft_strdup("");
 	parse.tmp2 = NULL;
+	parse.arr = ft_split(parse.tmp)
 	while (tmp != NULL)
 	{
-		++i;
+		++parse.i;
 		parse.tmp2 = ft_strjoin(parse.tmp, parse.str);
 
+		ft_memfree(parse.tmp);
+		parse.tmp = get_next_line(fd);
+
 	}
-
-
 
 	parse.arr = ft_split(argv, ' ');
 	matrix = ft_matrix(arr);
@@ -57,7 +58,6 @@ t_matrix *ft_matrix(char **arr)
 	while()
 
 }
-
 
 int main(int argc, char **argv)
 {
@@ -76,7 +76,7 @@ int main(int argc, char **argv)
 	printf("There are %zu in the list\n", size);
 	while (i < size)
 	{
-		printf("Element %lu in the list\t X = %d\t Y = %d\t Z = %d\n", i + 1, tmp.x, tmp.y, tmp.z);
+		printf("Element %lu in the list\t X = %d\t Y = %d\t Z = %d\n", i + 1, tmp.x, tmp.y, tmp.z, tmp.color);
 		printf("_____________________________________________________");
 		tmp = tmp->next;
 		i++;

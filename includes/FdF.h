@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/08/28 12:19:44 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/08/28 14:52:08 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,11 @@ typedef struct	s_data {
 }	t_data;
 
 typedef struct	s_matrix {
-	int		x;
-	int		y;
-	int		z;
-	int		color;
+	int				x;
+	int				y;
+	int				z;
+	int				color;
+	struct s_list	*next;
 }	t_matrix;
 
 #endif
