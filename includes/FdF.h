@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/08/28 14:52:08 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/08/30 19:11:52 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <string.h>
 
 # define BUFFER_SIZE 100
-
 # define ESCAPE 53
 
 char	*get_next_line(int fd);
@@ -51,8 +50,7 @@ typedef struct	s_matrix {
 	int				x;
 	int				y;
 	int				z;
-	int				color;
-	struct s_list	*next;
+	char			*color;
 }	t_matrix;
 
 #endif
