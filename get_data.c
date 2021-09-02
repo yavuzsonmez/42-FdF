@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yavuzsonmez <yavuzsonmez@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 11:44:37 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/08/31 16:22:37 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/02 11:10:49 by yavuzsonmez      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,70 +87,61 @@ void ft_count_row_col(int fd, t_parse *data)
 }
 */
 
-t_matrix *ft_get_data(int fd, t_parse *data)
+//t_matrix *ft_get_data(int fd, t_parse *data)
+
+int ft_count_row_col(char *str, t_parse *data)
 {
-	size_t i;
-	t_matrix *matrix;
+	size_t		i;
+	int			fd;
+	//t_matrix	*matrix;
 
 	i = 0;
+	fd = open(str, O_RDONLY);
+	if (fd < 0)
+		return (-1);
 	data->buf = get_next_line(fd);
-	data->tmp = ft_strtrim(data->buf, "\n");
-	data->tmp2 = ft_strjoin("  ", data->tmp);
-	if(data->row == 0)
+	data->str = ft_strtrim(data->buf, "\n");
+	data->arr = ft_split(data->str, ' ');
+	while(data->arr[i] != NULL)
 	{
-		data->arr = ft_split(data->str, ' ');
-		while(data->arr[i] != NULL)
-		{
 			data->col++;
 			i++;
-		}
-		i = 0;
-		ft_memfreeall((void *)data->arr);
 	}
+	ft_memfree(data->str);
+	ft_memfreeall((void *)data->arr);
 	while(data->buf != NULL)
 	{
 		data->row++;
-		if (data->row == 1)
-			data->str = ft_strdup(data->tmp2);
-		else
-			data->str = ft_strjoin(data->tmp2);
 		ft_memfree(data->buf);
 		data->buf = get_next_line(fd);
-		data->tmp = ft_strtrim(data->buf, "\n");
-		data->tmp = ft_strjoin("", data->tmp);
 	}
 
 	/*TEST*/
 	printf("row : %zu\n", data->row);
 	printf("col : %zu\n", data->col);
-	/*END TEST*/
 
-	matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), (data->row * data->col) + 1);
-	if (matrix == NULL)
-		return (NULL);
-	i = 0;
-	while(--data->row)
-	{
-		ft_create_struct_from_point(data, matrix);
-	}
-
-
-
-	return (matrix);
+	close(fd);
+	return (0);
 }
 
 int main(int argc, char **argv)
 {
-	t_matrix *matrix;
+	//t_matrix *matrix;
 	t_parse	data;
-	size_t	i;
-	int fd;
+	//size_t	i;
 
 	(void)argc;
-	fd = open(argv[1], O_RDONLY);
-	matrix = ft_get_data(fd, &data);
+	if (ft_count_row_col(argv[1], &data) == -1)
+		return (-1);
+	/*
+	matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), (data->row * data->col) + 1);
+	if (matrix == NULL)
+		return (-1);
+	if (ft_get_data(argv[1], &data) == -1)
+		return (-1);
 
-	/*TEST*/
+
+
 	printf("------TEST------\n");
 	i = 0;
 	while (matrix[i] != NULL)
@@ -160,8 +151,6 @@ int main(int argc, char **argv)
 		i++;
 	}
 	printf("------END---TEST------\n");
-	/*END TEST*/
-
-	close(fd);
+	*/
 	return (0);
 }
