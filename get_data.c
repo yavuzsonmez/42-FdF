@@ -6,7 +6,7 @@
 /*   By: yavuzsonmez <yavuzsonmez@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 11:44:37 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/02 11:10:49 by yavuzsonmez      ###   ########.fr       */
+/*   Updated: 2021/09/02 15:23:52 by yavuzsonmez      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ typedef struct s_parse
 	size_t	col;
 	char	**arr;
 }	t_parse;
-/*
-void ft_get_color(char *str, t_matrix *matrix)
+
+char *ft_get_color(char *str)
 {
 	size_t i;
 
@@ -35,59 +35,48 @@ void ft_get_color(char *str, t_matrix *matrix)
 		++i;
 		return (str + i);
 	}
-	return ;
+	return NULL;
 }
 
-void ft_create_struct_from_point(t_parse *data, t_matrix *matrix)
+int ft_get_data(char *str, t_parse *data, t_matrix *matrix)
 {
-	size_t i;
-	t_matrix point;
+	size_t		i;
+	size_t		k;
+	size_t		e;
+	int			fd;
 
 	i = 0;
-	if (matrix == NULL)
-		return ;
-	while(matrix[i] != '\0')
-		i++
-	if (matrix[i] != NULL)
+	e = 0;
+	fd = open(str, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	while(i < data->row)
 	{
-		matrix[i]->x = data->col;
-		matrix[i]->y = data->row;
-		matrix[i]->z = ft_atoi(arr[i]);
-		matrix[i]->color = ft_get_color();
-	}
-}
-void ft_count_row_col(int fd, t_parse *data)
-{
-	size_t i;
-
-	i = 0;
-	data->buf = get_next_line(fd);
-	data->arr = ft_split(data->str, ' ');
-	while(data->arr[i] != NULL && data->arr[i] != '\n')
-	{
-		data->col++;
-		i++;
-	}
-	while(data->buf != NULL)
-	{
-		data->row++;
-		ft_memfree(data->buf);
 		data->buf = get_next_line(fd);
-	}
-
-	i = 0;
-	data->arr = ft_split(str, ' ');
-	while(data->arr != NULL)
+		if (data->buf == NULL)
+			return (-1);
+		data->arr = ft_split(data->buf, ' ');
+		k = 0;
+		while(k < data->col)
+		{
+			matrix[e].x = k;
+			matrix[e].y = i;
+			matrix[e].z = ft_atoi(data->arr[k]);
+			matrix[e].color = ft_get_color(data->arr[k]);
+			//printf("%s\n", data->arr[k]);
+			printf("struct %zu, X : %d, Y : %d, Z : %d, Color : %s\n", e, matrix[e].x, matrix[e].y, matrix[e].z, matrix[e].color);
+			k++;
+			e++;
+		}
+		printf("________________\n");
+		ft_memfree(data->buf);
+		ft_memfreeall((void *)data->arr);
 		i++;
-	data->col =
-
-	printf("row : %zu\n", data->row);
-	printf("col : %zu\n", data->col);
-
+	}
+	//matrix[e] = NULL;
+	close(fd);
+	return (0);
 }
-*/
-
-//t_matrix *ft_get_data(int fd, t_parse *data)
 
 int ft_count_row_col(char *str, t_parse *data)
 {
@@ -126,21 +115,21 @@ int ft_count_row_col(char *str, t_parse *data)
 
 int main(int argc, char **argv)
 {
-	//t_matrix *matrix;
+	t_matrix *matrix;
 	t_parse	data;
 	//size_t	i;
 
 	(void)argc;
 	if (ft_count_row_col(argv[1], &data) == -1)
 		return (-1);
-	/*
-	matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), (data->row * data->col) + 1);
+
+	matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), (data.row * data.col) + 1);
 	if (matrix == NULL)
 		return (-1);
-	if (ft_get_data(argv[1], &data) == -1)
+	if (ft_get_data(argv[1], &data, matrix) == -1)
 		return (-1);
 
-
+	/*
 
 	printf("------TEST------\n");
 	i = 0;
