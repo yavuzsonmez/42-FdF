@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:55:57 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/03 11:56:26 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/03 19:47:24 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 	}
 	if (ft_count_row_col(argv[1], &data) == -1)
 		return (-1);
-	matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), (data.row * data.col) + 1);
+	matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), (data.size + 1));
 	if (matrix == NULL)
 		return (-1);
 	if (ft_store_data(argv[1], &data, matrix) == -1)
@@ -60,8 +60,7 @@ int main(int argc, char **argv)
 
 	while (i < (data.row * data.col))
 	{
-		//my_mlx_pixel_put(&img, matrix[i].x, matrix[i].y, 0x00FF0000);
-		my_mlx_pixel_put(&img, matrix[i].x * 10 + 960, matrix[i].y * 10 + 540, 0x00FF0000);
+		my_mlx_pixel_put(&img, matrix[i].x * 40 + 960, matrix[i].y * 40 + 540, 0x50FFFFFF);
 		i++;
 	}
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);

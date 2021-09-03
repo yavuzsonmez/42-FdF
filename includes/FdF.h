@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/03 11:30:32 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/03 19:40:16 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct	s_matrix {
 	int				x;
 	int				y;
 	int				z;
-	char			*color;
+	int				color;
 }	t_matrix;
 
 typedef struct s_parse
@@ -68,9 +68,10 @@ typedef struct s_parse
 	size_t	row;
 	size_t	col;
 	char	**arr;
+	size_t	size;
 }	t_parse;
 
-char	*ft_get_color(char *str);
+int		ft_get_color(char *str);
 int		ft_count_row_col(char *str, t_parse *data);
 int		ft_store_data(char *str, t_parse *data, t_matrix *matrix);
 
