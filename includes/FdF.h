@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/08/30 19:11:52 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/03 11:30:32 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@
 # include <stdio.h>
 # include <string.h>
 
-# define BUFFER_SIZE 100
+/* Buffer size for GNL & Keycode to close the window + the process */
+
+# define BUFFER_SIZE 10000
 # define ESCAPE 53
+
+/* GNL : proto & required struct */
 
 char	*get_next_line(int fd);
 
@@ -32,6 +36,8 @@ typedef struct s_gnl
 	int		r;
 	int		i;
 }	t_gnl;
+
+/* Required structs for Minilibx */
 
 typedef struct	s_vars {
 	void	*mlx;
@@ -46,11 +52,27 @@ typedef struct	s_data {
 	int		endian;
 }	t_data;
 
+/* Struct to store each points of the matrix and struct for the parsing step */
+
 typedef struct	s_matrix {
 	int				x;
 	int				y;
 	int				z;
 	char			*color;
 }	t_matrix;
+
+typedef struct s_parse
+{
+	char	*str;
+	char	*buf;
+	size_t	row;
+	size_t	col;
+	char	**arr;
+}	t_parse;
+
+char	*ft_get_color(char *str);
+int		ft_count_row_col(char *str, t_parse *data);
+int		ft_store_data(char *str, t_parse *data, t_matrix *matrix);
+
 
 #endif
