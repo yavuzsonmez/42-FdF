@@ -6,28 +6,77 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 11:44:37 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/03 19:40:52 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/06 12:15:20 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
+int ft_check_base(char *str)
+{
+	size_t i;
+
+	i = 0;
+	while(str[i] != '\0')
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+			i++;
+		else if (str[i] >= 'a' && str[i] <= 'z')
+			return (0);
+		else if (str[i] >= 'A' && str[i] <= 'Z')
+			return (1);
+	}
+	return (-1);
+}
+
+int ft_from_hexa_to_dec(char *str)
+{
+	size_t i;
+	int len;
+	char *base;
+	int color;
+	//int b;
+
+	i = 0;
+	color = 0;
+	if(str[i] == '-' || str[i] == '+')
+		i++;
+	if (str[i] == '0' && str[i + 1] == 'x')
+		i += 2;
+	len = ft_strlen(str + i);
+	//b = ft_check_base(str + i);
+	//if (b == 1)
+	//	base = ft_strdup("0123456789ABCDEF");
+	//else if (b == 0)
+	//	base = ft_strdup("0123456789abcdef");
+	//else
+	//	return (color);
+	base = ft_strdup("0123456789ABCDEF");
+	while(str[i] != '\0')
+	{
+		len--;
+		color += ft_strchr_pos(base, str[i]) * pow(16, len);
+		i++;
+	}
+	ft_memfree(base);
+	return (color);
+}
+
 int	ft_get_color(char *str)
 {
 	size_t	i;
-	//int		color;
+	int		color;
 
 	i = 0;
+	color = 16777215;
 	while(str[i] != '\0' && str[i] != ',')
 		i++;
-	if (str[i++] == ',')
+	if (str[i] == ',')
 	{
-		++i;
-		return (16777215);
-		//ft_from_hexa_to_dec(str + i);
-
+		color = ft_from_hexa_to_dec(str + i);
+		i++;
 	}
-	return (16777215);
+	return (color);
 }
 
 int ft_count_row_col(char *str, t_parse *data)

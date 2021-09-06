@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/03 19:40:16 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/06 10:22:25 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <string.h>
+# include <math.h>
 
 /* Buffer size for GNL & Keycode to close the window + the process */
 
