@@ -6,11 +6,24 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:55:57 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/04 16:32:17 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/06 16:13:56 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
+
+void ft_tester(t_parse *data, t_matrix *matrix)
+{
+
+	size_t e;
+
+	e = 0;
+	while (e < (data->col * data->row))
+	{
+		printf("struct %zu, X : %d, Y : %d, Z : %d, Color : %d\n", e, matrix[e].x, matrix[e].y, matrix[e].z, matrix[e].color);
+		e++;
+	}
+}
 
 int	e_close(int keycode, t_vars *vars)
 {
@@ -53,6 +66,9 @@ int main(int argc, char **argv)
 		return (-1);
 	if (ft_store_data(argv[1], &data, matrix) == -1)
 		return (-1);
+	/*TEST*/
+	ft_tester(&data, matrix);
+	/*END TEST*/
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "FdF");
 	img.img = mlx_new_image(vars.mlx, 1920, 1080);
@@ -61,19 +77,13 @@ int main(int argc, char **argv)
 	while (i < (data.row * data.col))
 	{
 
-		my_mlx_pixel_put(&img, matrix[i].x * 30 + 960, matrix[i].y * 30 + 540, 0x00FFFFFF);
+		my_mlx_pixel_put(&img, matrix[i].x, matrix[i].y, matrix[i].color);
 		i++;
 	}
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_hook(vars.win, 2, 1L<<0, e_close, &vars);
 	mlx_loop(vars.mlx);
 
-	/*
-	fd = open(argv[1], O_RDONLY);
-	line = get_next_line(fd);
-	ft_putstr_fd(line, 1);
-	close(fd);
-	*/
 
 	return (0);
 }
