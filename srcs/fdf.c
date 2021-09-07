@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:55:57 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/06 16:13:56 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/07 16:13:14 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,40 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+void drawline(t_data *img, t_matrix *matrix, t_parse *data, size_t i)
+{
+	int dx;
+	int dy;
+	int p;
+	int x;
+	int y;
+
+	while (i < (data->row * data->col))
+	{
+		dx = matrix[i + 1].x - matrix[i].x;
+		dy = matrix[i + 1].y - matrix[i].y;
+		x = matrix[i].x;
+		y = matrix[i].y;
+		p = 2 * dy - dx;
+		while (x < matrix[i + 1].x)
+		{
+			if (p >= 0)
+			{
+				my_mlx_pixel_put(img, x * 30 + 960, y * 30 + 540, 16711680);
+				y++;
+				p = p + 2 * dy - 2 * dx;
+			}
+			else
+			{
+				my_mlx_pixel_put(img, x * 30 + 960, y * 30 + 540, 16711680);
+				p = p + 2 * dy;
+			}
+			x++;
+		}
+		i++;
+	}
+}
+
 int main(int argc, char **argv)
 {
 	size_t		i;
@@ -76,10 +110,10 @@ int main(int argc, char **argv)
 
 	while (i < (data.row * data.col))
 	{
-
-		my_mlx_pixel_put(&img, matrix[i].x, matrix[i].y, matrix[i].color);
+		my_mlx_pixel_put(&img, matrix[i].x * 30 + 960, matrix[i].y * 30 + 540, matrix[i].color);
 		i++;
 	}
+	drawline(&img, matrix, &data, 0);
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_hook(vars.win, 2, 1L<<0, e_close, &vars);
 	mlx_loop(vars.mlx);

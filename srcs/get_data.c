@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 11:44:37 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/06 16:31:10 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/07 14:36:12 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_get_color(char *str)
 	int		color;
 
 	i = 0;
-	color = 0;
+	color = 16711680;
 	while (str[i] != '\0' && str[i] != ',')
 		i++;
 	if (str[i++] == ',')
