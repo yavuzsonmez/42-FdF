@@ -138,10 +138,10 @@ int main(int argc, char **argv)
 		if (matrix[i].z == 0)
 			my_mlx_pixel_put(&img, matrix[i].x * SCALE + 960, matrix[i].y * SCALE + 540, matrix[i].color);
 		else
-			my_mlx_pixel_put(&img, (matrix[i].x - matrix[i].y) * cos(0.3) * SCALE + 960, ((matrix[i].x - matrix[i].y) * sin(0.3) - matrix[i].z) * SCALE + 540, matrix[i].color);
+			my_mlx_pixel_put(&img, (matrix[i].x - matrix[i].y) * cos(0.8) * SCALE - matrix[0].x + 960, ((matrix[i].x + matrix[i].y ) * sin(0.8) - matrix[i].z) * SCALE - matrix[0].y + 540, matrix[i].color);
 		i++;
 	}
-	drawline(&img, matrix, &data, 0);
+	//drawline(&img, matrix, &data, 0);
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_hook(vars.win, 2, 1L<<0, e_close, &vars);
 	mlx_loop(vars.mlx);
