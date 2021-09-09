@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/06 10:22:25 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/09 15:44:58 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # define BUFFER_SIZE 10000
 # define ESCAPE 53
+# define SCALE 20
 
 /* GNL : proto & required struct */
 
@@ -72,7 +73,6 @@ typedef struct s_parse
 	size_t	size;
 }	t_parse;
 
-int		ft_get_color(char *str);
 int		ft_count_row_col(char *str, t_parse *data);
 int		ft_store_data(char *str, t_parse *data, t_matrix *matrix);
 

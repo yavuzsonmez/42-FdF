@@ -6,13 +6,13 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 11:44:37 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/07 14:36:12 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/09 15:43:47 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
-char	*ft_check_base(char *str)
+static char	*ft_check_base(char *str)
 {
 	size_t	i;
 	int		b;
@@ -38,7 +38,7 @@ char	*ft_check_base(char *str)
 	return (base);
 }
 
-int	ft_from_hexa_to_dec(char *str, size_t i, int color)
+static int	ft_from_hexa_to_dec(char *str, size_t i, int color)
 {
 	int		len;
 	char	*base;
@@ -63,13 +63,13 @@ int	ft_from_hexa_to_dec(char *str, size_t i, int color)
 	return (color);
 }
 
-int	ft_get_color(char *str)
+static int	ft_get_color(char *str)
 {
 	size_t	i;
 	int		color;
 
 	i = 0;
-	color = 16711680;
+	color = 16777215;
 	while (str[i] != '\0' && str[i] != ',')
 		i++;
 	if (str[i++] == ',')

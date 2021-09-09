@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:55:57 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/07 19:32:55 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/09 13: by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,24 @@ void drawline(t_data *img, t_matrix *matrix, t_parse *data, size_t i)
 	int x;
 	int y;
 
-	while (i < (data->row * data->col))
+	while (i < data->row * data->col)
 	{
-		dx = matrix[i + 1].x * 30 - matrix[i].x * 30;
-		dy = matrix[i + 1].y * 30 - matrix[i].y * 30;
+		dx = matrix[i + 1].x - matrix[i].x;
+		dy = matrix[i + 1].y - matrix[i].y;
 		x = matrix[i].x * 30;
 		y = matrix[i].y * 30;
 		p = 2 * dy - dx;
-		while (x < matrix[i + 1].x * 30)
+		while (x < matrix[i + 1].x * 30 && matrix[i].z == 0)
 		{
 			if (p >= 0)
 			{
-				my_mlx_pixel_put(img, x, y, 16711680);
+				my_mlx_pixel_put(img, x, y, matrix[i].color);
 				y++;
 				p = p + 2 * dy - 2 * dx;
 			}
 			else
 			{
-				my_mlx_pixel_put(img, x, y, 16711680);
+				my_mlx_pixel_put(img, x, y, matrix[i].color);
 				p = p + 2 * dy;
 			}
 			x++;
@@ -78,24 +78,24 @@ void drawline(t_data *img, t_matrix *matrix, t_parse *data, size_t i)
 		i++;
 	}
 	i = 0;
-	while (i < ((data->row * data->col) - data->col))
+	while (i < data->row * data->col - data->col)
 	{
-		dx = matrix[i].x * 30 - matrix[i].x * 30 - 1;
-		dy = matrix[i].y * 30 - matrix[i].y * 30 - 1;
+		dx = matrix[i].x - matrix[i].x - 1;
+		dy = matrix[i].y - matrix[i].y - 1;
 		x = matrix[i].x * 30;
 		y = matrix[i].y * 30;
 		p = 2 * dy - dx;
-		while (y < matrix[i + data->col].y * 30)
+		while (y < matrix[i + data->col].y * 30 && matrix[i].z == 0)
 		{
 			if (p >= 0)
 			{
-				my_mlx_pixel_put(img, x, y, 16711680);
+				my_mlx_pixel_put(img, x, y, matrix[i].color);
 				x++;
 				p = p + 2 * dy - 2 * dx;
 			}
 			else
 			{
-				my_mlx_pixel_put(img, x, y, 16711680);
+				my_mlx_pixel_put(img, x, y, matrix[i].color);
 				p = p + 2 * dy;
 			}
 			y++;
@@ -135,7 +135,10 @@ int main(int argc, char **argv)
 
 	while (i < (data.row * data.col))
 	{
-		my_mlx_pixel_put(&img, matrix[i].x * 30, matrix[i].y * 30, matrix[i].color);
+		if (matrix[i].z == 0)
+			my_mlx_pixel_put(&img, matrix[i].x * SCALE + 960, matrix[i].y * SCALE + 540, matrix[i].color);
+		else
+			my_mlx_pixel_put(&img, (matrix[i].x - matrix[i].y) * cos(0.3) * SCALE + 960, ((matrix[i].x - matrix[i].y) * sin(0.3) - matrix[i].z) * SCALE + 540, matrix[i].color);
 		i++;
 	}
 	drawline(&img, matrix, &data, 0);
