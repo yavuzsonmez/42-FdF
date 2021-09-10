@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/09 15:44:58 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/10 09:50:51 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define BUFFER_SIZE 10000
 # define ESCAPE 53
-# define SCALE 20
+# define SCALE 1
 
 /* GNL : proto & required struct */
 
