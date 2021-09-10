@@ -77,13 +77,15 @@ void drawline(t_data *img, t_matrix *matrix, t_parse *data, size_t i)
 		{
 			if (p >= 0)
 			{
-				my_mlx_pixel_put(img, x, y, matrix[i].color - fade);
+				if (x >= 0 && x < SCREEN_W && y >= 0 && y < SCREEN_H)
+					my_mlx_pixel_put(img, x, y, matrix[i].color - fade);
 				y++;
 				p = p + 2 * dy - 2 * dx;
 			}
 			else
 			{
-				my_mlx_pixel_put(img, x, y, matrix[i].color - fade);
+				if (x >= 0 && x < SCREEN_W && y >= 0 && y < SCREEN_H)
+					my_mlx_pixel_put(img, x, y, matrix[i].color - fade);
 				p = p + 2 * dy;
 			}
 			fade += 3;
@@ -94,7 +96,7 @@ void drawline(t_data *img, t_matrix *matrix, t_parse *data, size_t i)
 	i = 0;
 	while (i < data->row * data->col - data->col)
 	{
-		dx = matrix[i].x - matrix[i].x - 1;
+		dx = matrix[i].x - matrix[i].x;
 		dy = matrix[i].y - matrix[i].y - 1;
 		x = matrix[i].x;
 		y = matrix[i].y;
@@ -104,13 +106,15 @@ void drawline(t_data *img, t_matrix *matrix, t_parse *data, size_t i)
 		{
 			if (p >= 0)
 			{
-				my_mlx_pixel_put(img, x, y, matrix[i].color - fade);
+				if (x >= 0 && x < SCREEN_W && y >= 0 && y < SCREEN_H)
+					my_mlx_pixel_put(img, x, y, matrix[i].color - fade);
 				x++;
 				p = p + 2 * dy - 2 * dx;
 			}
 			else
 			{
-				my_mlx_pixel_put(img, x, y, matrix[i].color - fade);
+				if (x >= 0 && x < SCREEN_W && y >= 0 && y < SCREEN_H)
+					my_mlx_pixel_put(img, x, y, matrix[i].color - fade);
 				p = p + 2 * dy;
 			}
 			fade += 3;
@@ -157,9 +161,19 @@ int main(int argc, char **argv)
 	//while (i < (data.row * data.col))
 	//{
 	//	if (matrix[i].z == 0)
-	//		my_mlx_pixel_put(&img, matrix[i].x * SCALE + 960, matrix[i].y * SCALE + 540, matrix[i].color);
+	//	{
+	//		matrix[i].x = matrix[i].x * SCALE + 960;
+	//		matrix[i].y = matrix[i].y * SCALE + 540;
+	//		if (matrix[i].x >= 0 && matrix[i].x < SCREEN_W && matrix[i].y >= 0 && matrix[i].y < SCREEN_H)
+	//			my_mlx_pixel_put(&img, matrix[i].x, matrix[i].y, matrix[i].color);
+	//	}
 	//	else
-	//		my_mlx_pixel_put(&img, (matrix[i].x - matrix[i].y) * cos(0.3) * SCALE + 960, ((matrix[i].x + matrix[i].y ) * sin(0.3) - matrix[i].z) * SCALE + 540, matrix[i].color);
+	//	{
+	//		matrix[i].x = (matrix[i].x - matrix[i].y) * cos(0.3) * SCALE + 960;
+	//		matrix[i].y = ((matrix[i].x + matrix[i].y ) * sin(0.3) - matrix[i].z) * SCALE + 540;
+	//		if (matrix[i].x >= 0 && matrix[i].x < SCREEN_W && matrix[i].y >= 0 && matrix[i].y < SCREEN_H)
+	//			my_mlx_pixel_put(&img, matrix[i].x, matrix[i].y, matrix[i].color);
+	//	}
 	//	i++;
 	//}
 

@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/10 15:04:41 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/10 16:50:54 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 /* Window and img parameters */
 
-# define SCALE 1
+# define SCALE 15
 # define SCREEN_W 1920
 # define SCREEN_H 1080
 
