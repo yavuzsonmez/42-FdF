@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/10 11:08:59 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/10 11:58:47 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,23 @@
 # include <string.h>
 # include <math.h>
 
-/* Buffer size for GNL & Keycode to close the window + the process */
+/* Buffer size for GNL */
 
 # define BUFFER_SIZE 10000
-# define ESCAPE 53
+
+/* Window and img parameters */
+
 # define SCALE 1
 # define SCREEN_W 1920
 # define SCREEN_H 1080
+
+/* Events Hook macOS keycodes */
+
+# define ESCAPE 53
+# define UP 126
+# define DOWN 125
+# define LEFT 123
+# define RIGHT 53
 
 /* GNL : proto & required struct */
 
@@ -77,7 +87,7 @@ typedef struct s_parse
 
 int		ft_count_row_col(char *str, t_parse *data);
 int		ft_store_data(char *str, t_parse *data, t_matrix *matrix);
-void	ft_transform_data(t_parse *data, t_matrix *matrix);
+void	ft_transform_data(t_parse *data, t_matrix *matrix, int transform);
 
 
 #endif
