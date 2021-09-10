@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/10 09:50:51 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/10 11:08:59 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define BUFFER_SIZE 10000
 # define ESCAPE 53
 # define SCALE 1
+# define SCREEN_W 1920
+# define SCREEN_H 1080
 
 /* GNL : proto & required struct */
 
@@ -75,6 +77,7 @@ typedef struct s_parse
 
 int		ft_count_row_col(char *str, t_parse *data);
 int		ft_store_data(char *str, t_parse *data, t_matrix *matrix);
+void	ft_transform_data(t_parse *data, t_matrix *matrix);
 
 
 #endif
