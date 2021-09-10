@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/10 11:58:47 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/10 15:04:41 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define UP 126
 # define DOWN 125
 # define LEFT 123
-# define RIGHT 53
+# define RIGHT 124
 
 /* GNL : proto & required struct */
 

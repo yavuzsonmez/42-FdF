@@ -12,6 +12,8 @@
 
 #include "../includes/FdF.h"
 
+/* Printing info related to stored data */
+
 void ft_tester(t_parse *data, t_matrix *matrix)
 {
 
@@ -25,12 +27,14 @@ void ft_tester(t_parse *data, t_matrix *matrix)
 	}
 }
 
+/* Event hook to close the window with ESCAPE */
+
 int	e_close(int keycode, t_vars *vars)
 {
 	if (keycode == ESCAPE)
 	{
+		mlx_destroy_image(vars->mlx, vars->win);
 		mlx_destroy_window(vars->mlx, vars->win);
-		mlx_destroy_img(vars->mlx, vars->win);
 		ft_memfree(vars->win);
 		ft_memfree(vars->mlx);
 		exit(EXIT_SUCCESS);
@@ -40,6 +44,8 @@ int	e_close(int keycode, t_vars *vars)
 	return (0);
 }
 
+/* Push pixels on the img */
+
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -48,6 +54,8 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+/* Draw line between points with Bresenham algorithm */
+
 void drawline(t_data *img, t_matrix *matrix, t_parse *data, size_t i)
 {
 	int dx;
@@ -55,27 +63,30 @@ void drawline(t_data *img, t_matrix *matrix, t_parse *data, size_t i)
 	int p;
 	int x;
 	int y;
+	int fade;
 
 	while (i < data->row * data->col)
 	{
 		dx = matrix[i + 1].x - matrix[i].x;
 		dy = matrix[i + 1].y - matrix[i].y;
-		x = matrix[i].x * SCALE;
-		y = matrix[i].y * SCALE;
+		x = matrix[i].x;
+		y = matrix[i].y;
 		p = 2 * dy - dx;
-		while (x < matrix[i + 1].x * SCALE)
+		fade = 0;
+		while (x < matrix[i + 1].x)
 		{
 			if (p >= 0)
 			{
-				my_mlx_pixel_put(img, x, y, matrix[i].color);
+				my_mlx_pixel_put(img, x, y, matrix[i].color - fade);
 				y++;
 				p = p + 2 * dy - 2 * dx;
 			}
 			else
 			{
-				my_mlx_pixel_put(img, x, y, matrix[i].color);
+				my_mlx_pixel_put(img, x, y, matrix[i].color - fade);
 				p = p + 2 * dy;
 			}
+			fade += 3;
 			x++;
 		}
 		i++;
@@ -85,22 +96,24 @@ void drawline(t_data *img, t_matrix *matrix, t_parse *data, size_t i)
 	{
 		dx = matrix[i].x - matrix[i].x - 1;
 		dy = matrix[i].y - matrix[i].y - 1;
-		x = matrix[i].x * SCALE;
-		y = matrix[i].y * SCALE;
+		x = matrix[i].x;
+		y = matrix[i].y;
 		p = 2 * dy - dx;
-		while (y < matrix[i + data->col].y * SCALE)
+		fade = 0;
+		while (y < matrix[i + data->col].y)
 		{
 			if (p >= 0)
 			{
-				my_mlx_pixel_put(img, x, y, matrix[i].color);
+				my_mlx_pixel_put(img, x, y, matrix[i].color - fade);
 				x++;
 				p = p + 2 * dy - 2 * dx;
 			}
 			else
 			{
-				my_mlx_pixel_put(img, x, y, matrix[i].color);
+				my_mlx_pixel_put(img, x, y, matrix[i].color - fade);
 				p = p + 2 * dy;
 			}
+			fade += 3;
 			y++;
 		}
 		i++;
@@ -112,7 +125,7 @@ int main(int argc, char **argv)
 	size_t		i;
 	t_vars		vars;
 	t_data		img;
-	t_data		t_img;
+	//t_data		t_img;
 	t_matrix	*matrix;
 	t_parse		data;
 

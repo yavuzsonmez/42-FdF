@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/10 12:00:32 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/10 15:08:55 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,21 @@ void ft_translate(int keycode, t_vars *vars)
 
 void ft_transform_data(t_parse *data, t_matrix *matrix, int transform)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
+	(void)transform;
 	while (i < (data->row * data->col))
 	{
 		if (matrix[i].z != 0)
 		{
-			matrix[i].x = (matrix[i].x - matrix[i].y) * cos(0.3) * SCALE + (SCREEN_W / 2) + transform;
-			matrix[i].y = ((matrix[i].x + matrix[i].y) * sin(0.3) - matrix[i].z) * SCALE + (SCREEN_H / 2) + transform;
+			matrix[i].x = (matrix[i].x - matrix[i].y) * cos(0.8) * SCALE + 900;
+			matrix[i].y = ((matrix[i].x + matrix[i].y) * sin(0.8) - matrix[i].z) * SCALE;
 		}
 		else
 		{
-			matrix[i].x = matrix[i].x * SCALE + (SCREEN_W / 2) + transform;
-			matrix[i].y = matrix[i].y * SCALE + (SCREEN_H / 2) + transform;
+			matrix[i].x = matrix[i].x * SCALE + 900;
+			matrix[i].y = matrix[i].y * SCALE;
 		}
 		i++;
 	}
