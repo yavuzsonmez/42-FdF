@@ -156,31 +156,27 @@ int main(int argc, char **argv)
 	img.img = mlx_new_image(vars.mlx, SCREEN_W, SCREEN_H);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
+	// TEST
+
+
+	int x;
+	int y;
+	while (i < (data.row * data.col))
+	{
+		x = (matrix[i].x - matrix[i].y) * cos(0.3) * SCALE + 960;
+		y = ((matrix[i].x + matrix[i].y) * sin(0.3) - matrix[i].z) * SCALE + 540;
+		if (x >= 0 && x < SCREEN_W && y >= 0 && y < SCREEN_H)
+			my_mlx_pixel_put(&img, x, y, matrix[i].color);
+		i++;
+	}
+
+
+
 	ft_transform_data(&data, matrix, 0);
-
-	//while (i < (data.row * data.col))
-	//{
-	//	if (matrix[i].z == 0)
-	//	{
-	//		matrix[i].x = matrix[i].x * SCALE + 960;
-	//		matrix[i].y = matrix[i].y * SCALE + 540;
-	//		if (matrix[i].x >= 0 && matrix[i].x < SCREEN_W && matrix[i].y >= 0 && matrix[i].y < SCREEN_H)
-	//			my_mlx_pixel_put(&img, matrix[i].x, matrix[i].y, matrix[i].color);
-	//	}
-	//	else
-	//	{
-	//		matrix[i].x = (matrix[i].x - matrix[i].y) * cos(0.3) * SCALE + 960;
-	//		matrix[i].y = ((matrix[i].x + matrix[i].y ) * sin(0.3) - matrix[i].z) * SCALE + 540;
-	//		if (matrix[i].x >= 0 && matrix[i].x < SCREEN_W && matrix[i].y >= 0 && matrix[i].y < SCREEN_H)
-	//			my_mlx_pixel_put(&img, matrix[i].x, matrix[i].y, matrix[i].color);
-	//	}
-	//	i++;
-	//}
-
 	drawline(&img, matrix, &data, 0);
+
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_hook(vars.win, 2, 1L<<0, e_close, &vars);
-
 	//mlx_hook(vars.win, 2, 1L<<0, ft_translate, &vars);
 
 	mlx_loop(vars.mlx);

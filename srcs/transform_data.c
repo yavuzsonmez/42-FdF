@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/10 16:51:55 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/11 19:05:53 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,33 @@ void ft_translate(int keycode, t_vars *vars)
 void ft_transform_data(t_parse *data, t_matrix *matrix, int transform)
 {
 	size_t	i;
+	int		x;
+	int		y;
 
 	i = 0;
 	(void)transform;
 	while (i < (data->row * data->col))
 	{
-		if (matrix[i].z != 0)
-		{
-			matrix[i].x = (matrix[i].x - matrix[i].y) * cos(0.8) * SCALE + 960;
-			matrix[i].y = ((matrix[i].x + matrix[i].y) * sin(0.8) - matrix[i].z) * SCALE + 100;
-		}
-		else
-		{
-			matrix[i].x = matrix[i].x * SCALE + 960;
-			matrix[i].y = matrix[i].y * SCALE + 100;
-		}
+		x = matrix[i].x;
+		y = matrix[i].y;
+		matrix[i].x = (x - y) * cos(0.6) * SCALE + 960;
+		matrix[i].y = ((x + y) * sin(0.6) - matrix[i].z) * SCALE + 540;
 		i++;
 	}
 }
+
+/*
+void ft_increase_altitude(t_parse *data, t_matrix *matrix)
+{
+	size_t	i;
+
+	i = 0;
+}
+
+void ft_decrease_altitude(t_parse *data, t_matrix *matrix)
+{
+	size_t	i;
+
+	i = 0;
+}
+*/
