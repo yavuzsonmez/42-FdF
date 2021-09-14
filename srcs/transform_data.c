@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/11 19:05:53 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/14 15:24:17 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void ft_translate(int keycode, t_vars *vars)
 }
 */
 
-void ft_transform_data(t_parse *data, t_matrix *matrix, int transform)
+void ft_transform_data(t_parse *data, t_matrix *matrix, t_screen *screen, int transform)
 {
 	size_t	i;
 	int		x;
@@ -37,8 +37,8 @@ void ft_transform_data(t_parse *data, t_matrix *matrix, int transform)
 	{
 		x = matrix[i].x;
 		y = matrix[i].y;
-		matrix[i].x = (x - y) * cos(0.6) * SCALE + 960;
-		matrix[i].y = ((x + y) * sin(0.6) - matrix[i].z) * SCALE + 540;
+		matrix[i].x = (x - y) * cos(0.3) * screen->SCALE + 960;
+		matrix[i].y = ((x + y) * sin(0.3) - matrix[i].z) * screen->SCALE + 540;
 		i++;
 	}
 }

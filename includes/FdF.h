@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/11 18:57:16 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/14 16:02:11 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@
 /* Buffer size for GNL */
 
 # define BUFFER_SIZE 10000
-
-/* Window and img parameters */
-
-# define SCALE 10
-# define SCREEN_W 1920
-# define SCREEN_H 1080
 
 /* Events Hook macOS keycodes */
 
@@ -85,9 +79,22 @@ typedef struct s_parse
 	size_t	size;
 }	t_parse;
 
+/* Data related to the window and display */
+
+typedef struct s_screen {
+
+	int	SCREEN_H;
+	int	SCREEN_W;
+	int	SCALE;
+}	t_screen;
+
+
+
+
 int		ft_count_row_col(char *str, t_parse *data);
 int		ft_store_data(char *str, t_parse *data, t_matrix *matrix);
-void	ft_transform_data(t_parse *data, t_matrix *matrix, int transform);
+void	ft_transform_data(t_parse *data, t_matrix *matrix, t_screen *screen, int transform);
+void plot_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, size_t i);
 
 void	ft_increase_altitude(t_parse *data, t_matrix *matrix);
 void	ft_decrease_altitude(t_parse *data, t_matrix *matrix);
