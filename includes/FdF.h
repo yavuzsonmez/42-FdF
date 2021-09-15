@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/14 16:02:11 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/15 11:31:38 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,10 @@ typedef struct s_screen {
 }	t_screen;
 
 
-
-
 int		ft_count_row_col(char *str, t_parse *data);
 int		ft_store_data(char *str, t_parse *data, t_matrix *matrix);
-void	ft_transform_data(t_parse *data, t_matrix *matrix, t_screen *screen, int transform);
-void plot_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, size_t i);
+t_matrix *	ft_transform_data(t_parse *data, t_matrix *matrix, t_screen *screen);
+void	draw_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix);
 
 void	ft_increase_altitude(t_parse *data, t_matrix *matrix);
 void	ft_decrease_altitude(t_parse *data, t_matrix *matrix);

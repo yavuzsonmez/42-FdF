@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/14 15:24:17 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/15 11:58:24 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,22 @@ void ft_translate(int keycode, t_vars *vars)
 }
 */
 
-void ft_transform_data(t_parse *data, t_matrix *matrix, t_screen *screen, int transform)
+t_matrix *ft_transform_data(t_parse *data, t_matrix *matrix, t_screen *screen)
 {
-	size_t	i;
-	int		x;
-	int		y;
+	size_t		i;
+	t_matrix	*isomatrix;
 
+	isomatrix = (t_matrix *)ft_calloc(sizeof(t_matrix), (data->size + 1));
 	i = 0;
-	(void)transform;
-	while (i < (data->row * data->col))
+	while (i < data->size)
 	{
-		x = matrix[i].x;
-		y = matrix[i].y;
-		matrix[i].x = (x - y) * cos(0.3) * screen->SCALE + 960;
-		matrix[i].y = ((x + y) * sin(0.3) - matrix[i].z) * screen->SCALE + 540;
+		isomatrix[i].z = matrix[i].z;
+		isomatrix[i].color = matrix[i].color;
+		isomatrix[i].x = (matrix[i].x - matrix[i].y) * cos(0.3) * screen->SCALE + 960;
+		isomatrix[i].y = ((matrix[i].x + matrix[i].y) * sin(0.3) - matrix[i].z) * screen->SCALE + 540;
 		i++;
 	}
+	return (isomatrix);
 }
 
 /*
