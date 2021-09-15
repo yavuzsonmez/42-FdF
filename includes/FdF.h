@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/15 13:47:19 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/15 15:12:41 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define LEFT 123
 # define RIGHT 124
 
-/* GNL : proto & required struct */
+/* GNL */
 
 char	*get_next_line(int fd);
 
@@ -60,14 +60,7 @@ typedef struct	s_data {
 	int		endian;
 }	t_data;
 
-/* Struct to store each points of the matrix and struct for the parsing step */
-
-typedef struct	s_matrix {
-	int				x;
-	int				y;
-	int				z;
-	int				color;
-}	t_matrix;
+/* Struct for the parsing step */
 
 typedef struct s_parse
 {
@@ -78,6 +71,15 @@ typedef struct s_parse
 	char	**arr;
 	size_t	size;
 }	t_parse;
+
+/* Struct to store data related to matrix and isometric matrix */
+
+typedef struct	s_matrix {
+	int				x;
+	int				y;
+	int				z;
+	int				color;
+}	t_matrix;
 
 /* Data related to the window and display */
 
@@ -93,9 +95,8 @@ int		ft_count_row_col(char *str, t_parse *data);
 int		ft_store_data(char *str, t_parse *data, t_matrix *matrix);
 t_matrix *	to_isometric(t_parse *data, t_matrix *matrix, t_screen *screen);
 void	draw_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix);
+void	draw_col (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix);
 
-void	ft_increase_altitude(t_parse *data, t_matrix *matrix);
-void	ft_decrease_altitude(t_parse *data, t_matrix *matrix);
 
 
 #endif
