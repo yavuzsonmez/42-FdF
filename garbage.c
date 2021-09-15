@@ -126,3 +126,21 @@ plot_line (int x0, int y0, int x1, int y1)
     if (e2 <= dx) { err += dx; y0 += sy; } /* e_xy+e_y < 0 */
   }
 }
+
+
+/* Display points only from isometric projection */
+
+
+/*
+	int x;
+	int y;
+	while (i < (data.row * data.col))
+	{
+
+		x = (matrix[i].x - matrix[i].y) * cos(0.3) * screen.SCALE + 960;
+		y = ((matrix[i].x + matrix[i].y) * sin(0.3) - matrix[i].z) * screen.SCALE + 540;
+		if (x >= 0 && x < screen.SCREEN_W && y >= 0 && y < screen.SCREEN_H)
+			my_mlx_pixel_put(&img, x, y, matrix[i].color);
+		i++;
+	}
+*/

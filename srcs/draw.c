@@ -6,13 +6,13 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:10:50 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/15 15:13:58 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/15 15:56:54 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
-/* Push pixels on the img */
+/* Calculate the memory offset using the line length */
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -22,6 +22,8 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+/* Draw line between points with Bresenham algorithm */
+
 void draw_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix)
 {
 	(void)matrix;
@@ -30,7 +32,6 @@ void draw_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, 
 	i = 0;
 	while (i < data->size - 1)
 	{
-		//
 		if (matrix[i].y != matrix[i + 1].y)
 			i++;
 		int x1 = isomatrix[i + 1].x;
@@ -51,7 +52,7 @@ void draw_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, 
 		else
 			sy = -1;
 		int err = dx + dy;
-		int e2; /* error value e_xy */
+		int e2;
 		while (1)
 		{
 			if (x0 >= 0 && x0 < screen->SCREEN_W && y0 >= 0 && y0 < screen->SCREEN_H)
@@ -63,12 +64,12 @@ void draw_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, 
 			{
 				err += dy;
 				x0 += sx;
-			} /* e_xy+e_x > 0 */
+			}
 			if (e2 <= dx)
 			{
 				err += dx;
 				y0 += sy;
-			} /* e_xy+e_y < 0 */
+			}
 		}
 		i++;
 	}
@@ -82,7 +83,6 @@ void draw_col (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t
 	i = 0;
 	while (i < (data->size - data->col))
 	{
-		//
 		int x1 = isomatrix[i + data->col].x;
 		int x0 = isomatrix[i].x;
 		int y1 = isomatrix[i + data->col].y;
@@ -101,7 +101,7 @@ void draw_col (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t
 		else
 			sy = -1;
 		int err = dx + dy;
-		int e2; /* error value e_xy */
+		int e2;
 		while (1)
 		{
 
@@ -114,12 +114,12 @@ void draw_col (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t
 			{
 				err += dy;
 				x0 += sx;
-			} /* e_xy+e_x > 0 */
+			}
 			if (e2 <= dx)
 			{
 				err += dx;
 				y0 += sy;
-			} /* e_xy+e_y < 0 */
+			}
 		}
 		i++;
 	}

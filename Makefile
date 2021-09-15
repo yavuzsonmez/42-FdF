@@ -6,7 +6,7 @@
 #    By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/19 11:02:47 by ysonmez           #+#    #+#              #
-#    Updated: 2021/09/15 15:11:51 by ysonmez          ###   ########.fr        #
+#    Updated: 2021/09/15 15:52:59 by ysonmez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS			=		srcs/get_next_line.c \
 						srcs/get_data.c \
 						srcs/transform_data.c \
 						srcs/draw.c \
+						srcs/hooks.c \
 						srcs/fdf.c \
 
 OBJS			=		$(SRCS:.c=.o)
