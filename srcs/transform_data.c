@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/15 11:58:24 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/15 13:04:49 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void ft_translate(int keycode, t_vars *vars)
 }
 */
 
-t_matrix *ft_transform_data(t_parse *data, t_matrix *matrix, t_screen *screen)
+t_matrix *to_isometric(t_parse *data, t_matrix *matrix, t_screen *screen)
 {
 	size_t		i;
 	t_matrix	*isomatrix;
 
-	isomatrix = (t_matrix *)ft_calloc(sizeof(t_matrix), (data->size + 1));
+	isomatrix = (t_matrix *)ft_calloc(sizeof(t_matrix), data->size);
 	i = 0;
 	while (i < data->size)
 	{

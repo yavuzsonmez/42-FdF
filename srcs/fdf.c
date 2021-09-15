@@ -61,18 +61,17 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void draw_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix)
 {
-	(void)screen;
-	(void)isomatrix;
+	(void)matrix;
 	size_t i;
 
 	i = 0;
-	while (i < data->row * data->col - 1)
+	while (i < data->size - 1)
 	{
 		//
-		int x1 = matrix[i + 1].x;
-		int x0 = matrix[i].x;
-		int y1 = matrix[i + 1].y;
-		int y0 = matrix[i].y;
+		int x1 = isomatrix[i + 1].x;
+		int x0 = isomatrix[i].x;
+		int y1 = isomatrix[i + 1].y;
+		int y0 = isomatrix[i].y;
 		int sx;
 		int sy;
 
@@ -90,12 +89,13 @@ void draw_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, 
 		int e2; /* error value e_xy */
 		while (1)
 		{
-			//if (matrix[i].y != matrix[i + 1].y)
-			//{
-			//	i++;
-			//	break;
-			//}
-			my_mlx_pixel_put(img, x0, y0, matrix[i].color);
+			if (matrix[i].y != matrix[i + 1].y)
+			{
+				i++;
+				break;
+			}
+			if (x0 >= 0 && x0 < screen->SCREEN_W && y0 >= 0 && y0 < screen->SCREEN_H)
+				my_mlx_pixel_put(img, x0, y0, isomatrix[i].color);
 			if (x0 == x1 && y0 == y1)
 				break;
 			e2 = 2 * err;
@@ -137,7 +137,7 @@ int main(int argc, char **argv)
 	}
 	if (ft_count_row_col(argv[1], &data) == -1)
 		return (-1);
-	matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), (data.size + 1));
+	matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), data.size);
 	if (matrix == NULL)
 		return (-1);
 	if (ft_store_data(argv[1], &data, matrix) == -1)
@@ -167,8 +167,8 @@ int main(int argc, char **argv)
 */
 
 
-	isomatrix = ft_transform_data(&data, matrix, &screen);
-	draw_line (&img, matrix, &data, &screen, 0);
+	isomatrix = to_isometric(&data, matrix, &screen);
+	draw_line (&img, matrix, &data, &screen, isomatrix);
 
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_hook(vars.win, 2, 1L<<0, e_close, &vars);
