@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/15 15:58:49 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:34:54 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,22 @@ typedef struct s_screen {
 	int	SCALE;
 }	t_screen;
 
-int		ft_count_row_col(char *str, t_parse *data);
-int		ft_store_data(char *str, t_parse *data, t_matrix *matrix);
+/* Convert and store data (from file matrix to array of struct) */
+
+int			ft_count_row_col(char *str, t_parse *data);
+int			ft_store_data(char *str, t_parse *data, t_matrix *matrix);
+
+/* Calculations in order to apply isometric projectionm, scale the view, align in the middle */
+
 t_matrix *	to_isometric(t_parse *data, t_matrix *matrix, t_screen *screen);
-void	draw_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix);
-void	draw_col (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix);
-int	close_window(int keycode, t_vars *vars);
+
+/* Link points of the matrix with Bresenham algorithm */
+
+void		draw_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix);
+void		draw_col (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix);
+
+/* Event hooks */
+
+int			close_window(int keycode, t_vars *vars);
 
 #endif

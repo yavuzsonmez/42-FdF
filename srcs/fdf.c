@@ -17,14 +17,14 @@
 void ft_tester(t_parse *data, t_matrix *matrix)
 {
 
-	size_t e;
+	size_t i;
 
-	e = 0;
-	while (e < (data->col * data->row))
+	i = 0;
+	while (i < (data->col * data->row))
 	{
 
-		printf("struct %zu, X : %d, Y : %d, Z : %d, Color : %d\n", e + 1, matrix[e].x, matrix[e].y, matrix[e].z, matrix[e].color);
-		e++;
+		printf("struct %zu, X : %d, Y : %d, Z : %d, Color : %d\n", i + 1, matrix[i].x, matrix[i].y, matrix[i].z, matrix[i].color);
+		i++;
 	}
 }
 
@@ -36,7 +36,6 @@ int main(int argc, char **argv)
 	size_t		i;
 	t_vars		vars;
 	t_data		img;
-	//t_data		t_img;
 	t_matrix	*matrix;
 	t_matrix	*isomatrix;
 	t_parse		data;
@@ -69,15 +68,14 @@ int main(int argc, char **argv)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
 
-
-
 	isomatrix = to_isometric(&data, matrix, &screen);
 	draw_line (&img, matrix, &data, &screen, isomatrix);
 	draw_col (&img, matrix, &data, &screen, isomatrix);
 
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+
 	mlx_hook(vars.win, 2, 1L<<0, close_window, &vars);
-	//mlx_hook(vars.win, 2, 1L<<0, ft_translate, &vars);
+	//mlx_hook(vars.win, 2, 1L<<0, translate, &vars);
 
 	mlx_loop(vars.mlx);
 

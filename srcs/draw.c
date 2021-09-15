@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:10:50 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/15 15:56:54 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:36:05 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void draw_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix)
 {
-	(void)matrix;
 	size_t i;
 
 	i = 0;
