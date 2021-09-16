@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/15 14:49:17 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/16 13:55:44 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_matrix *to_isometric(t_parse *data, t_matrix *matrix, t_screen *screen)
 	t_matrix	*isomatrix;
 
 	isomatrix = (t_matrix *)ft_calloc(sizeof(t_matrix), data->size);
+	if (isomatrix == NULL)
+		return (NULL);
 	i = 0;
 	while (i < data->size)
 	{

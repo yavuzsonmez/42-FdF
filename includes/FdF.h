@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/15 16:34:54 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/16 14:21:03 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ typedef struct s_parse
 /* Struct to store data related to matrix and isometric matrix */
 
 typedef struct	s_matrix {
-	int				x;
-	int				y;
-	int				z;
-	int				color;
+	int	x;
+	int	y;
+	int	z;
+	int	color;
 }	t_matrix;
 
 /* Data related to the window and display */
@@ -103,6 +103,7 @@ t_matrix *	to_isometric(t_parse *data, t_matrix *matrix, t_screen *screen);
 
 void		draw_line (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix);
 void		draw_col (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix);
+void draw(t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix);
 
 /* Event hooks */
 

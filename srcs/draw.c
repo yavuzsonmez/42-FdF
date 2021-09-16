@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:10:50 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/15 16:36:05 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/16 14:20:54 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,10 @@ void draw_col (t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t
 		}
 		i++;
 	}
+}
+
+void draw(t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix)
+{
+	draw_line (img, matrix, data, screen, isomatrix);
+	draw_col (img, matrix, data, screen, isomatrix);
 }

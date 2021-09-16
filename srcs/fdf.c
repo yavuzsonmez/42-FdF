@@ -26,6 +26,13 @@ void ft_tester(t_parse *data, t_matrix *matrix)
 	}
 }
 
+/*
+void free_memory()
+{
+
+}
+*/
+
 t_matrix *error_checker(int argc, char **argv, t_parse *data)
 {
 	t_matrix	*matrix;
@@ -55,54 +62,76 @@ t_matrix *error_checker(int argc, char **argv, t_parse *data)
 	return (matrix);
 }
 
-
-void create_window()
+t_screen *scale_window(t_parse *data)
 {
+	t_screen	*screen;
+
+	(void)data;
+	screen = (t_screen *)ft_calloc(sizeof(t_screen), 1);
+	if (screen == NULL)
+		return (NULL);
+	screen->SCREEN_W = 1920;
+	screen->SCREEN_H = 1080;
+	screen->SCALE = 30;
+	return (screen);
+}
+
+void create_window(t_matrix *matrix, t_parse *data)
+{
+	t_vars		*vars;
+	t_data		*img;
+	t_matrix	*isomatrix;
+	t_screen	*screen;
+
+	/* Find a way to check and free everything */
+	vars = (t_vars *)ft_calloc(sizeof(t_vars), 1);
+	img = (t_data *)ft_calloc(sizeof(t_data), 1);
+	screen = scale_window(data);
+	/* Find a way to check and free everything */
+
+	vars->mlx = mlx_init();
+	vars->win = mlx_new_window(vars->mlx, screen->SCREEN_W, screen->SCREEN_H, "FdF");
+
+	img->img = mlx_new_image(vars->mlx, screen->SCREEN_W, screen->SCREEN_H);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
+
+	/* Find a way to check and free everything */
+	isomatrix = to_isometric(data, matrix, screen);
+	/* Find a way to check and free everything */
+	draw(img, matrix, data, screen, isomatrix);
+
+
+	mlx_put_image_to_window(vars->mlx, vars->win, img->img, 0, 0);
+
+	mlx_hook(vars->win, 2, 1L<<0, close_window, vars);
+	//mlx_hook(vars.win, 2, 1L<<0, translate, &vars);
+
+	mlx_loop(vars->mlx);
+
+
+	ft_memfreeall((void *)screen);
+	ft_memfreeall((void *)isomatrix);
 
 }
 
 int main(int argc, char **argv)
 {
-	t_vars		vars;
-	t_data		img;
 	t_matrix	*matrix;
-	t_matrix	*isomatrix;
-	t_parse		data;
-	t_screen	screen;
+	t_parse		*data;
 
-	screen.SCREEN_W = 1920;
-	screen.SCREEN_H = 1080;
-	screen.SCALE = 30;
-
-	matrix = error_checker(argc, argv, &data);
+	data = (t_parse *)ft_calloc(sizeof(t_parse), 1);
+	if (data == NULL)
+		return (-1);
+	matrix = error_checker(argc, argv, data);
 	if (matrix == NULL)
 		return (-1);
 
-
 	/* TEST PRINT */
-	ft_tester(&data, matrix);
+	ft_tester(data, matrix);
 	/* END TEST */
 
-	create_window();
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, screen.SCREEN_W, screen.SCREEN_H, "FdF");
-
-	img.img = mlx_new_image(vars.mlx, screen.SCREEN_W, screen.SCREEN_H);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-
-
-	isomatrix = to_isometric(&data, matrix, &screen);
-	draw_line (&img, matrix, &data, &screen, isomatrix);
-	draw_col (&img, matrix, &data, &screen, isomatrix);
-
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-
-	mlx_hook(vars.win, 2, 1L<<0, close_window, &vars);
-	//mlx_hook(vars.win, 2, 1L<<0, translate, &vars);
-
-	mlx_loop(vars.mlx);
-
+	create_window(matrix, data);
 	ft_memfreeall((void *)matrix);
-	ft_memfreeall((void *)isomatrix);
+	ft_memfreeall((void *)data);
 	return (0);
 }
