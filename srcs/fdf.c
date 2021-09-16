@@ -16,24 +16,53 @@
 
 void ft_tester(t_parse *data, t_matrix *matrix)
 {
-
 	size_t i;
 
 	i = 0;
 	while (i < (data->col * data->row))
 	{
-
 		printf("struct %zu, X : %d, Y : %d, Z : %d, Color : %d\n", i + 1, matrix[i].x, matrix[i].y, matrix[i].z, matrix[i].color);
 		i++;
 	}
 }
 
+t_matrix *error_checker(int argc, char **argv, t_parse *data)
+{
+	t_matrix	*matrix;
+	if (argc != 2)
+	{
+		ft_putendl_fd("Error", 1);
+		return (NULL);
+	}
+	if (ft_count_row_col(argv[1], data) == -1)
+	{
+		ft_putendl_fd("Error", 1);
+		return (NULL);
+	}
+	matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), data->size);
+	if (matrix == NULL)
+	{
+		ft_putendl_fd("Error", 1);
+		ft_memfreeall((void *)matrix);
+		return (NULL);
+	}
+	if (ft_store_data(argv[1], data, matrix) == -1)
+	{
+		ft_putendl_fd("Error", 1);
+		ft_memfreeall((void *)matrix);
+		return (NULL);
+	}
+	return (matrix);
+}
 
 
+void create_window()
+{
+
+}
 
 int main(int argc, char **argv)
 {
-	size_t		i;
 	t_vars		vars;
 	t_data		img;
 	t_matrix	*matrix;
@@ -44,26 +73,20 @@ int main(int argc, char **argv)
 	screen.SCREEN_W = 1920;
 	screen.SCREEN_H = 1080;
 	screen.SCALE = 30;
-	i = 0;
-	if (argc != 2)
-	{
-		ft_putendl_fd("Error", 1);
-		return (-1);
-	}
-	if (ft_count_row_col(argv[1], &data) == -1)
-		return (-1);
-	matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), data.size);
+
+	matrix = error_checker(argc, argv, &data);
 	if (matrix == NULL)
 		return (-1);
-	if (ft_store_data(argv[1], &data, matrix) == -1)
-		return (-1);
+
 
 	/* TEST PRINT */
 	ft_tester(&data, matrix);
 	/* END TEST */
 
+	create_window();
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, screen.SCREEN_W, screen.SCREEN_H, "FdF");
+
 	img.img = mlx_new_image(vars.mlx, screen.SCREEN_W, screen.SCREEN_H);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
@@ -79,6 +102,7 @@ int main(int argc, char **argv)
 
 	mlx_loop(vars.mlx);
 
-	/* free matrix / free isomatrix */
+	ft_memfreeall((void *)matrix);
+	ft_memfreeall((void *)isomatrix);
 	return (0);
 }
