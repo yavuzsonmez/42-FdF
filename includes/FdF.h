@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/16 14:21:03 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/16 15:39:29 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,26 @@ typedef struct	s_matrix {
 /* Data related to the window and display */
 
 typedef struct s_screen {
-
 	int	SCREEN_H;
 	int	SCREEN_W;
 	int	SCALE;
 }	t_screen;
+
+/* Data to provide to Bresenham algorithm in order to link 2 points (putpixel) */
+
+typedef struct s_bresenham {
+	int		x0;
+	int		x1;
+	int		y0;
+	int		y1;
+	int		color;
+	int		sx;
+	int		sy;
+	int		dx;
+	int		dy;
+	int		err;
+	int		e2;
+}	t_bresenham;
 
 /* Convert and store data (from file matrix to array of struct) */
 

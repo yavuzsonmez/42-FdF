@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:10:50 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/16 14:40:51 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/16 15:47:37 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,92 +14,99 @@
 
 /* Calculate the memory offset using the line length */
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 /* Draw line between points with Bresenham algorithm */
 
-
-static void bresenham (int x0, int x1, int y0, int y1, int color, t_screen *screen, t_data *img)
+static void	bresenham(t_screen *screen, t_data *img, t_bresenham *p)
 {
-
-		int sx;
-		int sy;
-
-		int dx =  abs (x1 - x0);
-		if (x0 < x1)
-			sx = 1;
-		else
-			sx = -1;
-		int dy = -abs (y1 - y0);
-		if (y0 < y1)
-			sy = 1;
-		else
-			sy = -1;
-		int err = dx + dy;
-		int e2;
-		while (1)
+	while (1)
+	{
+		if (p->x0 >= 0 && p->x0 < screen->SCREEN_W && p->y0 >= 0 && p->y0 < screen->SCREEN_H)
+			my_mlx_pixel_put(img, p->x0, p->y0, p->color);
+		if (p->x0 == p->x1 && p->y0 == p->y1)
+			break ;
+		p->e2 = 2 * p->err;
+		if (p->e2 >= p->dy)
 		{
-
-			if (x0 >= 0 && x0 < screen->SCREEN_W && y0 >= 0 && y0 < screen->SCREEN_H)
-				my_mlx_pixel_put(img, x0, y0, color);
-			if (x0 == x1 && y0 == y1)
-				break;
-			e2 = 2 * err;
-			if (e2 >= dy)
-			{
-				err += dy;
-				x0 += sx;
-			}
-			if (e2 <= dx)
-			{
-				err += dx;
-				y0 += sy;
-			}
+			p->err += p->dy;
+			p->x0 += p->sx;
 		}
+		if (p->e2 <= p->dx)
+		{
+			p->err += p->dx;
+			p->y0 += p->sy;
+		}
+	}
 }
 
-
-link_x
-
-link_y
-
-void draw(t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix)
+static void	link_x(t_matrix *isomatrix, t_bresenham *p)
 {
-	size_t	i;
-	int		x0;
-	int		x1;
-	int		y0;
-	int		y1;
-	int color;
+	p->x0 = isomatrix[0].x;
+	p->x1 = isomatrix[1].x;
+	p->y0 = isomatrix[0].y;
+	p->y1 = isomatrix[1].y;
+	p->color = isomatrix[0].color;
+	p->dx = abs(p->x1 - p->x0);
+	if (p->x0 < p->x1)
+		p->sx = 1;
+	else
+		p->sx = -1;
+	p->dy = -abs(p->y1 - p->y0);
+	if (p->y0 < p->y1)
+		p->sy = 1;
+	else
+		p->sy = -1;
+	p->err = p->dx + p->dy;
+}
+
+static void	link_y(t_matrix *isomatrix, t_bresenham *p, size_t ncol)
+{
+	p->x0 = isomatrix[0].x;
+	p->x1 = isomatrix[ncol].x;
+	p->y0 = isomatrix[0].y;
+	p->y1 = isomatrix[ncol].y;
+	p->color = isomatrix[0].color;
+	p->dx = abs(p->x1 - p->x0);
+	if (p->x0 < p->x1)
+		p->sx = 1;
+	else
+		p->sx = -1;
+	p->dy = -abs(p->y1 - p->y0);
+	if (p->y0 < p->y1)
+		p->sy = 1;
+	else
+		p->sy = -1;
+	p->err = p->dx + p->dy;
+}
+
+/* Drawing line by using he Bresenham's algorithm */
+
+void	draw(t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix)
+{
+	size_t		i;
+	t_bresenham	p;
 
 	i = 0;
 	while (i < data->size - 1)
 	{
 		if (matrix[i].y != matrix[i + 1].y)
 			i++;
-		x0 = isomatrix[i].x;
-		x1 = isomatrix[i + 1].x;
-		y0 = isomatrix[i].y;
-		y1 = isomatrix[i + 1].y;
-		color = isomatrix[i].color;
-		bresenham (x0, x1, y0, y1, color, screen, img);
+		link_x(isomatrix + i, &p);
+		bresenham (screen, img, &p);
 		i++;
 	}
 	i = 0;
 	while (i < (data->size - data->col))
 	{
-		x0 = isomatrix[i].x;
-		x1 = isomatrix[i + data->col].x;
-		y0 = isomatrix[i].y;
-		y1 = isomatrix[i + data->col].y;
-		color = isomatrix[i].color;
-		bresenham (x0, x1, y0, y1, color, screen, img);
+		link_y(isomatrix + i, &p, data->col);
+		bresenham (screen, img, &p);
 		i++;
 	}
 }
