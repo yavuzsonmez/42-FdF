@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:10:50 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/17 14:00:08 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/17 18:35:29 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	bresenham(t_screen *screen, t_data *img, t_bresenham *p)
 {
 	while (1)
 	{
-		if (p->x0 >= 0 && p->x0 < screen->SCREEN_W && p->y0 >= 0 && p->y0 < screen->SCREEN_H)
+		if (p->x0 >= 0 && p->x0 < screen->width && p->y0 >= 0 && p->y0 < screen->height)
 			my_mlx_pixel_put(img, p->x0, p->y0, p->color);
 		if (p->x0 == p->x1 && p->y0 == p->y1)
 			break ;
@@ -90,25 +90,26 @@ static void	link_y(t_matrix *isomatrix, t_bresenham *p, size_t ncol)
 
 /* Drawing line by using he Bresenham's algorithm */
 
-void	draw(t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix)
+void	draw(t_fdf	*fdf)
 {
 	size_t		i;
 	t_bresenham	p;
 
 	i = 0;
-	while (i < data->size - 1)
+	while (i < fdf->data.size - 1)
 	{
-		if (matrix[i].y != matrix[i + 1].y)
+		if (fdf->matrix[i].y != fdf->matrix[i + 1].y)
 			i++;
-		link_x(isomatrix + i, &p);
-		bresenham (screen, img, &p);
+		link_x(fdf->isomatrix + i, &p);
+		bresenham (&fdf->screen, &fdf->img, &p);
 		i++;
 	}
 	i = 0;
-	while (i < (data->size - data->col))
+	while (i < (fdf->data.size - fdf->data.col))
 	{
-		link_y(isomatrix + i, &p, data->col);
-		bresenham (screen, img, &p);
+		link_y(fdf->isomatrix + i, &p, fdf->data.col);
+		bresenham (&fdf->screen, &fdf->img, &p);
 		i++;
 	}
 }
+

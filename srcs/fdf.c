@@ -26,46 +26,35 @@ static void ft_tester(t_fdf *fdf)
 	}
 }
 
-/*
-void free_memory()
-{
-
-}
-*/
-
 int error_checker(int argc, char **argv, t_fdf *fdf)
 {
+	int	error;
+
+	error = 0;
 	if (argc != 2)
-	{
-		ft_putendl_fd("Error", 1);
-		return (0);
-	}
-	if (ft_count_row_col(argv[1], &fdf->data) == -1)
-	{
-		ft_putendl_fd("Error", 1);
-		return (0);
-	}
+		error = 1;
+	if (count_row_col(argv[1], fdf) == -1 && error == 0)
+		error = 1;
 	fdf->matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), fdf->data.size);
 	if (fdf->matrix == NULL)
+		error = 1;
+	if (store_data(argv[1], fdf) == -1 && error == 0)
+		error = 1;
+	if (error == 1)
 	{
+		free_data_struct(fdf);
 		ft_putendl_fd("Error", 1);
-		ft_memfreeall((void *)fdf->matrix);
-		return (0);
+		return (-1);
 	}
-	if (ft_store_data(argv[1], &fdf->data, fdf->matrix) == -1)
-	{
-		ft_putendl_fd("Error", 1);
-		ft_memfreeall((void *)fdf->matrix);
+	else
 		return (0);
-	}
-	return (1);
 }
 
 void scale_window(t_fdf *fdf)
 {
-	fdf->screen.SCREEN_W = 1920;
-	fdf->screen.SCREEN_H = 1080;
-	fdf->screen.SCALE = 30;
+	fdf->screen.width = 1920;
+	fdf->screen.height = 1080;
+	fdf->screen.scale = 30;
 	return ;
 }
 
@@ -75,15 +64,19 @@ void create_window(t_fdf *fdf)
 	scale_window(fdf);
 
 	fdf->vars.mlx = mlx_init();
-	fdf->vars.win = mlx_new_window(fdf->vars.mlx, fdf->screen.SCREEN_W, fdf->screen.SCREEN_H, "FdF");
+	fdf->vars.win = mlx_new_window(fdf->vars.mlx, fdf->screen.width, fdf->screen.height, "FdF");
 
-	fdf->img.img = mlx_new_image(fdf->vars.mlx, fdf->screen.SCREEN_W, fdf->screen.SCREEN_H);
+	fdf->img.img = mlx_new_image(fdf->vars.mlx, fdf->screen.width, fdf->screen.height);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel, &fdf->img.line_length, &fdf->img.endian);
 
-	/* Find a way to check and free everything */
-	fdf->isomatrix = to_isometric(&fdf->data, fdf->matrix, &fdf->screen);
-	/* Find a way to check and free everything */
-	draw(&fdf->img, fdf->matrix, &fdf->data, &fdf->screen, fdf->isomatrix);
+
+	if (to_isometric(fdf) == -1)
+	{
+		ft_putendl_fd("Error", 1);
+		free_data_struct(fdf);
+		return ;
+	}
+	draw(fdf);
 
 
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
@@ -108,14 +101,21 @@ t_fdf	*init_data_struct(void)
 		return (NULL);
 	}
 	return (fdf);
-/*
-	t_vars		vars;
-	t_data		img;
-	t_parse		data;
-	t_screen	screen;
-	t_matrix	*matrix;
-	t_matrix	*isomatrix;
+}
+
+/* free everything malloc in the struct if something exist and is malloc and free the whole data struct at the end
+*  not finished
 */
+void free_data_struct(t_fdf	*fdf)
+{
+	size_t	i;
+
+	i = 0;
+	if (fdf->matrix != NULL)
+		ft_memfreeall((void **)&fdf->matrix);
+	if (fdf->isomatrix != NULL)
+		ft_memfreeall((void **)&fdf->isomatrix);
+	ft_memfree(fdf);
 }
 
 int main(int argc, char **argv)
@@ -123,9 +123,10 @@ int main(int argc, char **argv)
 	t_fdf	*fdf;
 
 	fdf = init_data_struct();
-
-	error_checker(argc, argv, fdf);
-
+	if (fdf == NULL)
+		return (-1);
+	if (error_checker(argc, argv, fdf) == -1)
+		return (-1);
 	/* TEST PRINT */
 	ft_tester(fdf);
 	/* END TEST */
@@ -133,3 +134,4 @@ int main(int argc, char **argv)
 	create_window(fdf);
 	return (0);
 }
+

@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/17 17:04:56 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/17 18:38:20 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ typedef struct	s_matrix {
 /* Data related to the window and display */
 
 typedef struct s_screen {
-	int			SCREEN_H;
-	int			SCREEN_W;
-	int			SCALE;
+	int			height;
+	int			width;
+	int			scale;
 }	t_screen;
 
 /* Data to provide to Bresenham algorithm in order to link 2 points (putpixel) */
@@ -117,19 +117,25 @@ typedef	struct s_fdf {
 
 /* Convert and store data (from file matrix to array of struct) */
 
-int			ft_count_row_col(char *str, t_parse *data);
-int			ft_store_data(char *str, t_parse *data, t_matrix *matrix);
+int		count_row_col(char *str, t_fdf *fdf);
+int		store_data(char *str, t_fdf *fdf);
 
 /* Calculations in order to apply isometric projectionm, scale the view, align in the middle */
 
-t_matrix *	to_isometric(t_parse *data, t_matrix *matrix, t_screen *screen);
+int	to_isometric(t_fdf	*fdf);
 
 /* Link points of the matrix with Bresenham algorithm */
 
-void		draw(t_data *img, t_matrix *matrix, t_parse *data, t_screen *screen, t_matrix *isomatrix);
+void		draw(t_fdf	*fdf);
 
 /* Event hooks */
 
 int			close_window(int keycode, t_vars *vars);
+
+
+/* Initialize the data struct and free it */
+
+t_fdf		*init_data_struct(void);
+void		free_data_struct(t_fdf	*fdf);
 
 #endif

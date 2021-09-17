@@ -6,13 +6,13 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 11:44:37 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/09 15:43:47 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/17 18:38:42 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
-static char	*ft_check_base(char *str)
+static char	*check_base(char *str)
 {
 	size_t	i;
 	int		b;
@@ -38,7 +38,7 @@ static char	*ft_check_base(char *str)
 	return (base);
 }
 
-static int	ft_from_hexa_to_dec(char *str, size_t i, int color)
+static int	from_hexa_to_dec(char *str, size_t i, int color)
 {
 	int		len;
 	char	*base;
@@ -50,7 +50,7 @@ static int	ft_from_hexa_to_dec(char *str, size_t i, int color)
 	len = ft_strlen(str + i);
 	if (ft_strchr(str + i, '\n') != NULL)
 		len--;
-	base = ft_check_base(str + i);
+	base = check_base(str + i);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\n')
@@ -63,7 +63,7 @@ static int	ft_from_hexa_to_dec(char *str, size_t i, int color)
 	return (color);
 }
 
-static int	ft_get_color(char *str)
+static int	get_color(char *str)
 {
 	size_t	i;
 	int		color;
@@ -73,11 +73,11 @@ static int	ft_get_color(char *str)
 	while (str[i] != '\0' && str[i] != ',')
 		i++;
 	if (str[i++] == ',')
-		color = ft_from_hexa_to_dec(str + i, 0, 0);
+		color = from_hexa_to_dec(str + i, 0, 0);
 	return (color);
 }
 
-int	ft_count_row_col(char *str, t_parse *data)
+int	count_row_col(char *str, t_fdf *fdf)
 {
 	size_t		i;
 	int			fd;
@@ -86,25 +86,25 @@ int	ft_count_row_col(char *str, t_parse *data)
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
 		return (-1);
-	data->buf = get_next_line(fd);
-	data->str = ft_strtrim(data->buf, "\n");
-	data->arr = ft_split(data->str, ' ');
-	while (data->arr[i++] != NULL)
-		data->col++;
-	ft_memfree(data->str);
-	ft_memfreeall((void *)data->arr);
-	while (data->buf != NULL)
+	fdf->data.buf = get_next_line(fd);
+	fdf->data.str = ft_strtrim(fdf->data.buf, "\n");
+	fdf->data.arr = ft_split(fdf->data.str, ' ');
+	while (fdf->data.arr[i++] != NULL)
+		fdf->data.col++;
+	ft_memfree(fdf->data.str);
+	ft_memfreeall((void *)fdf->data.arr);
+	while (fdf->data.buf != NULL)
 	{
-		data->row++;
-		ft_memfree(data->buf);
-		data->buf = get_next_line(fd);
+		fdf->data.row++;
+		ft_memfree(fdf->data.buf);
+		fdf->data.buf = get_next_line(fd);
 	}
-	data->size = data->row * data->col;
+	fdf->data.size = fdf->data.row * fdf->data.col;
 	close(fd);
 	return (0);
 }
 
-int	ft_store_data(char *str, t_parse *data, t_matrix *matrix)
+int	store_data(char *str, t_fdf *fdf)
 {
 	size_t		i;
 	size_t		k;
@@ -116,22 +116,22 @@ int	ft_store_data(char *str, t_parse *data, t_matrix *matrix)
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
 		return (-1);
-	while (i < data->row)
+	while (i < fdf->data.row)
 	{
-		data->buf = get_next_line(fd);
-		if (data->buf == NULL)
+		fdf->data.buf = get_next_line(fd);
+		if (fdf->data.buf == NULL)
 			return (-1);
-		data->arr = ft_split(data->buf, ' ');
+		fdf->data.arr = ft_split(fdf->data.buf, ' ');
 		k = 0;
-		while (k < data->col)
+		while (k < fdf->data.col)
 		{
-			matrix[e].x = k;
-			matrix[e].y = i;
-			matrix[e].z = ft_atoi(data->arr[k]);
-			matrix[e++].color = ft_get_color(data->arr[k++]);
+			fdf->matrix[e].x = k;
+			fdf->matrix[e].y = i;
+			fdf->matrix[e].z = ft_atoi(fdf->data.arr[k]);
+			fdf->matrix[e++].color = get_color(fdf->data.arr[k++]);
 		}
-		ft_memfree(data->buf);
-		ft_memfreeall((void *)data->arr);
+		ft_memfree(fdf->data.buf);
+		ft_memfreeall((void *)fdf->data.arr);
 		i++;
 	}
 	close(fd);
