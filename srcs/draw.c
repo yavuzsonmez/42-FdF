@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:10:50 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/16 15:47:37 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/17 11:37:22 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void	bresenham(t_screen *screen, t_data *img, t_bresenham *p)
 
 static void	link_x(t_matrix *isomatrix, t_bresenham *p)
 {
+	p->z = isomatrix[0].z;
 	p->x0 = isomatrix[0].x;
 	p->x1 = isomatrix[1].x;
 	p->y0 = isomatrix[0].y;
@@ -68,6 +69,7 @@ static void	link_x(t_matrix *isomatrix, t_bresenham *p)
 
 static void	link_y(t_matrix *isomatrix, t_bresenham *p, size_t ncol)
 {
+	p->z = isomatrix[0].z;
 	p->x0 = isomatrix[0].x;
 	p->x1 = isomatrix[ncol].x;
 	p->y0 = isomatrix[0].y;

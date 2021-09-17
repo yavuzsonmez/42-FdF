@@ -72,7 +72,7 @@ t_screen *scale_window(t_parse *data)
 		return (NULL);
 	screen->SCREEN_W = 1920;
 	screen->SCREEN_H = 1080;
-	screen->SCALE = 30;
+	screen->SCALE = 20;
 	return (screen);
 }
 
@@ -104,13 +104,13 @@ void create_window(t_matrix *matrix, t_parse *data)
 	mlx_put_image_to_window(vars->mlx, vars->win, img->img, 0, 0);
 
 	mlx_hook(vars->win, 2, 1L<<0, close_window, vars);
-	//mlx_hook(vars.win, 2, 1L<<0, translate, &vars);
+	mlx_hook(vars->win, 2, 1L<<0, zoom, vars);
 
 	mlx_loop(vars->mlx);
 
 
-	ft_memfreeall((void *)screen);
-	ft_memfreeall((void *)isomatrix);
+	//ft_memfreeall((void *)screen);
+	//ft_memfreeall((void *)isomatrix);
 
 }
 
