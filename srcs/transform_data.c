@@ -6,13 +6,13 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/17 18:33:21 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/17 18:56:42 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
-int to_isometric(t_fdf	*fdf)
+int	to_isometric(t_fdf	*fdf)
 {
 	size_t		i;
 
@@ -24,7 +24,7 @@ int to_isometric(t_fdf	*fdf)
 	{
 		fdf->isomatrix[i].z = fdf->matrix[i].z;
 		fdf->isomatrix[i].color = fdf->matrix[i].color;
-		fdf->isomatrix[i].x = (fdf->matrix[i].x - fdf->matrix[i].y) * cos(0.2) * fdf->screen.scale + (fdf->screen.width / 2);
+		fdf->isomatrix[i].x = (fdf->matrix[i].x - fdf->matrix[i].y) * cos(1.2) * fdf->screen.scale + (fdf->screen.width / 2);
 		fdf->isomatrix[i].y = ((fdf->matrix[i].x + fdf->matrix[i].y) * sin(0.2) - fdf->matrix[i].z) * fdf->screen.scale + (fdf->screen.height / 2);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/17 18:38:20 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/17 18:52:26 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef	struct s_fdf {
 /* Convert and store data (from file matrix to array of struct) */
 
 int		count_row_col(char *str, t_fdf *fdf);
-int		store_data(char *str, t_fdf *fdf);
+int	store_data(char *str, t_fdf *fdf, size_t i, size_t e);
 
 /* Calculations in order to apply isometric projectionm, scale the view, align in the middle */
 
@@ -128,12 +128,12 @@ int	to_isometric(t_fdf	*fdf);
 
 void		draw(t_fdf	*fdf);
 
-/* Event hooks */
+/* Event listeners (events.c)*/
 
 int			close_window(int keycode, t_vars *vars);
 
 
-/* Initialize the data struct and free it */
+/* Initialize the data struct and free it (utils.c)*/
 
 t_fdf		*init_data_struct(void);
 void		free_data_struct(t_fdf	*fdf);

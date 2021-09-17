@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 11:44:37 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/17 18:38:42 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/17 18:52:48 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,15 +104,11 @@ int	count_row_col(char *str, t_fdf *fdf)
 	return (0);
 }
 
-int	store_data(char *str, t_fdf *fdf)
+int	store_data(char *str, t_fdf *fdf, size_t i, size_t e)
 {
-	size_t		i;
 	size_t		k;
-	size_t		e;
 	int			fd;
 
-	i = 0;
-	e = 0;
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
 		return (-1);

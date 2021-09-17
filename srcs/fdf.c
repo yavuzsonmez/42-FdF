@@ -14,9 +14,9 @@
 
 /* Printing info related to stored data */
 
-static void ft_tester(t_fdf *fdf)
+static void	ft_tester(t_fdf *fdf)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < (fdf->data.col * fdf->data.row))
@@ -26,7 +26,7 @@ static void ft_tester(t_fdf *fdf)
 	}
 }
 
-int error_checker(int argc, char **argv, t_fdf *fdf)
+int	error_checker(int argc, char **argv, t_fdf *fdf)
 {
 	int	error;
 
@@ -38,7 +38,7 @@ int error_checker(int argc, char **argv, t_fdf *fdf)
 	fdf->matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), fdf->data.size);
 	if (fdf->matrix == NULL)
 		error = 1;
-	if (store_data(argv[1], fdf) == -1 && error == 0)
+	if (store_data(argv[1], fdf, 0, 0) == -1 && error == 0)
 		error = 1;
 	if (error == 1)
 	{
@@ -50,7 +50,7 @@ int error_checker(int argc, char **argv, t_fdf *fdf)
 		return (0);
 }
 
-void scale_window(t_fdf *fdf)
+void	scale_window(t_fdf *fdf)
 {
 	fdf->screen.width = 1920;
 	fdf->screen.height = 1080;
@@ -58,18 +58,13 @@ void scale_window(t_fdf *fdf)
 	return ;
 }
 
-void create_window(t_fdf *fdf)
+void	create_window(t_fdf *fdf)
 {
-
 	scale_window(fdf);
-
 	fdf->vars.mlx = mlx_init();
 	fdf->vars.win = mlx_new_window(fdf->vars.mlx, fdf->screen.width, fdf->screen.height, "FdF");
-
 	fdf->img.img = mlx_new_image(fdf->vars.mlx, fdf->screen.width, fdf->screen.height);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel, &fdf->img.line_length, &fdf->img.endian);
-
-
 	if (to_isometric(fdf) == -1)
 	{
 		ft_putendl_fd("Error", 1);
@@ -77,48 +72,13 @@ void create_window(t_fdf *fdf)
 		return ;
 	}
 	draw(fdf);
-
-
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
-
 	//mlx_hook(vars->win, 2, 1L<<0, close_window, fdf);
-
 	//mlx_hook(vars->win, 2, 1L<<0, zoom, fdf);
-
 	mlx_loop(fdf->vars.mlx);
-
-
 }
 
-t_fdf	*init_data_struct(void)
-{
-	t_fdf	*fdf;
-
-	fdf = (t_fdf *)ft_calloc(sizeof(t_fdf), 1);
-	if (fdf == NULL)
-	{
-		ft_putendl_fd("Error", 1);
-		return (NULL);
-	}
-	return (fdf);
-}
-
-/* free everything malloc in the struct if something exist and is malloc and free the whole data struct at the end
-*  not finished
-*/
-void free_data_struct(t_fdf	*fdf)
-{
-	size_t	i;
-
-	i = 0;
-	if (fdf->matrix != NULL)
-		ft_memfreeall((void **)&fdf->matrix);
-	if (fdf->isomatrix != NULL)
-		ft_memfreeall((void **)&fdf->isomatrix);
-	ft_memfree(fdf);
-}
-
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_fdf	*fdf;
 
@@ -130,8 +90,6 @@ int main(int argc, char **argv)
 	/* TEST PRINT */
 	ft_tester(fdf);
 	/* END TEST */
-
 	create_window(fdf);
 	return (0);
 }
-

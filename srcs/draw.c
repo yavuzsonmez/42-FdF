@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:10:50 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/17 18:35:29 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/17 18:43:17 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ static void	bresenham(t_screen *screen, t_data *img, t_bresenham *p)
 {
 	while (1)
 	{
-		if (p->x0 >= 0 && p->x0 < screen->width && p->y0 >= 0 && p->y0 < screen->height)
-			my_mlx_pixel_put(img, p->x0, p->y0, p->color);
+		if (p->x0 >= 0 && p->y0 >= 0)
+		{
+			if (p->x0 < screen->width && p->y0 < screen->height)
+				my_mlx_pixel_put(img, p->x0, p->y0, p->color);
+		}
 		if (p->x0 == p->x1 && p->y0 == p->y1)
 			break ;
 		p->e2 = 2 * p->err;
@@ -112,4 +115,3 @@ void	draw(t_fdf	*fdf)
 		i++;
 	}
 }
-
