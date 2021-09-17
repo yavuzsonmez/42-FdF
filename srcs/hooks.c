@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/17 12:38:59 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/17 16:15:04 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,27 @@ int	close_window(int keycode, t_vars *vars)
 		mlx_destroy_window(vars->mlx, vars->win);
 		//ft_memfree(vars->win);
 		//ft_memfree(vars->mlx);
-		exit(EXIT_SUCCESS);
+		//exit(EXIT_SUCCESS);
 	}
 	else
 		return (-1);
 	return (0);
 }
 
-
-int	zoom(int keycode, t_vars *vars, t_parse *data, t_matrix *matrix, t_screen *screen, t_matrix *isomatrix)
+/*
+int	zoom(int keycode, t_d *s_test)
 {
-	t_data		*tmp_img;
-	tmp_img = (t_data *)ft_calloc(sizeof(t_data), 1);
-	(void)matrix;
-	(void)isomatrix;
-	(void)data;
-	(void)screen;
-	(void)vars;
 	(void)keycode;
-	screen->SCALE += 5;
-	tmp_img->img = mlx_new_image(vars->mlx, screen->SCREEN_W, screen->SCREEN_H);
-	tmp_img->addr = mlx_get_data_addr(tmp_img->img, &tmp_img->bits_per_pixel, &tmp_img->line_length, &tmp_img->endian);
-	draw(tmp_img, matrix, data, screen, isomatrix);
-	mlx_put_image_to_window(vars->mlx, vars->win, tmp_img->img, 0, 0);
-	printf("hello");
+	s_test->screen->SCALE += 1;
+	mlx_destroy_image(s_test->vars->mlx, s_test->vars->win);
+
+	s_test->img->img = mlx_new_image(s_test->vars->mlx, s_test->screen->SCREEN_W, s_test->screen->SCREEN_H);
+
+	s_test->img->addr = mlx_get_data_addr(s_test->img->img, &s_test->img->bits_per_pixel, &s_test->img->line_length, &s_test->img->endian);
+
+	draw(s_test->img, s_test->matrix, s_test->data, s_test->screen, s_test->isomatrix);
+	mlx_put_image_to_window(s_test->vars->mlx, s_test->vars->win, s_test->img->img, 0, 0);
+	write(1, "q", 1);
 	return (0);
 }
+*/

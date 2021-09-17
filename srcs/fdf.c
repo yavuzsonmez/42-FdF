@@ -14,14 +14,14 @@
 
 /* Printing info related to stored data */
 
-void ft_tester(t_parse *data, t_matrix *matrix)
+static void ft_tester(t_fdf *fdf)
 {
 	size_t i;
 
 	i = 0;
-	while (i < (data->col * data->row))
+	while (i < (fdf->data.col * fdf->data.row))
 	{
-		printf("struct %zu, X : %d, Y : %d, Z : %d, Color : %d\n", i + 1, matrix[i].x, matrix[i].y, matrix[i].z, matrix[i].color);
+		printf("struct %zu, X : %d, Y : %d, Z : %d, Color : %d\n", i + 1, fdf->matrix[i].x, fdf->matrix[i].y, fdf->matrix[i].z, fdf->matrix[i].color);
 		i++;
 	}
 }
@@ -33,105 +33,103 @@ void free_memory()
 }
 */
 
-t_matrix *error_checker(int argc, char **argv, t_parse *data)
+int error_checker(int argc, char **argv, t_fdf *fdf)
 {
-	t_matrix	*matrix;
 	if (argc != 2)
 	{
 		ft_putendl_fd("Error", 1);
-		return (NULL);
+		return (0);
 	}
-	if (ft_count_row_col(argv[1], data) == -1)
+	if (ft_count_row_col(argv[1], &fdf->data) == -1)
 	{
 		ft_putendl_fd("Error", 1);
-		return (NULL);
+		return (0);
 	}
-	matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), data->size);
-	if (matrix == NULL)
+	fdf->matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), fdf->data.size);
+	if (fdf->matrix == NULL)
 	{
 		ft_putendl_fd("Error", 1);
-		ft_memfreeall((void *)matrix);
-		return (NULL);
+		ft_memfreeall((void *)fdf->matrix);
+		return (0);
 	}
-	if (ft_store_data(argv[1], data, matrix) == -1)
+	if (ft_store_data(argv[1], &fdf->data, fdf->matrix) == -1)
 	{
 		ft_putendl_fd("Error", 1);
-		ft_memfreeall((void *)matrix);
-		return (NULL);
+		ft_memfreeall((void *)fdf->matrix);
+		return (0);
 	}
-	return (matrix);
+	return (1);
 }
 
-t_screen *scale_window(t_parse *data)
+void scale_window(t_fdf *fdf)
 {
-	t_screen	*screen;
-
-	(void)data;
-	screen = (t_screen *)ft_calloc(sizeof(t_screen), 1);
-	if (screen == NULL)
-		return (NULL);
-	screen->SCREEN_W = 1920;
-	screen->SCREEN_H = 1080;
-	screen->SCALE = 20;
-	return (screen);
+	fdf->screen.SCREEN_W = 1920;
+	fdf->screen.SCREEN_H = 1080;
+	fdf->screen.SCALE = 30;
+	return ;
 }
 
-void create_window(t_matrix *matrix, t_parse *data)
+void create_window(t_fdf *fdf)
 {
-	t_vars		*vars;
-	t_data		*img;
+
+	scale_window(fdf);
+
+	fdf->vars.mlx = mlx_init();
+	fdf->vars.win = mlx_new_window(fdf->vars.mlx, fdf->screen.SCREEN_W, fdf->screen.SCREEN_H, "FdF");
+
+	fdf->img.img = mlx_new_image(fdf->vars.mlx, fdf->screen.SCREEN_W, fdf->screen.SCREEN_H);
+	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel, &fdf->img.line_length, &fdf->img.endian);
+
+	/* Find a way to check and free everything */
+	fdf->isomatrix = to_isometric(&fdf->data, fdf->matrix, &fdf->screen);
+	/* Find a way to check and free everything */
+	draw(&fdf->img, fdf->matrix, &fdf->data, &fdf->screen, fdf->isomatrix);
+
+
+	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
+
+	//mlx_hook(vars->win, 2, 1L<<0, close_window, fdf);
+
+	//mlx_hook(vars->win, 2, 1L<<0, zoom, fdf);
+
+	mlx_loop(fdf->vars.mlx);
+
+
+}
+
+t_fdf	*init_data_struct(void)
+{
+	t_fdf	*fdf;
+
+	fdf = (t_fdf *)ft_calloc(sizeof(t_fdf), 1);
+	if (fdf == NULL)
+	{
+		ft_putendl_fd("Error", 1);
+		return (NULL);
+	}
+	return (fdf);
+/*
+	t_vars		vars;
+	t_data		img;
+	t_parse		data;
+	t_screen	screen;
+	t_matrix	*matrix;
 	t_matrix	*isomatrix;
-	t_screen	*screen;
-
-	/* Find a way to check and free everything */
-	vars = (t_vars *)ft_calloc(sizeof(t_vars), 1);
-	img = (t_data *)ft_calloc(sizeof(t_data), 1);
-	screen = scale_window(data);
-	/* Find a way to check and free everything */
-
-	vars->mlx = mlx_init();
-	vars->win = mlx_new_window(vars->mlx, screen->SCREEN_W, screen->SCREEN_H, "FdF");
-
-	img->img = mlx_new_image(vars->mlx, screen->SCREEN_W, screen->SCREEN_H);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
-
-	/* Find a way to check and free everything */
-	isomatrix = to_isometric(data, matrix, screen);
-	/* Find a way to check and free everything */
-	draw(img, matrix, data, screen, isomatrix);
-
-
-	mlx_put_image_to_window(vars->mlx, vars->win, img->img, 0, 0);
-
-	mlx_hook(vars->win, 2, 1L<<0, close_window, vars);
-	mlx_hook(vars->win, 2, 1L<<0, zoom, vars);
-
-	mlx_loop(vars->mlx);
-
-
-	//ft_memfreeall((void *)screen);
-	//ft_memfreeall((void *)isomatrix);
-
+*/
 }
 
 int main(int argc, char **argv)
 {
-	t_matrix	*matrix;
-	t_parse		*data;
+	t_fdf	*fdf;
 
-	data = (t_parse *)ft_calloc(sizeof(t_parse), 1);
-	if (data == NULL)
-		return (-1);
-	matrix = error_checker(argc, argv, data);
-	if (matrix == NULL)
-		return (-1);
+	fdf = init_data_struct();
+
+	error_checker(argc, argv, fdf);
 
 	/* TEST PRINT */
-	ft_tester(data, matrix);
+	ft_tester(fdf);
 	/* END TEST */
 
-	create_window(matrix, data);
-	ft_memfreeall((void *)matrix);
-	ft_memfreeall((void *)data);
+	create_window(fdf);
 	return (0);
 }
