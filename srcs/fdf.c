@@ -58,6 +58,25 @@ void	scale_window(t_fdf *fdf)
 	return ;
 }
 
+void render(t_fdf *fdf)
+{
+	to_isometric(fdf);
+	draw(fdf);
+}
+
+int event_handler(int keycode, t_fdf *fdf)
+{
+	if (keycode == ESCAPE)
+		close_window(fdf);
+	else if (keycode == PLUS || keycode == MINUS)
+		zoom(keycode, fdf);
+	else if (keycode == UP || keycode == DOWN || keycode == RIGHT || keycode == LEFT)
+		translate(keycode, fdf);
+	else
+		return (-1);
+	return (0);
+}
+
 void	create_window(t_fdf *fdf)
 {
 	scale_window(fdf);
@@ -65,17 +84,11 @@ void	create_window(t_fdf *fdf)
 	fdf->vars.win = mlx_new_window(fdf->vars.mlx, fdf->screen.width, fdf->screen.height, "FdF");
 	fdf->img.img = mlx_new_image(fdf->vars.mlx, fdf->screen.width, fdf->screen.height);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel, &fdf->img.line_length, &fdf->img.endian);
-	if (to_isometric(fdf) == -1)
-	{
-		ft_putendl_fd("Error", 1);
-		free_data_struct(fdf);
-		return ;
-	}
-	draw(fdf);
+	render(fdf);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
-	//mlx_hook(fdf->vars.win, 2, 1L<<0, zoom, fdf);
-	//mlx_hook(fdf->vars.win, 2, 1L<<0, close_window, fdf);
-	mlx_hook(fdf->vars.win, 2, 1L<<0, zoom, fdf);
+
+	mlx_hook(fdf->vars.win, 2, 1L<<0, event_handler, fdf);
+	//mlx_hook(fdf->vars.win, 2, 1L<<0, translate, fdf);
 	mlx_loop(fdf->vars.mlx);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/18 10:39:19 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/18 15:51:17 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 /* Events Hook macOS keycodes */
 
 # define ESCAPE	53
+# define PLUS	69
+# define MINUS	78
 # define UP		126
 # define DOWN	125
 # define LEFT	123
@@ -125,14 +127,15 @@ int	store_data(char *str, t_fdf *fdf, size_t i, size_t e);
 int	to_isometric(t_fdf	*fdf);
 
 /* Link points of the matrix with Bresenham algorithm */
-
+void render(t_fdf *fdf);
 void		draw(t_fdf	*fdf);
 
 /* Event listeners (events.c)*/
 
-int			close_window(int keycode, t_fdf *fdf);
+int			close_window(t_fdf *fdf);
 int			zoom(int keycode, t_fdf *fdf);
-
+int	translate(int keycode, t_fdf *fdf);
+int event_handler(int keycode, t_fdf *fdf);
 
 /* Initialize the data struct and free it (utils.c)*/
 
