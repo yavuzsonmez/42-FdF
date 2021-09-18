@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/17 18:52:26 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/18 10:39:19 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,8 @@ void		draw(t_fdf	*fdf);
 
 /* Event listeners (events.c)*/
 
-int			close_window(int keycode, t_vars *vars);
+int			close_window(int keycode, t_fdf *fdf);
+int			zoom(int keycode, t_fdf *fdf);
 
 
 /* Initialize the data struct and free it (utils.c)*/

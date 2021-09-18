@@ -73,8 +73,9 @@ void	create_window(t_fdf *fdf)
 	}
 	draw(fdf);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
-	//mlx_hook(vars->win, 2, 1L<<0, close_window, fdf);
-	//mlx_hook(vars->win, 2, 1L<<0, zoom, fdf);
+	//mlx_hook(fdf->vars.win, 2, 1L<<0, zoom, fdf);
+	//mlx_hook(fdf->vars.win, 2, 1L<<0, close_window, fdf);
+	mlx_hook(fdf->vars.win, 2, 1L<<0, zoom, fdf);
 	mlx_loop(fdf->vars.mlx);
 }
 
