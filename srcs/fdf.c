@@ -60,8 +60,13 @@ int	error_checker(int argc, char **argv, t_fdf *fdf)
 
 void render(t_fdf *fdf)
 {
+	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
+	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel, &fdf->img.line_length, &fdf->img.endian);
 	to_isometric(fdf);
 	draw(fdf);
+	//mlx_clear_window (fdf->vars.mlx, fdf->vars.win);
+	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
+	//mlx_destroy_image(fdf->vars.mlx, fdf->img.img);
 }
 
 int event_handler(int keycode, t_fdf *fdf)
