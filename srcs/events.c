@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/18 15:52:06 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/18 17:03:40 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ int	close_window(t_fdf *fdf)
 int	translate(int keycode, t_fdf *fdf)
 {
 	if (keycode == UP)
-		fdf->matrix[0].y -= 1;
+		fdf->screen.translate_y -= 5;
 	if (keycode == DOWN)
-		fdf->matrix[0].y += 1;
+		fdf->screen.translate_y += 5;
 	if (keycode == RIGHT)
-		fdf->matrix[0].x += 1;
+		fdf->screen.translate_x += 5;
 	if (keycode == LEFT)
-		fdf->matrix[0].x -= 1;
+		fdf->screen.translate_x -= 5;
 	if (keycode == UP || keycode == DOWN || keycode == RIGHT || keycode == LEFT)
 	{
-		fdf->img.img = mlx_new_image(fdf->vars.mlx, fdf->screen.width, fdf->screen.height);
+		fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
 		fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel, &fdf->img.line_length, &fdf->img.endian);
 		render(fdf);
 		//mlx_clear_window (fdf->vars.mlx, fdf->vars.win);
@@ -65,7 +65,6 @@ int	change_altitude(int keycode, t_fdf *fdf)
 
 int	zoom(int keycode, t_fdf *fdf)
 {
-
 	/*end-test*/
 	if (keycode == PLUS)
 		fdf->screen.scale += 1;
@@ -73,7 +72,7 @@ int	zoom(int keycode, t_fdf *fdf)
 		fdf->screen.scale += -1;
 	if (keycode == PLUS || keycode == MINUS)
 	{
-		fdf->img.img = mlx_new_image(fdf->vars.mlx, fdf->screen.width, fdf->screen.height);
+		fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
 		fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel, &fdf->img.line_length, &fdf->img.endian);
 		render(fdf);
 		//mlx_clear_window (fdf->vars.mlx, fdf->vars.win);

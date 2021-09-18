@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:10:50 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/17 18:43:17 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/18 17:02:41 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 /* Draw line between points with Bresenham algorithm */
 
-static void	bresenham(t_screen *screen, t_data *img, t_bresenham *p)
+static void	bresenham(t_data *img, t_bresenham *p)
 {
 	while (1)
 	{
 		if (p->x0 >= 0 && p->y0 >= 0)
 		{
-			if (p->x0 < screen->width && p->y0 < screen->height)
+			if (p->x0 < WIDTH && p->y0 < HEIGHT)
 				my_mlx_pixel_put(img, p->x0, p->y0, p->color);
 		}
 		if (p->x0 == p->x1 && p->y0 == p->y1)
@@ -104,14 +104,14 @@ void	draw(t_fdf	*fdf)
 		if (fdf->matrix[i].y != fdf->matrix[i + 1].y)
 			i++;
 		link_x(fdf->isomatrix + i, &p);
-		bresenham (&fdf->screen, &fdf->img, &p);
+		bresenham (&fdf->img, &p);
 		i++;
 	}
 	i = 0;
 	while (i < (fdf->data.size - fdf->data.col))
 	{
 		link_y(fdf->isomatrix + i, &p, fdf->data.col);
-		bresenham (&fdf->screen, &fdf->img, &p);
+		bresenham (&fdf->img, &p);
 		i++;
 	}
 }

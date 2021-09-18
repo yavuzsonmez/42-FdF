@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/18 15:51:17 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/18 16:59:17 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
+
+# define WIDTH 1920
+# define HEIGHT 1080
 
 /* Buffer size for GNL */
 
@@ -86,8 +89,8 @@ typedef struct	s_matrix {
 /* Data related to the window and display */
 
 typedef struct s_screen {
-	int			height;
-	int			width;
+	int			translate_x;
+	int			translate_y;
 	int			scale;
 }	t_screen;
 
@@ -118,7 +121,7 @@ typedef	struct s_fdf {
 	} t_fdf;
 
 /* Convert and store data (from file matrix to array of struct) */
-
+void	scale_window(t_fdf *fdf);
 int		count_row_col(char *str, t_fdf *fdf);
 int	store_data(char *str, t_fdf *fdf, size_t i, size_t e);
 
@@ -139,7 +142,7 @@ int event_handler(int keycode, t_fdf *fdf);
 
 /* Initialize the data struct and free it (utils.c)*/
 
-t_fdf		*init_data_struct(void);
+
 void		free_data_struct(t_fdf	*fdf);
 
 #endif

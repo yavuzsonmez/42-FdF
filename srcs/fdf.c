@@ -12,6 +12,14 @@
 
 #include "../includes/FdF.h"
 
+void	scale_window(t_fdf *fdf)
+{
+	fdf->screen.translate_x = WIDTH / 2;
+	fdf->screen.translate_y = HEIGHT / 2;
+	fdf->screen.scale = 30;
+	return ;
+}
+
 /* Printing info related to stored data */
 
 static void	ft_tester(t_fdf *fdf)
@@ -50,14 +58,6 @@ int	error_checker(int argc, char **argv, t_fdf *fdf)
 		return (0);
 }
 
-void	scale_window(t_fdf *fdf)
-{
-	fdf->screen.width = 1920;
-	fdf->screen.height = 1080;
-	fdf->screen.scale = 30;
-	return ;
-}
-
 void render(t_fdf *fdf)
 {
 	to_isometric(fdf);
@@ -81,8 +81,8 @@ void	create_window(t_fdf *fdf)
 {
 	scale_window(fdf);
 	fdf->vars.mlx = mlx_init();
-	fdf->vars.win = mlx_new_window(fdf->vars.mlx, fdf->screen.width, fdf->screen.height, "FdF");
-	fdf->img.img = mlx_new_image(fdf->vars.mlx, fdf->screen.width, fdf->screen.height);
+	fdf->vars.win = mlx_new_window(fdf->vars.mlx, WIDTH, HEIGHT, "FdF");
+	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel, &fdf->img.line_length, &fdf->img.endian);
 	render(fdf);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
@@ -96,14 +96,13 @@ int	main(int argc, char **argv)
 {
 	t_fdf	*fdf;
 
-	fdf = init_data_struct();
+	fdf = (t_fdf *)ft_calloc(sizeof(t_fdf), 1);
 	if (fdf == NULL)
 		return (-1);
 	if (error_checker(argc, argv, fdf) == -1)
 		return (-1);
-	/* TEST PRINT */
 	ft_tester(fdf);
-	/* END TEST */
 	create_window(fdf);
+	ft_memfree((void *)fdf);
 	return (0);
 }
