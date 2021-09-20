@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/18 17:07:06 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/20 11:08:18 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,63 @@ int	change_altitude(int keycode, t_fdf *fdf)
 }
 */
 
+
 int	zoom(int keycode, t_fdf *fdf)
 {
-	/*end-test*/
 	if (keycode == PLUS)
 		fdf->screen.scale += 1;
 	if (keycode == MINUS)
 		fdf->screen.scale += -1;
 	if (keycode == PLUS || keycode == MINUS)
+		render(fdf);
+	return (0);
+}
+
+int	pov(int keycode, t_fdf *fdf)
+{
+	if (keycode == POV1)
 	{
+		fdf->screen.cos = 0.8;
+		fdf->screen.sin = 0.3;
 		render(fdf);
 	}
+	if (keycode == POV2)
+	{
+		fdf->screen.cos = -0.8;
+		fdf->screen.sin = -0.3;
+		render(fdf);
+	}
+	return (0);
+}
+
+int scroll_handler(int keycode, int x, int y, t_fdf *fdf)
+{
+	size_t i;
+
+	i = 0;
+	(void)x;
+	(void)y;
+	if (keycode == 5)
+	{
+		while(i < fdf->data.size)
+		{
+			if (fdf->matrix[i].z > 0)
+				fdf->matrix[i].z -= 1;
+			i++;
+		}
+		render(fdf);
+	}
+	else if (keycode == 4)
+	{
+		while(i < fdf->data.size)
+		{
+			if (fdf->matrix[i].z >= 0)
+				fdf->matrix[i].z += 1;
+			i++;
+		}
+		render(fdf);
+	}
+	else
+		return (-1);
 	return (0);
 }

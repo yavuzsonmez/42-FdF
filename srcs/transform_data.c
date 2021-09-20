@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/18 17:02:21 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/20 09:56:19 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	to_isometric(t_fdf	*fdf)
 	{
 		fdf->isomatrix[i].z = fdf->matrix[i].z;
 		fdf->isomatrix[i].color = fdf->matrix[i].color;
-		fdf->isomatrix[i].x = (fdf->matrix[i].x - fdf->matrix[i].y) * cos(1.2) * fdf->screen.scale + fdf->screen.translate_x;
-		fdf->isomatrix[i].y = ((fdf->matrix[i].x + fdf->matrix[i].y) * sin(0.2) - fdf->matrix[i].z) * fdf->screen.scale + fdf->screen.translate_y;
+		fdf->isomatrix[i].x = (fdf->matrix[i].x - fdf->matrix[i].y) * cos(fdf->screen.cos) * fdf->screen.scale + fdf->screen.translate_x;
+		fdf->isomatrix[i].y = ((fdf->matrix[i].x + fdf->matrix[i].y) * sin(fdf->screen.sin) - fdf->matrix[i].z) * fdf->screen.scale + fdf->screen.translate_y;
 		i++;
 	}
 	return (0);

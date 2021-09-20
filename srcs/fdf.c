@@ -14,9 +14,13 @@
 
 void	scale_window(t_fdf *fdf)
 {
+	//fdf->screen = malloc(sizeof(t_screen));
+
 	fdf->screen.translate_x = WIDTH / 2;
 	fdf->screen.translate_y = HEIGHT / 2;
 	fdf->screen.scale = 30;
+	fdf->screen.cos = 0.8;
+	fdf->screen.sin = 0.3;
 	return ;
 }
 
@@ -50,7 +54,7 @@ int	error_checker(int argc, char **argv, t_fdf *fdf)
 		error = 1;
 	if (error == 1)
 	{
-		free_data_struct(fdf);
+		//free_data_struct(fdf);
 		ft_putendl_fd("Error", 1);
 		return (-1);
 	}
@@ -69,7 +73,7 @@ void render(t_fdf *fdf)
 	//mlx_destroy_image(fdf->vars.mlx, fdf->img.img);
 }
 
-int event_handler(int keycode, t_fdf *fdf)
+int key_handler(int keycode, t_fdf *fdf)
 {
 	if (keycode == ESCAPE)
 		close_window(fdf);
@@ -77,6 +81,8 @@ int event_handler(int keycode, t_fdf *fdf)
 		zoom(keycode, fdf);
 	else if (keycode == UP || keycode == DOWN || keycode == RIGHT || keycode == LEFT)
 		translate(keycode, fdf);
+	else if (keycode == POV1 || keycode == POV2)
+		pov(keycode, fdf);
 	else
 		return (-1);
 	return (0);
@@ -92,7 +98,8 @@ void	create_window(t_fdf *fdf)
 	render(fdf);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
 
-	mlx_hook(fdf->vars.win, 2, 1L<<0, event_handler, fdf);
+	mlx_hook(fdf->vars.win, 2, 1L<<0, key_handler, fdf);
+	mlx_hook(fdf->vars.win, 4, 1L<<2, scroll_handler, fdf);
 	//mlx_hook(fdf->vars.win, 2, 1L<<0, translate, fdf);
 	mlx_loop(fdf->vars.mlx);
 }

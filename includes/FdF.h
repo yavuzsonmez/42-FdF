@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/18 16:59:17 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/20 11:02:52 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define DOWN	125
 # define LEFT	123
 # define RIGHT	124
+# define POV1	82
+# define POV2	83
 
 /* GNL */
 
@@ -92,6 +94,8 @@ typedef struct s_screen {
 	int			translate_x;
 	int			translate_y;
 	int			scale;
+	float		cos;
+	float		sin;
 }	t_screen;
 
 /* Data to provide to Bresenham algorithm in order to link 2 points (putpixel) */
@@ -135,10 +139,12 @@ void		draw(t_fdf	*fdf);
 
 /* Event listeners (events.c)*/
 
+int	pov(int keycode, t_fdf *fdf);
 int			close_window(t_fdf *fdf);
 int			zoom(int keycode, t_fdf *fdf);
 int	translate(int keycode, t_fdf *fdf);
-int event_handler(int keycode, t_fdf *fdf);
+int key_handler(int keycode, t_fdf *fdf);
+int scroll_handler(int button, int x, int y, t_fdf *fdf);
 
 /* Initialize the data struct and free it (utils.c)*/
 
