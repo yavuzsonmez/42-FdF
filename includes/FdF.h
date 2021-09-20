@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/20 11:02:52 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/20 11:56:52 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,17 @@
 
 /* Events Hook macOS keycodes */
 
-# define ESCAPE	53
-# define PLUS	69
-# define MINUS	78
-# define UP		126
-# define DOWN	125
-# define LEFT	123
-# define RIGHT	124
-# define POV1	82
-# define POV2	83
+# define ESCAPE		53
+# define PLUS		69
+# define MINUS		78
+# define UP			126
+# define DOWN		125
+# define LEFT		123
+# define RIGHT		124
+# define MWD		5
+# define MWU		4
+# define POV1		82
+# define POV2		83
 
 /* GNL */
 

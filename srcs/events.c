@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/20 11:08:18 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/20 12:08:26 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int scroll_handler(int keycode, int x, int y, t_fdf *fdf)
 	i = 0;
 	(void)x;
 	(void)y;
-	if (keycode == 5)
+	if (keycode == MWU)
 	{
 		while(i < fdf->data.size)
 		{
@@ -104,11 +104,11 @@ int scroll_handler(int keycode, int x, int y, t_fdf *fdf)
 		}
 		render(fdf);
 	}
-	else if (keycode == 4)
+	else if (keycode == MWD)
 	{
 		while(i < fdf->data.size)
 		{
-			if (fdf->matrix[i].z >= 0)
+			if (fdf->matrix[i].z != 0)
 				fdf->matrix[i].z += 1;
 			i++;
 		}
