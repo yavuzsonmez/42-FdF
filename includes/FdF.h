@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/20 11:56:52 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/20 16:06:38 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,30 @@
 # include <string.h>
 # include <math.h>
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define	WIDTH		1920
+# define	HEIGHT		1080
 
 /* Buffer size for GNL */
 
-# define BUFFER_SIZE 100000
+# define BUFFER_SIZE	100000
 
 /* Events Hook macOS keycodes */
 
-# define ESCAPE		53
-# define PLUS		69
-# define MINUS		78
-# define UP			126
-# define DOWN		125
-# define LEFT		123
-# define RIGHT		124
-# define MWD		5
-# define MWU		4
-# define POV1		82
-# define POV2		83
+# define	MWU			4
+# define	MWD			5
+# define	ESCAPE		53
+# define	PLUS		69
+# define	MINUS		78
+# define	POV1		82
+# define	POV2		83
+# define	LEFT		123
+# define	RIGHT		124
+# define	DOWN		125
+# define	UP			126
+
+
+# define	ISOMETRIC	0
+# define	PARALLEL	1
 
 /* GNL */
 
@@ -96,8 +100,7 @@ typedef struct s_screen {
 	int			translate_x;
 	int			translate_y;
 	int			scale;
-	float		cos;
-	float		sin;
+	int			projection;
 }	t_screen;
 
 /* Data to provide to Bresenham algorithm in order to link 2 points (putpixel) */
@@ -134,19 +137,21 @@ int	store_data(char *str, t_fdf *fdf, size_t i, size_t e);
 /* Calculations in order to apply isometric projectionm, scale the view, align in the middle */
 
 int	to_isometric(t_fdf	*fdf);
+int	to_parallel(t_fdf	*fdf);
 
 /* Link points of the matrix with Bresenham algorithm */
-void render(t_fdf *fdf);
+void		render(t_fdf *fdf, int projection);
 void		draw(t_fdf	*fdf);
 
 /* Event listeners (events.c)*/
 
-int	pov(int keycode, t_fdf *fdf);
+int	change_view(int keycode, t_fdf *fdf);
 int			close_window(t_fdf *fdf);
-int			zoom(int keycode, t_fdf *fdf);
+int			altitude(int keycode, t_fdf *fdf);
 int	translate(int keycode, t_fdf *fdf);
 int key_handler(int keycode, t_fdf *fdf);
-int scroll_handler(int button, int x, int y, t_fdf *fdf);
+int zoom(int button, int x, int y, t_fdf *fdf);
+int	rotate(int keycode, t_fdf *fdf);
 
 /* Initialize the data struct and free it (utils.c)*/
 

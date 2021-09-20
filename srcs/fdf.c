@@ -19,8 +19,6 @@ void	scale_window(t_fdf *fdf)
 	fdf->screen.translate_x = WIDTH / 2;
 	fdf->screen.translate_y = HEIGHT / 2;
 	fdf->screen.scale = 30;
-	fdf->screen.cos = 0.8;
-	fdf->screen.sin = 0.3;
 	return ;
 }
 
@@ -62,11 +60,14 @@ int	error_checker(int argc, char **argv, t_fdf *fdf)
 		return (0);
 }
 
-void render(t_fdf *fdf)
+void render(t_fdf *fdf, int projection)
 {
 	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel, &fdf->img.line_length, &fdf->img.endian);
-	to_isometric(fdf);
+	if (projection == ISOMETRIC)
+		to_isometric(fdf);
+	else
+		to_parallel(fdf);
 	draw(fdf);
 	//mlx_clear_window (fdf->vars.mlx, fdf->vars.win);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
@@ -78,11 +79,13 @@ int key_handler(int keycode, t_fdf *fdf)
 	if (keycode == ESCAPE)
 		close_window(fdf);
 	else if (keycode == PLUS || keycode == MINUS)
-		zoom(keycode, fdf);
+		altitude(keycode, fdf);
 	else if (keycode == UP || keycode == DOWN || keycode == RIGHT || keycode == LEFT)
 		translate(keycode, fdf);
 	else if (keycode == POV1 || keycode == POV2)
-		pov(keycode, fdf);
+		change_view(keycode, fdf);
+	//else if (keycode == 13 || keycode == 2 || keycode == 0)
+	//	rotate(keycode, fdf);
 	else
 		return (-1);
 	return (0);
@@ -95,11 +98,11 @@ void	create_window(t_fdf *fdf)
 	fdf->vars.win = mlx_new_window(fdf->vars.mlx, WIDTH, HEIGHT, "FdF");
 	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel, &fdf->img.line_length, &fdf->img.endian);
-	render(fdf);
+	render(fdf, ISOMETRIC);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
 
 	mlx_hook(fdf->vars.win, 2, 1L<<0, key_handler, fdf);
-	mlx_hook(fdf->vars.win, 4, 1L<<2, scroll_handler, fdf);
+	mlx_hook(fdf->vars.win, 4, 1L<<2, zoom, fdf);
 	//mlx_hook(fdf->vars.win, 2, 1L<<0, translate, fdf);
 	mlx_loop(fdf->vars.mlx);
 }
