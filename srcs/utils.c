@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 18:45:48 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/21 11:19:47 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/21 14:49:26 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	free_data_struct(t_fdf	*fdf)
 		ft_memfreeall((void **)&fdf->isomatrix);
 	ft_memfree(fdf);
 }
+
+/* Hexa to decimal converter + Base checker (upper or lowercase) */
 
 char	*check_base(char *str)
 {

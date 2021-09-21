@@ -26,36 +26,9 @@ static void	ft_tester(t_fdf *fdf)
 	}
 }
 
-int	key_handler(int keycode, t_fdf *fdf)
-{
-	if (keycode == ESCAPE)
-		close_window(fdf);
-	else if (keycode == PLUS || keycode == MINUS)
-		altitude(keycode, fdf);
-	else if (keycode == UP || keycode == DOWN)
-		translate(keycode, fdf);
-	else if (keycode == RIGHT || keycode == LEFT)
-		translate(keycode, fdf);
-	else if (keycode == POV1 || keycode == POV2)
-		change_view(keycode, fdf);
-	else if (keycode == 13 || keycode == 2 || keycode == 0)
-		rotate(keycode, fdf);
-	else
-		return (-1);
-	return (0);
-}
-
-int	mouse_handler(int keycode, t_fdf *fdf)
-{
-	if (keycode == 1)
-		rotate(keycode, fdf);
-	else
-		return (-1);
-	return (0);
-}
-
 void	render(t_fdf *fdf, int projection)
 {
+	//mlx_destroy_image(fdf->vars.mlx, fdf->img.img);
 	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel,
 			&fdf->img.line_length, &fdf->img.endian);
@@ -64,9 +37,7 @@ void	render(t_fdf *fdf, int projection)
 	else
 		to_parallel(fdf);
 	draw(fdf);
-	//mlx_clear_window (fdf->vars.mlx, fdf->vars.win);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
-	//mlx_destroy_image(fdf->vars.mlx, fdf->img.img);
 }
 
 void	create_window(t_fdf *fdf)
@@ -82,12 +53,14 @@ void	create_window(t_fdf *fdf)
 	fdf->isomatrix = (t_matrix *)ft_calloc(sizeof(t_matrix), fdf->data.size);
 	if (fdf->isomatrix == NULL)
 		return ;
-	render(fdf, ISOMETRIC);
+	to_isometric(fdf);
+	draw(fdf);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
 	mlx_hook(fdf->vars.win, 2, 1L << 0, key_handler, fdf);
 	mlx_hook(fdf->vars.win, 4, 1L << 2, zoom, fdf);
-	mlx_hook(fdf->vars.win, 6, 1L << 6, mouse_handler, fdf);
+	//mlx_hook(fdf->vars.win, 6, 1L << 6, rotate, fdf);
 	mlx_loop(fdf->vars.mlx);
+	exit(EXIT_SUCCESS);
 }
 
 int	error_checker(int argc, char **argv, t_fdf *fdf)

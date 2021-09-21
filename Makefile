@@ -6,7 +6,7 @@
 #    By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/19 11:02:47 by ysonmez           #+#    #+#              #
-#    Updated: 2021/09/17 18:49:07 by ysonmez          ###   ########.fr        #
+#    Updated: 2021/09/21 15:10:16 by ysonmez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ SRCS			=		srcs/get_next_line.c \
 						srcs/get_data.c \
 						srcs/transform_data.c \
 						srcs/draw.c \
-						srcs/events.c \
+						srcs/key_events.c \
+						srcs/mouse_events.c \
 						srcs/utils.c \
 						srcs/fdf.c \
 

@@ -144,3 +144,37 @@ plot_line (int x0, int y0, int x1, int y1)
 		i++;
 	}
 */
+
+
+/*old altitude*/
+int	altitude(int keycode, t_fdf *fdf)
+{
+	size_t	i;
+
+	i = 0;
+	if (keycode == MINUS)
+	{
+		while (i < fdf->data.size)
+		{
+			if (fdf->matrix[i].z > 0)
+			{
+				fdf->matrix[i].z -= 1;
+			}
+			i++;
+		}
+		render(fdf, fdf->screen.projection);
+	}
+	else if (keycode == PLUS)
+	{
+		while (i < fdf->data.size)
+		{
+			if (fdf->matrix[i].z != 0)
+			{
+				fdf->matrix[i].z += 1;
+			}
+			i++;
+		}
+		render(fdf, fdf->screen.projection);
+	}
+	return (0);
+}

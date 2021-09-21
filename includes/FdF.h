@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/21 11:57:32 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/21 15:26:14 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,34 +21,35 @@
 # include <string.h>
 # include <math.h>
 
-# define	WIDTH		1920
-# define	HEIGHT		1080
+/* Window Resolution */
 
-/* Buffer size for GNL */
-
-# define BUFFER_SIZE	100000
+# define	WIDTH				1920
+# define	HEIGHT				1080
 
 /* Events Hook macOS keycodes */
 
-# define	MWU			4
-# define	MWD			5
-# define	ESCAPE		53
-# define	PLUS		69
-# define	MINUS		78
-# define	POV1		82
-# define	POV2		83
-# define	LEFT		123
-# define	RIGHT		124
-# define	DOWN		125
-# define	UP			126
+# define	MOUSE_WHEEL_UP		4
+# define	MOUSE_WHEEL_DOWN	5
+# define	ESCAPE				53
+# define	PLUS				69
+# define	MINUS				78
+# define	POV1				82
+# define	POV2				83
+# define	LEFT				123
+# define	RIGHT				124
+# define	DOWN				125
+# define	UP					126
+
+/* Macros for different type of projection */
+
+# define	ISOMETRIC			0
+# define	PARALLEL			1
 
 
-# define	ISOMETRIC	0
-# define	PARALLEL	1
+/* -------- GET_NEXT_LINE.C -------- */
+/* Buffer, struct and proto for Get_Next_Line */
 
-/* GNL */
-
-char	*get_next_line(int fd);
+# define BUFFER_SIZE			100000
 
 typedef struct s_gnl
 {
@@ -58,14 +59,16 @@ typedef struct s_gnl
 	int			i;
 }	t_gnl;
 
+char	*get_next_line(int fd);
+
 /* Required structs for Minilibx */
 
-typedef struct	s_vars {
+typedef struct s_vars {
 	void		*mlx;
 	void		*win;
 }	t_vars;
 
-typedef struct	s_data {
+typedef struct s_data {
 	void		*img;
 	char		*addr;
 	int			bits_per_pixel;
@@ -87,7 +90,7 @@ typedef struct s_parse
 
 /* Struct to store data related to matrix and isometric matrix */
 
-typedef struct	s_matrix {
+typedef struct s_matrix {
 	int			x;
 	int			y;
 	int			z;
@@ -103,7 +106,7 @@ typedef struct s_screen {
 	int			projection;
 }	t_screen;
 
-/* Data to provide to Bresenham algorithm in order to link 2 points (putpixel) */
+/* Data for Bresenham algorithm in order to link 2 points (line) */
 
 typedef struct s_bresenham {
 	int			z;
@@ -120,46 +123,54 @@ typedef struct s_bresenham {
 	int			e2;
 }	t_bresenham;
 
-typedef	struct s_fdf {
+typedef struct s_fdf {
 	t_vars		vars;
 	t_data		img;
 	t_parse		data;
 	t_screen	screen;
 	t_matrix	*matrix;
 	t_matrix	*isomatrix;
-	} t_fdf;
+}	t_fdf;
 
-/* Convert and store data (from file matrix to array of struct) */
+
+/* -------- GET_DATA.C -------- */
+/* Convert and store data (from matrix to array of struct) */
 int		count_row_col(char *str, t_fdf *fdf);
-int	store_data(char *str, t_fdf *fdf, size_t i, size_t e);
+int		store_data(char *str, t_fdf *fdf, size_t i, size_t e);
 
-/* Calculations in order to apply isometric projectionm, scale the view, align in the middle */
+/* -------- TRANSFORM_DATA.C -------- */
+/* Formulas application for isometric and parallel projection */
 
-int	to_isometric(t_fdf	*fdf);
-int	to_parallel(t_fdf	*fdf);
+int		to_isometric(t_fdf	*fdf);
+int		to_parallel(t_fdf	*fdf);
 
+/* -------- DRAW.C -------- */
 /* Link points of the matrix with Bresenham algorithm */
-void		render(t_fdf *fdf, int projection);
-void		draw(t_fdf	*fdf);
+void	render(t_fdf *fdf, int projection);
+void	draw(t_fdf	*fdf);
+int		translate(t_fdf *fdf);
+int		scale(t_fdf *fdf);
 
-/* Event listeners (events.c)*/
+/* -------- KEY_EVENTS.C -------- */
+/* Keypress Events */
 
-int	change_view(int keycode, t_fdf *fdf);
-int			close_window(t_fdf *fdf);
-int			altitude(int keycode, t_fdf *fdf);
-int	translate(int keycode, t_fdf *fdf);
-int key_handler(int keycode, t_fdf *fdf);
-int	mouse_handler(int keycode, t_fdf *fdf);
-int zoom(int button, int x, int y, t_fdf *fdf);
-int	rotate(int keycode, t_fdf *fdf);
+int		change_view(int keycode, t_fdf *fdf);
+int		close_window(t_fdf *fdf);
+int		altitude(int keycode, t_fdf *fdf);
+int		move(int keycode, t_fdf *fdf);
+int		key_handler(int keycode, t_fdf *fdf);
 
+/* --------> MOUSE_EVENTS.C <-------- */
+/* Mouse Events */
+int		zoom(int button, int x, int y, t_fdf *fdf);
+int		rotate(int keycode, t_fdf *fdf);
+
+
+/* --------> GET_DATA.C <-------- */
 /* Initialize the data struct and free it (utils.c)*/
 
-
-void		free_data_struct(t_fdf	*fdf);
-
-
+void	free_data_struct(t_fdf	*fdf);
+int		from_hexa_to_dec(char *str, size_t i, int color);
 char	*check_base(char *str);
-int	from_hexa_to_dec(char *str, size_t i, int color);
 
 #endif
