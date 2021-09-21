@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/21 15:13:15 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/21 18:42:40 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	close_window(t_fdf *fdf)
 int	move(int keycode, t_fdf *fdf)
 {
 	if (keycode == UP)
-		fdf->screen.translate_y -= 5;
+		fdf->screen.translate_y -= 10;
 	if (keycode == DOWN)
-		fdf->screen.translate_y += 5;
+		fdf->screen.translate_y += 10;
 	if (keycode == RIGHT)
-		fdf->screen.translate_x += 5;
+		fdf->screen.translate_x += 10;
 	if (keycode == LEFT)
-		fdf->screen.translate_x -= 5;
+		fdf->screen.translate_x -= 10;
 	if (keycode == UP || keycode == DOWN || keycode == RIGHT || keycode == LEFT)
 		render(fdf, fdf->screen.projection);
 	return (0);
@@ -46,10 +46,10 @@ int	altitude(int keycode, t_fdf *fdf)
 	i = 0;
 	while (i < fdf->data.size)
 	{
-		if (fdf->matrix[i].z > 0 && keycode == MINUS)
-			fdf->matrix[i].z -= 2;
+		if (fdf->matrix[i].z != 0 && keycode == MINUS)
+			fdf->isomatrix[i].z -= 1;
 		else if (fdf->matrix[i].z != 0 && keycode == PLUS)
-			fdf->matrix[i].z += 2;
+			fdf->isomatrix[i].z += 1;
 		i++;
 	}
 	render(fdf, fdf->screen.projection);

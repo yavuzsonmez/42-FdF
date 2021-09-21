@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 18:45:48 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/21 14:49:26 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/21 18:28:28 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,15 @@ void	free_data_struct(t_fdf	*fdf)
 	size_t	i;
 
 	i = 0;
-	if (fdf->matrix != NULL)
-		ft_memfreeall((void **)&fdf->matrix);
-	if (fdf->isomatrix != NULL)
-		ft_memfreeall((void **)&fdf->isomatrix);
-	ft_memfree(fdf);
+	while (i < fdf->data.size)
+	{
+		if (fdf->matrix != NULL)
+			ft_memfree((void *)fdf->matrix);
+		if (fdf->isomatrix != NULL)
+			ft_memfree((void *)fdf->isomatrix);
+		i++;
+	}
+	ft_memfree((void *)fdf);
 }
 
 /* Hexa to decimal converter + Base checker (upper or lowercase) */

@@ -45,17 +45,14 @@ void	create_window(t_fdf *fdf)
 	fdf->screen.translate_x = WIDTH / 2;
 	fdf->screen.translate_y = HEIGHT / 2;
 	fdf->screen.scale = 30;
+	fdf->screen.set = 0;
 	fdf->vars.mlx = mlx_init();
 	fdf->vars.win = mlx_new_window(fdf->vars.mlx, WIDTH, HEIGHT, "FdF");
-	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
-	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel,
-			&fdf->img.line_length, &fdf->img.endian);
 	fdf->isomatrix = (t_matrix *)ft_calloc(sizeof(t_matrix), fdf->data.size);
 	if (fdf->isomatrix == NULL)
+		//free_data_struct(fdf);
 		return ;
-	to_isometric(fdf);
-	draw(fdf);
-	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
+	render(fdf, ISOMETRIC);
 	mlx_hook(fdf->vars.win, 2, 1L << 0, key_handler, fdf);
 	mlx_hook(fdf->vars.win, 4, 1L << 2, zoom, fdf);
 	//mlx_hook(fdf->vars.win, 6, 1L << 6, rotate, fdf);
@@ -79,6 +76,7 @@ int	error_checker(int argc, char **argv, t_fdf *fdf)
 		error = 1;
 	if (error == 1)
 	{
+		//free_data_struct(fdf);
 		ft_putendl_fd("Error", 1);
 		return (-1);
 	}
