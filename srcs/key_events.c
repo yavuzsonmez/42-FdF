@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/21 18:42:40 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/21 19:56:42 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int	key_handler(int keycode, t_fdf *fdf)
 		move(keycode, fdf);
 	else if (keycode == POV1 || keycode == POV2)
 		change_view(keycode, fdf);
+	else if (keycode == 1 || keycode == 2 || keycode == 0)
+		rotate(keycode, fdf);
 	else
 		return (-1);
 	return (0);

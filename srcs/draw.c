@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:10:50 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/18 17:02:41 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/21 19:50:47 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void	bresenham(t_data *img, t_bresenham *p)
 		{
 			if (p->x0 < WIDTH && p->y0 < HEIGHT)
 				my_mlx_pixel_put(img, p->x0, p->y0, p->color);
+			if (p->z0 != p->z1)
+				p->color += 2;
 		}
 		if (p->x0 == p->x1 && p->y0 == p->y1)
 			break ;
@@ -51,12 +53,16 @@ static void	bresenham(t_data *img, t_bresenham *p)
 
 static void	link_x(t_matrix *isomatrix, t_bresenham *p)
 {
-	p->z = isomatrix[0].z;
+	p->z0 = isomatrix[0].z;
+	p->z1 = isomatrix[1].z;
 	p->x0 = isomatrix[0].x;
 	p->x1 = isomatrix[1].x;
 	p->y0 = isomatrix[0].y;
 	p->y1 = isomatrix[1].y;
-	p->color = isomatrix[0].color;
+	if (isomatrix[1].z != 0)
+		p->color = isomatrix[1].color;
+	else
+		p->color = isomatrix[0].color;
 	p->dx = abs(p->x1 - p->x0);
 	if (p->x0 < p->x1)
 		p->sx = 1;
@@ -72,12 +78,16 @@ static void	link_x(t_matrix *isomatrix, t_bresenham *p)
 
 static void	link_y(t_matrix *isomatrix, t_bresenham *p, size_t ncol)
 {
-	p->z = isomatrix[0].z;
+	p->z0 = isomatrix[0].z;
+	p->z1 = isomatrix[ncol].z;
 	p->x0 = isomatrix[0].x;
 	p->x1 = isomatrix[ncol].x;
 	p->y0 = isomatrix[0].y;
 	p->y1 = isomatrix[ncol].y;
-	p->color = isomatrix[0].color;
+	if (isomatrix[0].z != 0)
+		p->color = isomatrix[0].color;
+	else
+		p->color = isomatrix[ncol].color;
 	p->dx = abs(p->x1 - p->x0);
 	if (p->x0 < p->x1)
 		p->sx = 1;
