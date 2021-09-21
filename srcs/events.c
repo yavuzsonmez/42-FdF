@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/20 16:14:12 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/21 11:58:23 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,20 @@ int	translate(int keycode, t_fdf *fdf)
 	if (keycode == LEFT)
 		fdf->screen.translate_x -= 5;
 	if (keycode == UP || keycode == DOWN || keycode == RIGHT || keycode == LEFT)
-	{
-
 		render(fdf, fdf->screen.projection);
-	}
 	return (0);
 }
 
-/* Change the altitude with - or + on the keypad (scale Z factor on the isometric algorithm) */
+/* Change altitude with -/+ on the keypad (scale Z) */
 
 int	altitude(int keycode, t_fdf *fdf)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (keycode == MINUS)
 	{
-		while(i < fdf->data.size)
+		while (i < fdf->data.size)
 		{
 			if (fdf->matrix[i].z > 0)
 				fdf->matrix[i].z -= 1;
@@ -59,7 +56,7 @@ int	altitude(int keycode, t_fdf *fdf)
 	}
 	else if (keycode == PLUS)
 	{
-		while(i < fdf->data.size)
+		while (i < fdf->data.size)
 		{
 			if (fdf->matrix[i].z != 0)
 				fdf->matrix[i].z += 1;
@@ -74,7 +71,7 @@ int	altitude(int keycode, t_fdf *fdf)
 
 int	change_view(int keycode, t_fdf *fdf)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (keycode == POV1)
@@ -86,7 +83,7 @@ int	change_view(int keycode, t_fdf *fdf)
 
 /* ZOOM with MOUSE WHEEL (scale factor) */
 
-int zoom(int keycode, int x, int y, t_fdf *fdf)
+int	zoom(int keycode, int x, int y, t_fdf *fdf)
 {
 	(void)x;
 	(void)y;
@@ -98,44 +95,37 @@ int zoom(int keycode, int x, int y, t_fdf *fdf)
 		render(fdf, fdf->screen.projection);
 	return (0);
 }
-/*
+
 int	rotate(int keycode, t_fdf *fdf)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
-	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel, &fdf->img.line_length, &fdf->img.endian);
-	if (keycode == 13)
+	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel,
+			&fdf->img.line_length, &fdf->img.endian);
+	while (i < fdf->data.size)
 	{
-		while(i < fdf->data.size)
+		if (keycode == 1)
 		{
- 			fdf->matrix[i].y = fabs(fdf->matrix[i].y * cos(1.5708) - fdf->matrix[i].z * sin(1.5708));
- 			fdf->matrix[i].z = fabs(fdf->matrix[i].y * sin(1.5708) + fdf->matrix[i].z * cos(1.5708));
-			i++;
+			fdf->isomatrix[i].y = fabs(fdf->isomatrix[i].y * cos(0.17) - fdf->isomatrix[i].z * sin(0.17));
+			fdf->isomatrix[i].z = fabs(fdf->isomatrix[i].y * sin(0.17) + fdf->isomatrix[i].z * cos(0.17));
 		}
-	}
-	else if (keycode == 2)
-	{
-		while(i < fdf->data.size)
+		else if (keycode == 2)
 		{
- 			fdf->matrix[i].x = fabs(fdf->matrix[i].x * cos(1.5708) + fdf->matrix[i].z * sin(1.5708));
- 			fdf->matrix[i].z = fabs(fdf->matrix[i].z * cos(1.5708) - fdf->matrix[i].x * sin(1.5708));
-			i++;
+
+			fdf->isomatrix[i].x = fabs(fdf->isomatrix[i].x * cos(0.17) + fdf->isomatrix[i].z * sin(0.17));
+			fdf->isomatrix[i].z = fabs(fdf->isomatrix[i].z * cos(0.17) - fdf->isomatrix[i].x * sin(0.17));
 		}
-	}
-	else if (keycode == 0)
-	{
-		while(i < fdf->data.size)
+		else if (keycode == 0)
 		{
- 			fdf->matrix[i].x = fabs(fdf->matrix[i].x * cos(1.5708) - fdf->matrix[i].y * sin(1.5708));
- 			fdf->matrix[i].y = fabs(fdf->matrix[i].x * sin(1.5708) + fdf->matrix[i].y * cos(1.5708));
-			i++;
+			fdf->isomatrix[i].x = fabs(fdf->isomatrix[i].x * cos(0.17) - fdf->isomatrix[i].y * sin(0.17));
+			fdf->isomatrix[i].y = fabs(fdf->isomatrix[i].x * sin(0.17) + fdf->isomatrix[i].y * cos(0.17));
 		}
+		i++;
 	}
 	draw(fdf);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
 	return (0);
 }
-*/
 

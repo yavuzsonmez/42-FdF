@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/20 16:06:38 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/21 11:57:32 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ typedef	struct s_fdf {
 	} t_fdf;
 
 /* Convert and store data (from file matrix to array of struct) */
-void	scale_window(t_fdf *fdf);
 int		count_row_col(char *str, t_fdf *fdf);
 int	store_data(char *str, t_fdf *fdf, size_t i, size_t e);
 
@@ -150,6 +149,7 @@ int			close_window(t_fdf *fdf);
 int			altitude(int keycode, t_fdf *fdf);
 int	translate(int keycode, t_fdf *fdf);
 int key_handler(int keycode, t_fdf *fdf);
+int	mouse_handler(int keycode, t_fdf *fdf);
 int zoom(int button, int x, int y, t_fdf *fdf);
 int	rotate(int keycode, t_fdf *fdf);
 
@@ -157,5 +157,9 @@ int	rotate(int keycode, t_fdf *fdf);
 
 
 void		free_data_struct(t_fdf	*fdf);
+
+
+char	*check_base(char *str);
+int	from_hexa_to_dec(char *str, size_t i, int color);
 
 #endif
