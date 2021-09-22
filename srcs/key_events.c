@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/21 19:56:42 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/22 11:54:26 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	close_window(t_fdf *fdf)
 
 int	move(int keycode, t_fdf *fdf)
 {
-	if (keycode == UP)
-		fdf->screen.translate_y -= 10;
 	if (keycode == DOWN)
+		fdf->screen.translate_y -= 10;
+	if (keycode == UP)
 		fdf->screen.translate_y += 10;
-	if (keycode == RIGHT)
-		fdf->screen.translate_x += 10;
 	if (keycode == LEFT)
+		fdf->screen.translate_x += 10;
+	if (keycode == RIGHT)
 		fdf->screen.translate_x -= 10;
 	if (keycode == UP || keycode == DOWN || keycode == RIGHT || keycode == LEFT)
 		render(fdf, fdf->screen.projection);

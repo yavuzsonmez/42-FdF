@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/21 19:46:07 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/22 12:31:59 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ typedef struct s_bresenham {
 	int			x1;
 	int			y0;
 	int			y1;
-	int			color;
+	int			color0;
+	int			color1;
 	int			sx;
 	int			sy;
 	int			dx;

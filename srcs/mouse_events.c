@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:09:42 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/21 20:15:23 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/22 12:23:28 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	zoom(int keycode, int x, int y, t_fdf *fdf)
 		render(fdf, fdf->screen.projection);
 	return (0);
 }
-
 
 int	rotate(int keycode, t_fdf *fdf)
 {
