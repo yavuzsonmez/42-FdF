@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/22 12:31:59 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:22:06 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,9 +169,10 @@ int		zoom(int button, int x, int y, t_fdf *fdf);
 int		rotate(int keycode, t_fdf *fdf);
 
 
-/* --------> GET_DATA.C <-------- */
+/* --------> UTILS.C <-------- */
 /* Initialize the data struct and free it (utils.c)*/
 
+void color_fade(t_fdf *fdf, size_t i);
 void	free_data_struct(t_fdf	*fdf);
 int		from_hexa_to_dec(char *str, size_t i, int color);
 char	*check_base(char *str);

@@ -6,11 +6,35 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 18:45:48 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/21 18:28:28 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:52:18 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
+
+void color_fade(t_fdf *fdf, size_t i)
+{
+	if (abs(fdf->isomatrix[i].z) == 1)
+		fdf->isomatrix[i].color = 16770815;
+	else if (abs(fdf->isomatrix[i].z) == 2)
+		fdf->isomatrix[i].color = 16760575;
+	else if (abs(fdf->isomatrix[i].z) == 3)
+		fdf->isomatrix[i].color = 16755455;
+	else if (abs(fdf->isomatrix[i].z) == 4)
+		fdf->isomatrix[i].color = 16750335;
+	else if (abs(fdf->isomatrix[i].z) == 5)
+		fdf->isomatrix[i].color = 16740095;
+	else if (abs(fdf->isomatrix[i].z) == 6)
+		fdf->isomatrix[i].color = 16711846;
+	else if (abs(fdf->isomatrix[i].z) == 7)
+		fdf->isomatrix[i].color = 16711775;
+	else if (abs(fdf->isomatrix[i].z) == 8)
+		fdf->isomatrix[i].color = 16711728;
+	else if (abs(fdf->isomatrix[i].z) >= 9)
+		fdf->isomatrix[i].color = 16711686;
+	else
+		fdf->isomatrix[i].color = fdf->matrix[i].color;
+}
 
 /* free everything malloc in the struct if something exist and is malloc and free the whole data struct at the end
 *  not finished

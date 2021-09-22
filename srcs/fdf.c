@@ -29,6 +29,8 @@ static void	ft_tester(t_fdf *fdf)
 void	render(t_fdf *fdf, int projection)
 {
 	//mlx_destroy_image(fdf->vars.mlx, fdf->img.img);
+	ft_memfree((void *)fdf->img.img);
+	ft_memfree((void *)fdf->img.addr);
 	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel,
 			&fdf->img.line_length, &fdf->img.endian);

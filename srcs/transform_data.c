@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/22 12:27:37 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:38:59 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	to_parallel(t_fdf	*fdf)
 			fdf->isomatrix[i].y = sqrt(pow(fdf->matrix[i].y, 2) + pow(fdf->isomatrix[i].z, 2)) * cos(0.8 + atan(fdf->isomatrix[i].z / fdf->matrix[i].y) + M_PI) * fdf->screen.scale + fdf->screen.translate_y;
 		else
 			fdf->isomatrix[i].y = sqrt(pow(fdf->matrix[i].y, 2) + pow(fdf->isomatrix[i].z, 2)) * cos(0.8 + atan(fdf->isomatrix[i].z / fdf->matrix[i].y)) * fdf->screen.scale + fdf->screen.translate_y;
+		color_fade(fdf, i);
 		i++;
 	}
 	fdf->screen.projection = PARALLEL;
@@ -43,20 +44,7 @@ int	to_isometric(t_fdf	*fdf)
 			fdf->isomatrix[i].z = fdf->matrix[i].z;
 		else
 			fdf->isomatrix[i].z = fdf->isomatrix[i].z;
-		/*
-		if (fdf->isomatrix[i].z != 0)
-		{
-			if (16711680 - (10000 * abs(fdf->isomatrix[i].z)) >= 7000 && (16711680 - (10000 * abs(fdf->isomatrix[i].z)) <= 16777215))
-				fdf->isomatrix[i].color = 16711680 - (10000 * abs(fdf->isomatrix[i].z));
-			else
-				fdf->isomatrix[i].color = fdf->isomatrix[i].color;
-		}
-		else
-		*/
-		if (fdf->isomatrix[i].z != 0)
-			fdf->isomatrix[i].color = 16711680;
-		else
-			fdf->isomatrix[i].color = fdf->matrix[i].color;
+		color_fade(fdf, i);
 		fdf->isomatrix[i].x = (fdf->matrix[i].x - fdf->matrix[i].y) * cos(0.8) * fdf->screen.scale + fdf->screen.translate_x;
 		fdf->isomatrix[i].y = ((fdf->matrix[i].x + fdf->matrix[i].y) * sin(0.3) - fdf->isomatrix[i].z) * fdf->screen.scale + fdf->screen.translate_y;
 		i++;
