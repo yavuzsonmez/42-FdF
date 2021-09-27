@@ -28,7 +28,6 @@ static void	ft_tester(t_fdf *fdf)
 
 void	render(t_fdf *fdf, int projection)
 {
-	//mlx_destroy_image(fdf->vars.mlx, fdf->img.img);
 	ft_memfree((void *)fdf->img.img);
 	ft_memfree((void *)fdf->img.addr);
 	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);

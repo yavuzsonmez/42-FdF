@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:09:42 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/22 12:23:28 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/27 11:54:50 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ int	rotate(int keycode, t_fdf *fdf)
 	while (i < fdf->data.size)
 	{
 		/* Around X-axis */
-		if (keycode == 1)
-		{
-			fdf->isomatrix[i].y = fabs(fdf->isomatrix[i].y * cos(0.17) - fdf->isomatrix[i].z * sin(0.17));
-			fdf->isomatrix[i].z = fabs(fdf->isomatrix[i].y * sin(0.17) + fdf->isomatrix[i].z * cos(0.17));
-		}
+		//if (keycode == 1)
+		//{
+		//	fdf->isomatrix[i].y = fabs(fdf->isomatrix[i].y * cos(0.17) - fdf->isomatrix[i].z * sin(0.17));
+		//	fdf->isomatrix[i].z = fabs(fdf->isomatrix[i].y * sin(0.17) + fdf->isomatrix[i].z * cos(0.17));
+		//}
 		/* Around Y-axis */
-		else if (keycode == 2)
-		{
-			fdf->isomatrix[i].x = fabs(fdf->isomatrix[i].x * cos(0.17) + fdf->isomatrix[i].z * sin(0.17));
-			fdf->isomatrix[i].z = fabs(fdf->isomatrix[i].z * cos(0.17) - fdf->isomatrix[i].x * sin(0.17));
-		}
+		//else if (keycode == 2)
+		//{
+		//	fdf->isomatrix[i].x = fabs(fdf->isomatrix[i].x * cos(0.17) + fdf->isomatrix[i].z * sin(0.17));
+		//	fdf->isomatrix[i].z = fabs(fdf->isomatrix[i].z * cos(0.17) - fdf->isomatrix[i].x * sin(0.17));
+		//}
 		/* Around Z-axis */
-		else if (keycode == 0)
+		if (keycode == 0)
 		{
 			fdf->isomatrix[i].x = fabs(fdf->isomatrix[i].x * cos(0.17) - fdf->isomatrix[i].y * sin(0.17));
 			fdf->isomatrix[i].y = fabs(fdf->isomatrix[i].x * sin(0.17) + fdf->isomatrix[i].y * cos(0.17));

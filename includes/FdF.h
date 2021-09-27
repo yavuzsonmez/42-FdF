@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/22 14:22:06 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/09/24 18:59:11 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_screen {
 	int			scale;
 	int			projection;
 	int			set;
+	int			rotate;
 }	t_screen;
 
 /* Data for Bresenham algorithm in order to link 2 points (line) */
