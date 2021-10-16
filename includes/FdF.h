@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FdF.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/24 18:59:11 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/16 11:04:31 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 /* Window Resolution */
 
-# define	WIDTH				1920
-# define	HEIGHT				1080
+# define	WIDTH				960//1920
+# define	HEIGHT				540//1080
 
 /* Events Hook macOS keycodes */
 
@@ -33,17 +33,10 @@
 # define	ESCAPE				53
 # define	PLUS				69
 # define	MINUS				78
-# define	POV1				82
-# define	POV2				83
 # define	LEFT				123
 # define	RIGHT				124
 # define	DOWN				125
 # define	UP					126
-
-/* Macros for different type of projection */
-
-# define	ISOMETRIC			0
-# define	PARALLEL			1
 
 
 /* -------- GET_NEXT_LINE.C -------- */
@@ -103,9 +96,11 @@ typedef struct s_screen {
 	int			translate_x;
 	int			translate_y;
 	int			scale;
-	int			projection;
 	int			set;
 	int			rotate;
+	double		alpha;
+	double		beta;
+	double		theta;
 }	t_screen;
 
 /* Data for Bresenham algorithm in order to link 2 points (line) */
@@ -143,14 +138,13 @@ int		count_row_col(char *str, t_fdf *fdf);
 int		store_data(char *str, t_fdf *fdf, size_t i, size_t e);
 
 /* -------- TRANSFORM_DATA.C -------- */
-/* Formulas application for isometric and parallel projection */
+/* Formulas application for isometric projection */
 
 int		to_isometric(t_fdf	*fdf);
-int		to_parallel(t_fdf	*fdf);
 
 /* -------- DRAW.C -------- */
 /* Link points of the matrix with Bresenham algorithm */
-void	render(t_fdf *fdf, int projection);
+void	render(t_fdf *fdf);
 void	draw(t_fdf	*fdf);
 int		translate(t_fdf *fdf);
 int		scale(t_fdf *fdf);

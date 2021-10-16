@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   transform_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/27 11:51:03 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/16 11:35:14 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
+/*
 int	to_parallel(t_fdf	*fdf)
 {
 	size_t	i;
@@ -32,6 +33,7 @@ int	to_parallel(t_fdf	*fdf)
 	fdf->screen.projection = PARALLEL;
 	return (0);
 }
+*/
 
 int	to_isometric(t_fdf	*fdf)
 {
@@ -50,6 +52,5 @@ int	to_isometric(t_fdf	*fdf)
 		i++;
 	}
 	fdf->screen.set = 1;
-	fdf->screen.projection = ISOMETRIC;
 	return (0);
 }

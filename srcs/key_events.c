@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/22 11:54:26 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/16 11:05:00 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	move(int keycode, t_fdf *fdf)
 	if (keycode == RIGHT)
 		fdf->screen.translate_x -= 10;
 	if (keycode == UP || keycode == DOWN || keycode == RIGHT || keycode == LEFT)
-		render(fdf, fdf->screen.projection);
+		render(fdf);
 	return (0);
 }
 
@@ -52,24 +52,9 @@ int	altitude(int keycode, t_fdf *fdf)
 			fdf->isomatrix[i].z += 1;
 		i++;
 	}
-	render(fdf, fdf->screen.projection);
+	render(fdf);
 	return (0);
 }
-
-/* Change de point of view with 0 or 1 on the keypad (cos/sin factor on the isometric algo) */
-
-int	change_view(int keycode, t_fdf *fdf)
-{
-	size_t	i;
-
-	i = 0;
-	if (keycode == POV1)
-		render(fdf, ISOMETRIC);
-	if (keycode == POV2)
-		render(fdf, PARALLEL);
-	return (0);
-}
-
 
 int	key_handler(int keycode, t_fdf *fdf)
 {
@@ -81,8 +66,6 @@ int	key_handler(int keycode, t_fdf *fdf)
 		move(keycode, fdf);
 	else if (keycode == RIGHT || keycode == LEFT)
 		move(keycode, fdf);
-	else if (keycode == POV1 || keycode == POV2)
-		change_view(keycode, fdf);
 	else if (keycode == 1 || keycode == 2 || keycode == 0)
 		rotate(keycode, fdf);
 	else
