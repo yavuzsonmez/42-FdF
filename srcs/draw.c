@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:10:50 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/22 15:03:53 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/16 14:21:58 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static void	bresenham(t_data *img, t_bresenham *p)
 		if (p->x0 >= 0 && p->y0 >= 0)
 		{
 			if (p->x0 < WIDTH && p->y0 < HEIGHT)
-				my_mlx_pixel_put(img, p->x0, p->y0, p->color0);
-			if (p->z0 != p->z1)
-				p->color0 += 2;
+				my_mlx_pixel_put(img, p->x0, p->y0, 16770815);
+			//if (p->z0 != p->z1)
+			//	p->color0 += 2;
 			//if (p->z0 != p->z1)
 			//{
 			//	p->color0++;

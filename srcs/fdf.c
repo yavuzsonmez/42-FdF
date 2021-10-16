@@ -26,14 +26,46 @@ static void	ft_tester(t_fdf *fdf)
 	}
 }
 
+void	scale(t_fdf *fdf)
+{
+	size_t		i;
+
+	i = 0;
+	while (i < fdf->data.size)
+	{
+		fdf->isomatrix[i].x = fdf->isomatrix[i].x * fdf->screen.scale;
+		fdf->isomatrix[i].y = fdf->isomatrix[i].y * fdf->screen.scale;
+		i++;
+	}
+}
+
+void	translate(t_fdf *fdf)
+{
+	size_t		i;
+
+	i = 0;
+	while (i < fdf->data.size)
+	{
+		fdf->isomatrix[i].x = fdf->isomatrix[i].x + fdf->screen.translate_x;
+		fdf->isomatrix[i].y = fdf->isomatrix[i].y + fdf->screen.translate_y;
+		i++;
+	}
+}
+
 void	render(t_fdf *fdf)
 {
-	ft_memfree((void *)fdf->img.img);
-	ft_memfree((void *)fdf->img.addr);
+	if (fdf->img.img != NULL && fdf->img.addr != NULL)
+	{
+		ft_memfree((void *)fdf->img.img);
+		ft_memfree((void *)fdf->img.addr);
+	}
 	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel,
 			&fdf->img.line_length, &fdf->img.endian);
 	to_isometric(fdf);
+	scale(fdf);
+	translate(fdf);
+	rotate(fdf);
 	draw(fdf);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
 }

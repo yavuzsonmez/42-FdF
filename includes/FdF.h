@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FdF.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/16 11:04:31 by home             ###   ########.fr       */
+/*   Updated: 2021/10/16 14:49:24 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 /* Window Resolution */
 
-# define	WIDTH				960//1920
-# define	HEIGHT				540//1080
+# define	WIDTH				1920
+# define	HEIGHT				1080
 
 /* Events Hook macOS keycodes */
 
@@ -146,8 +146,8 @@ int		to_isometric(t_fdf	*fdf);
 /* Link points of the matrix with Bresenham algorithm */
 void	render(t_fdf *fdf);
 void	draw(t_fdf	*fdf);
-int		translate(t_fdf *fdf);
-int		scale(t_fdf *fdf);
+void	translate(t_fdf *fdf);
+void	scale(t_fdf *fdf);
 
 /* -------- KEY_EVENTS.C -------- */
 /* Keypress Events */

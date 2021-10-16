@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_events.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:09:42 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/16 11:33:05 by home             ###   ########.fr       */
+/*   Updated: 2021/10/16 14:42:08 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	rotate_z(int keycode, t_fdf *fdf)
 
 int	rotate(int keycode, t_fdf *fdf)
 {
+	to_isometric(fdf);
 	if (keycode == 1)
 		rotate_x(keycode, fdf);
 	else if (keycode == 2)

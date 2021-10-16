@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/16 11:05:00 by home             ###   ########.fr       */
+/*   Updated: 2021/10/16 14:12:20 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,19 @@ int	altitude(int keycode, t_fdf *fdf)
 	while (i < fdf->data.size)
 	{
 		if (fdf->matrix[i].z != 0 && keycode == MINUS)
-			fdf->isomatrix[i].z -= 1;
+		{
+			if (fdf->isomatrix[i].z > 0)
+				fdf->isomatrix[i].z -= 1;
+			else if (fdf->isomatrix[i].z < 0)
+				fdf->isomatrix[i].z += 1;
+		}
 		else if (fdf->matrix[i].z != 0 && keycode == PLUS)
-			fdf->isomatrix[i].z += 1;
+		{
+			if (fdf->matrix[i].z > 0 && fdf->isomatrix[i].z < fdf->matrix[i].z)
+				fdf->isomatrix[i].z += 1;
+			else if (fdf->matrix[i].z < 0 && fdf->isomatrix[i].z > fdf->matrix[i].z)
+				fdf->isomatrix[i].z -= 1;
+		}
 		i++;
 	}
 	render(fdf);
