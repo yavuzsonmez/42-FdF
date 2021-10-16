@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/16 14:49:24 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/16 18:28:34 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ typedef struct s_matrix {
 typedef struct s_screen {
 	int			translate_x;
 	int			translate_y;
-	int			scale;
+	double			scale;
 	int			set;
 	int			rotate;
 	double		alpha;
@@ -126,7 +126,7 @@ typedef struct s_fdf {
 	t_vars		vars;
 	t_data		img;
 	t_parse		data;
-	t_screen	screen;
+	t_screen	*screen;
 	t_matrix	*matrix;
 	t_matrix	*isomatrix;
 }	t_fdf;

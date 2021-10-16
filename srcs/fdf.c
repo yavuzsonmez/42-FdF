@@ -33,8 +33,8 @@ void	scale(t_fdf *fdf)
 	i = 0;
 	while (i < fdf->data.size)
 	{
-		fdf->isomatrix[i].x = fdf->isomatrix[i].x * fdf->screen.scale;
-		fdf->isomatrix[i].y = fdf->isomatrix[i].y * fdf->screen.scale;
+		fdf->isomatrix[i].x *= fdf->screen->scale;
+		fdf->isomatrix[i].y *= fdf->screen->scale;
 		i++;
 	}
 }
@@ -46,8 +46,8 @@ void	translate(t_fdf *fdf)
 	i = 0;
 	while (i < fdf->data.size)
 	{
-		fdf->isomatrix[i].x = fdf->isomatrix[i].x + fdf->screen.translate_x;
-		fdf->isomatrix[i].y = fdf->isomatrix[i].y + fdf->screen.translate_y;
+		fdf->isomatrix[i].x += fdf->screen->translate_x;
+		fdf->isomatrix[i].y += fdf->screen->translate_y;
 		i++;
 	}
 }
@@ -63,22 +63,23 @@ void	render(t_fdf *fdf)
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel,
 			&fdf->img.line_length, &fdf->img.endian);
 	to_isometric(fdf);
-	scale(fdf);
-	translate(fdf);
-	rotate(fdf);
+	//scale(fdf);
+	//translate(fdf);
+	//rotate(fdf);
 	draw(fdf);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
 }
 
 void	create_window(t_fdf *fdf)
 {
-	fdf->screen.translate_x = WIDTH / 2;
-	fdf->screen.translate_y = HEIGHT / 2;
-	fdf->screen.scale = 30;
-	fdf->screen.set = 0;
-	fdf->screen.alpha = 0;
-	fdf->screen.beta = 0;
-	fdf->screen.theta = 0;
+	fdf->screen = (t_screen *)ft_calloc(sizeof(t_screen), 1);
+	fdf->screen->translate_x = WIDTH / 2;
+	fdf->screen->translate_y = HEIGHT / 2;
+	fdf->screen->scale = 30;
+	fdf->screen->set = 0;
+	fdf->screen->alpha = 0;
+	fdf->screen->beta = 0;
+	fdf->screen->theta = 0;
 	fdf->vars.mlx = mlx_init();
 	fdf->vars.win = mlx_new_window(fdf->vars.mlx, WIDTH, HEIGHT, "FdF");
 	fdf->isomatrix = (t_matrix *)ft_calloc(sizeof(t_matrix), fdf->data.size);
