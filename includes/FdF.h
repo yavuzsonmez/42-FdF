@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/19 11:05:34 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/19 16:35:12 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,10 @@ typedef struct s_matrix {
 /* Data related to the window and display */
 
 typedef struct s_screen {
-	double			translate_x;
-	double			translate_y;
-	double			scale;
+	double		translate_x;
+	double		translate_y;
+	double		scale;
 	int			set;
-	int			rotate;
 	double		alpha;
 	double		beta;
 	double		theta;

@@ -62,8 +62,7 @@ void	render(t_fdf *fdf)
 	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel,
 			&fdf->img.line_length, &fdf->img.endian);
-	if (fdf->screen->set == 0)
-		to_isometric(fdf);
+	to_isometric(fdf);
 	scale(fdf);
 	translate(fdf);
 	draw(fdf);

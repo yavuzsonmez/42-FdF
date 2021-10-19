@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/19 11:18:46 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/19 15:34:49 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	close_window(t_fdf *fdf)
 
 int	move(int keycode, t_fdf *fdf)
 {
-	to_isometric(fdf);
 	if (keycode == DOWN)
 		fdf->screen->translate_y -= 10;
 	if (keycode == UP)
@@ -63,7 +62,6 @@ int	altitude(int keycode, t_fdf *fdf)
 		}
 		i++;
 	}
-	to_isometric(fdf);
 	render(fdf);
 	return (0);
 }
