@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FdF.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/16 18:28:34 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/18 11:16:25 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,17 @@ typedef struct s_parse
 /* Struct to store data related to matrix and isometric matrix */
 
 typedef struct s_matrix {
-	int			x;
-	int			y;
-	int			z;
+	double			x;
+	double			y;
+	double			z;
 	int			color;
 }	t_matrix;
 
 /* Data related to the window and display */
 
 typedef struct s_screen {
-	int			translate_x;
-	int			translate_y;
+	double			translate_x;
+	double			translate_y;
 	double			scale;
 	int			set;
 	int			rotate;
@@ -162,6 +162,9 @@ int		key_handler(int keycode, t_fdf *fdf);
 /* Mouse Events */
 int		zoom(int button, int x, int y, t_fdf *fdf);
 int		rotate(int keycode, t_fdf *fdf);
+void	rotate_x(t_fdf *fdf);
+void	rotate_y(t_fdf *fdf);
+void	rotate_z(t_fdf *fdf);
 
 
 /* --------> UTILS.C <-------- */

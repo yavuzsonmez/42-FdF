@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transform_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/16 18:33:42 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/17 11:40:25 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	to_isometric(t_fdf	*fdf)
 		else
 			fdf->isomatrix[i].z = fdf->isomatrix[i].z;
 		//color_fade(fdf, i);
-		fdf->isomatrix[i].x = (fdf->matrix[i].x - fdf->matrix[i].y) * cos(0.8) * fdf->screen->scale + fdf->screen->translate_x;
-		fdf->isomatrix[i].y = ((fdf->matrix[i].x + fdf->matrix[i].y) * sin(0.3) - fdf->isomatrix[i].z) * fdf->screen->scale + fdf->screen->translate_y;
+		fdf->isomatrix[i].x = (fdf->matrix[i].x - fdf->matrix[i].y) * cos(0.8);
+		fdf->isomatrix[i].y = ((fdf->matrix[i].x + fdf->matrix[i].y) * sin(0.3) - fdf->isomatrix[i].z);
 		i++;
 	}
 	fdf->screen->set = 1;

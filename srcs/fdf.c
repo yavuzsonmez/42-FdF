@@ -21,7 +21,7 @@ static void	ft_tester(t_fdf *fdf)
 	i = 0;
 	while (i < (fdf->data.col * fdf->data.row))
 	{
-		printf("struct %zu, X : %d, Y : %d, Z : %d, Color : %d\n", i + 1, fdf->matrix[i].x, fdf->matrix[i].y, fdf->matrix[i].z, fdf->matrix[i].color);
+		printf("struct %zu, X : %f, Y : %f, Z : %f, Color : %d\n", i + 1, fdf->matrix[i].x, fdf->matrix[i].y, fdf->matrix[i].z, fdf->matrix[i].color);
 		i++;
 	}
 }
@@ -63,9 +63,8 @@ void	render(t_fdf *fdf)
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel,
 			&fdf->img.line_length, &fdf->img.endian);
 	to_isometric(fdf);
-	//scale(fdf);
-	//translate(fdf);
-	//rotate(fdf);
+	scale(fdf);
+	translate(fdf);
 	draw(fdf);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
 }

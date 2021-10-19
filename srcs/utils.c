@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 18:45:48 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/22 14:52:18 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/17 11:41:57 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
-
+/*
 void color_fade(t_fdf *fdf, size_t i)
 {
 	if (abs(fdf->isomatrix[i].z) == 1)
@@ -35,7 +35,7 @@ void color_fade(t_fdf *fdf, size_t i)
 	else
 		fdf->isomatrix[i].color = fdf->matrix[i].color;
 }
-
+*/
 /* free everything malloc in the struct if something exist and is malloc and free the whole data struct at the end
 *  not finished
 */
