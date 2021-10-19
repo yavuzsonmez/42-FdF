@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FdF.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/18 11:16:25 by home             ###   ########.fr       */
+/*   Updated: 2021/10/19 11:05:34 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 
 /* Events Hook macOS keycodes */
 
+# define	A					0
+# define	D					2
+# define	S					1
+# define	W					13
+# define	Q					12
+# define	E					14
 # define	MOUSE_WHEEL_UP		4
 # define	MOUSE_WHEEL_DOWN	5
 # define	ESCAPE				53
@@ -162,9 +168,9 @@ int		key_handler(int keycode, t_fdf *fdf);
 /* Mouse Events */
 int		zoom(int button, int x, int y, t_fdf *fdf);
 int		rotate(int keycode, t_fdf *fdf);
-void	rotate_x(t_fdf *fdf);
-void	rotate_y(t_fdf *fdf);
-void	rotate_z(t_fdf *fdf);
+void	rotate_x(int keycode, t_fdf *fdf);
+void	rotate_y(int keycode, t_fdf *fdf);
+void	rotate_z(int keycode, t_fdf *fdf);
 
 
 /* --------> UTILS.C <-------- */

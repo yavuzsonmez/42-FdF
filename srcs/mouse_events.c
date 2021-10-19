@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_events.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:09:42 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/18 14:07:57 by home             ###   ########.fr       */
+/*   Updated: 2021/10/19 11:24:34 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,35 @@ int	zoom(int keycode, int x, int y, t_fdf *fdf)
 	return (0);
 }
 
-void	rotate_x(t_fdf *fdf)
+void	rotate_x(int keycode, t_fdf *fdf)
 {
 	size_t	i;
 
 	i = 0;
+	to_isometric(fdf);
+	if (keycode == A)
+		fdf->screen->alpha += 0.1;
+	else
+		fdf->screen->alpha -= 0.1;
 	while (i < fdf->data.size)
 	{
 		fdf->isomatrix[i].y = fabs(fdf->isomatrix[i].y * cos(fdf->screen->alpha) - fdf->isomatrix[i].z * sin(fdf->screen->alpha));
 		fdf->isomatrix[i].z = fabs(fdf->isomatrix[i].y * sin(fdf->screen->alpha) + fdf->isomatrix[i].z * cos(fdf->screen->alpha));
 		i++;
 	}
+	render(fdf);
 }
 
-void	rotate_y(t_fdf *fdf)
+void	rotate_y(int keycode, t_fdf *fdf)
 {
 	size_t	i;
 
 	i = 0;
+	to_isometric(fdf);
+	if (keycode == S)
+		fdf->screen->beta += 0.1;
+	else
+		fdf->screen->beta -= 0.1;
 	while (i < fdf->data.size)
 	{
 		fdf->isomatrix[i].x = fabs(fdf->isomatrix[i].x * cos(fdf->screen->beta) + fdf->isomatrix[i].z * sin(fdf->screen->beta));
@@ -53,11 +64,16 @@ void	rotate_y(t_fdf *fdf)
 	}
 }
 
-void	rotate_z(t_fdf *fdf)
+void	rotate_z(int keycode, t_fdf *fdf)
 {
 	size_t	i;
 
 	i = 0;
+	to_isometric(fdf);
+	if (keycode == Q)
+		fdf->screen->theta += 0.1;
+	else
+		fdf->screen->theta -= 0.1;
 	while (i < fdf->data.size)
 	{
 		fdf->isomatrix[i].x = fabs(fdf->isomatrix[i].x * cos(fdf->screen->theta) - fdf->isomatrix[i].y * sin(fdf->screen->theta));
@@ -68,32 +84,14 @@ void	rotate_z(t_fdf *fdf)
 
 int	rotate(int keycode, t_fdf *fdf)
 {
-	ft_memfree((void *)fdf->img.img);
-	ft_memfree((void *)fdf->img.addr);
-	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
-	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel,
-			&fdf->img.line_length, &fdf->img.endian);
-	to_isometric(fdf);
-	scale(fdf);
-	translate(fdf);
-	if (keycode == 1)
-	{
-		fdf->screen->alpha += 0.1;
-		rotate_x(fdf);
-	}
-	else if (keycode == 2)
-	{
-		fdf->screen->beta += 0.1;
-		rotate_y(fdf);
-	}
-	else if (keycode == 0)
-	{
-		fdf->screen->theta += 0.1;
-		rotate_z(fdf);
-	}
+	if (keycode == A || keycode == D)
+		rotate_x(keycode, fdf);
+	else if (keycode == S || keycode == W)
+		rotate_y(keycode, fdf);
+	else if (keycode == Q || keycode == E)
+		rotate_z(keycode, fdf);
 	else
 		return (-1);
-	draw(fdf);
-	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
+	render(fdf);
 	return (0);
 }
