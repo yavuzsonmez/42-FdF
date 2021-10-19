@@ -26,6 +26,13 @@ static void	ft_tester(t_fdf *fdf)
 	}
 }
 
+void	rotate(t_fdf *fdf)
+{
+	rotate_x(fdf);
+	rotate_y(fdf);
+	rotate_z(fdf);
+}
+
 void	scale(t_fdf *fdf)
 {
 	size_t		i;
@@ -63,6 +70,7 @@ void	render(t_fdf *fdf)
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel,
 			&fdf->img.line_length, &fdf->img.endian);
 	to_isometric(fdf);
+	rotate(fdf);
 	scale(fdf);
 	translate(fdf);
 	draw(fdf);
@@ -75,7 +83,7 @@ void	create_window(t_fdf *fdf)
 	fdf->screen->translate_x = WIDTH / 2;
 	fdf->screen->translate_y = HEIGHT / 2;
 	fdf->screen->scale = 30;
-	fdf->screen->set = 0;
+	fdf->screen->alt = 0;
 	fdf->screen->alpha = 0;
 	fdf->screen->beta = 0;
 	fdf->screen->theta = 0;

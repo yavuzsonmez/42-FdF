@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/19 15:34:49 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/19 18:41:08 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,10 @@ int	move(int keycode, t_fdf *fdf)
 
 int	altitude(int keycode, t_fdf *fdf)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < fdf->data.size)
-	{
-		if (fdf->matrix[i].z != 0 && keycode == MINUS)
-		{
-			if (fdf->isomatrix[i].z > 0)
-				fdf->isomatrix[i].z -= 1;
-			else if (fdf->isomatrix[i].z < 0)
-				fdf->isomatrix[i].z += 1;
-		}
-		else if (fdf->matrix[i].z != 0 && keycode == PLUS)
-		{
-			if (fdf->matrix[i].z > 0 && fdf->isomatrix[i].z < fdf->matrix[i].z)
-				fdf->isomatrix[i].z += 1;
-			else if (fdf->matrix[i].z < 0 && fdf->isomatrix[i].z > fdf->matrix[i].z)
-				fdf->isomatrix[i].z -= 1;
-		}
-		i++;
-	}
+	if (keycode == MINUS)
+		fdf->screen->alt -= 1;
+	else if (keycode == PLUS)
+		fdf->screen->alt += 1;
 	render(fdf);
 	return (0);
 }
@@ -77,11 +60,11 @@ int	key_handler(int keycode, t_fdf *fdf)
 	else if (keycode == RIGHT || keycode == LEFT)
 		move(keycode, fdf);
 	else if (keycode == A || keycode == D)
-		rotate(keycode, fdf);
+		event_rotate(keycode, fdf);
 	else if (keycode == S || keycode == W)
-		rotate(keycode, fdf);
+		event_rotate(keycode, fdf);
 	else if (keycode == Q || keycode == E)
-		rotate(keycode, fdf);
+		event_rotate(keycode, fdf);
 	else
 		return (-1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/19 16:35:12 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/19 18:34:31 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct s_screen {
 	double		translate_x;
 	double		translate_y;
 	double		scale;
-	int			set;
+	int			alt;
 	double		alpha;
 	double		beta;
 	double		theta;
@@ -166,10 +166,10 @@ int		key_handler(int keycode, t_fdf *fdf);
 /* --------> MOUSE_EVENTS.C <-------- */
 /* Mouse Events */
 int		zoom(int button, int x, int y, t_fdf *fdf);
-int		rotate(int keycode, t_fdf *fdf);
-void	rotate_x(int keycode, t_fdf *fdf);
-void	rotate_y(int keycode, t_fdf *fdf);
-void	rotate_z(int keycode, t_fdf *fdf);
+int		event_rotate(int keycode, t_fdf *fdf);
+void	rotate_x(t_fdf *fdf);
+void	rotate_y(t_fdf *fdf);
+void	rotate_z(t_fdf *fdf);
 
 
 /* --------> UTILS.C <-------- */

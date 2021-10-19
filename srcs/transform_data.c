@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/19 15:57:45 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/19 19:12:35 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,17 @@ int	to_isometric(t_fdf	*fdf)
 	i = 0;
 	while (i < fdf->data.size)
 	{
-		if (!fdf->screen->set)
-			fdf->isomatrix[i].z = fdf->matrix[i].z;
+		if (fdf->matrix[i].z > 0 && (fdf->matrix[i].z + fdf->screen->alt) >= 0)
+			fdf->isomatrix[i].z = fdf->matrix[i].z + fdf->screen->alt;
+		else if (fdf->matrix[i].z < 0 && (fdf->matrix[i].z + fdf->screen->alt) <= 0)
+			fdf->isomatrix[i].z = fdf->matrix[i].z + fdf->screen->alt;
+		else if (fdf->matrix[i].z > 0 && (fdf->matrix[i].z + fdf->screen->alt) > 0)
+			fdf->isomatrix[i].z = fdf->matrix[i].z - fdf->screen->alt;
 		else
-			fdf->isomatrix[i].z = fdf->isomatrix[i].z;
+			fdf->isomatrix[i].z = fdf->matrix[i].z;
 		fdf->isomatrix[i].x = (fdf->matrix[i].x - fdf->matrix[i].y) * cos(0.314);
 		fdf->isomatrix[i].y = ((fdf->matrix[i].x + fdf->matrix[i].y) * sin(0.314) - fdf->isomatrix[i].z);
 		i++;
 	}
-	fdf->screen->set = 1;
 	return (0);
 }
