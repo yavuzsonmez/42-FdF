@@ -101,8 +101,8 @@ void	create_window(char **argv, t_fdf *fdf)
 	fdf->screen->translate_x = (WIDTH / 2) - ((fdf->data.col / 2) * fdf->screen->scale);
 	fdf->screen->translate_y = (HEIGHT / 2) - ((fdf->data.row / 2) * fdf->screen->scale);
 	fdf->screen->alt = 0;
-	fdf->screen->alpha = 0.61;
-	fdf->screen->beta = -0.73;
+	fdf->screen->alpha = 0.62;
+	fdf->screen->beta = 0.80;
 	fdf->screen->theta = 0;
 	fdf->vars.mlx = mlx_init();
 	fdf->vars.win = mlx_new_window(fdf->vars.mlx, WIDTH, HEIGHT, "FdF");
