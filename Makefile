@@ -6,7 +6,7 @@
 #    By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/19 11:02:47 by ysonmez           #+#    #+#              #
-#    Updated: 2021/10/16 19:00:56 by ysonmez          ###   ########.fr        #
+#    Updated: 2021/10/20 15:14:33 by ysonmez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS			=		srcs/get_next_line.c \
 						srcs/mouse_events.c \
 						srcs/utils.c \
 						srcs/fdf.c \
+						srcs/overlay.c \
 
 OBJS			=		$(SRCS:.c=.o)
 

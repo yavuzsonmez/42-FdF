@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/20 10:20:27 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/20 13:50:37 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	to_parallel(t_fdf	*fdf)
 	return (0);
 }
 */
-
+/*
 int	to_isometric(t_fdf	*fdf)
 {
 	size_t		i;
@@ -57,3 +57,4 @@ int	to_isometric(t_fdf	*fdf)
 	}
 	return (0);
 }
+*/

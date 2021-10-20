@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/19 18:34:31 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/20 15:15:08 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_matrix {
 /* Data related to the window and display */
 
 typedef struct s_screen {
+	char		*file;
 	double		translate_x;
 	double		translate_y;
 	double		scale;
@@ -153,6 +154,7 @@ void	render(t_fdf *fdf);
 void	draw(t_fdf	*fdf);
 void	translate(t_fdf *fdf);
 void	scale(t_fdf *fdf);
+void	overlay(t_fdf	*fdf);
 
 /* -------- KEY_EVENTS.C -------- */
 /* Keypress Events */
