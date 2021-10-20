@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:13:29 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/20 16:45:11 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/20 19:12:42 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	print_alpha(t_fdf	*fdf)
 	angle = fdf->screen->alpha * (180/M_PI);
 	alpha = ft_itoa(angle);
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 10, 310, 16777215, "_____________________");
-	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 20, 330, 16777215, "ALPHA in degree: ");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 20, 330, 16777215, "X axis rotation in degree: ");
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 200, 330, 16711777, alpha);
 	free(alpha);
 }
@@ -70,7 +70,7 @@ void	print_beta(t_fdf	*fdf)
 	angle = fdf->screen->beta * (180 / M_PI);
 	beta = ft_itoa(angle);
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 10, 340, 16777215, "_____________________");
-	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 20, 360, 16777215, "BETA in degree: ");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 20, 360, 16777215, "Y axis rotation in degree: ");
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 200, 360, 16711777, beta);
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 10, 370, 16777215, "_____________________");
 	free(beta);
@@ -83,7 +83,7 @@ void	print_theta(t_fdf	*fdf)
 
 	angle = fdf->screen->theta * (180 / M_PI);
 	theta = ft_itoa(angle);
-	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 20, 390, 16777215, "THETA in degree: ");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 20, 390, 16777215, "Z axis rotation in : ");
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 200, 390, 16711777, theta);
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 10, 400, 16777215, "_____________________");
 	free(theta);
