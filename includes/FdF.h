@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/20 15:15:08 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 10:52:27 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,14 @@ void	rotate_x(t_fdf *fdf);
 void	rotate_y(t_fdf *fdf);
 void	rotate_z(t_fdf *fdf);
 
+
+/* --------> OVERLAY.C <-------- */
+/* Graphic info */
+void	print_zoom(t_fdf	*fdf);
+void	print_translate(t_fdf	*fdf);
+void	print_alpha(t_fdf	*fdf);
+void	print_beta(t_fdf	*fdf);
+void	print_theta(t_fdf	*fdf);
 
 /* --------> UTILS.C <-------- */
 /* Initialize the data struct and free it (utils.c)*/
