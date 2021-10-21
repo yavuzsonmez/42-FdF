@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:09:42 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 13:27:08 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 14:57:08 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ int	zoom(int keycode, int x, int y, t_fdf *fdf)
 {
 	(void)x;
 	(void)y;
-	if (keycode == MOUSE_WHEEL_UP)
+	if (keycode == MOUSE_WHEEL_UP && fdf->screen->scale < 100)
 		fdf->screen->scale += 0.3;
-	if (keycode == MOUSE_WHEEL_DOWN)
+	else if (keycode == MOUSE_WHEEL_DOWN)
+	{
 		fdf->screen->scale -= 0.3;
+		if (fdf->screen->scale < 1)
+			fdf->screen->scale = 1;
+	}
 	if (keycode == MOUSE_WHEEL_UP || keycode == MOUSE_WHEEL_DOWN)
 		render(fdf);
 	return (0);
@@ -84,17 +88,17 @@ void	rotate_z(t_fdf *fdf)
 int	event_rotate(int keycode, t_fdf *fdf)
 {
 	if (keycode == D)
-		fdf->screen->alpha += 0.01;
+		fdf->screen->alpha += 0.05;
 	else if (keycode == A)
-		fdf->screen->alpha -= 0.01;
+		fdf->screen->alpha -= 0.05;
 	else if (keycode == W)
-		fdf->screen->beta += 0.01;
+		fdf->screen->beta += 0.05;
 	else if (keycode == S)
-		fdf->screen->beta -= 0.01;
+		fdf->screen->beta -= 0.05;
 	else if (keycode == E)
-		fdf->screen->theta += 0.01;
+		fdf->screen->theta += 0.05;
 	else if (keycode == Q)
-		fdf->screen->theta -= 0.01;
+		fdf->screen->theta -= 0.05;
 	else
 		return (-1);
 	render(fdf);

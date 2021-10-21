@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 14:05:51 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 14:47:47 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@
 # define	RIGHT				124
 # define	DOWN				125
 # define	UP					126
-# define	OFF					82
-# define	ON					83
 
 
 
@@ -110,7 +108,6 @@ typedef struct s_screen {
 	double		alpha;
 	double		beta;
 	double		theta;
-	int			ar;
 }	t_screen;
 
 /* Data for Bresenham algorithm in order to link 2 points (line) */

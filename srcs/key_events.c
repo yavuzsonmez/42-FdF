@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 14:12:18 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 14:48:38 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,6 @@ int	altitude(int keycode, t_fdf *fdf)
 	return (0);
 }
 
-/*
-void	auto_rotate(int keycode, t_fdf *fdf)
-{
-	if (keycode == ON)
-		fdf->screen->ar = 1;
-	else if (keycode == OFF)
-		fdf->screen->ar = 0;
-	while (1)
-	{
-		if (fdf->screen->ar == 0)
-			break ;
-		fdf->screen->alpha += 0.1;
-		usleep(100);
-		render(fdf);
-	}
-}
-*/
-
 int	key_handler(int keycode, t_fdf *fdf)
 {
 	if (keycode == ESCAPE)
@@ -83,8 +65,6 @@ int	key_handler(int keycode, t_fdf *fdf)
 		event_rotate(keycode, fdf);
 	else if (keycode == Q || keycode == E)
 		event_rotate(keycode, fdf);
-	//else if (keycode == ON || keycode == OFF)
-	//	auto_rotate(keycode, fdf);
 	else
 		return (-1);
 	return (0);
