@@ -12,112 +12,9 @@
 
 #include "../includes/FdF.h"
 
-/* Printing info related to stored data */
-
-static void	ft_tester(t_fdf *fdf)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < (fdf->data.col * fdf->data.row))
-	{
-		printf("struct %zu, X : %f, Y : %f, Z : %f, Color : %d\n", i + 1, fdf->matrix[i].x, fdf->matrix[i].y, fdf->matrix[i].z, fdf->matrix[i].color);
-		i++;
-	}
-}
-
-void	rotate(t_fdf *fdf)
-{
-	rotate_x(fdf);
-	rotate_y(fdf);
-	rotate_z(fdf);
-}
-
-void	scale(t_fdf *fdf)
-{
-	size_t		i;
-
-	i = 0;
-	while (i < fdf->data.size)
-	{
-		fdf->isomatrix[i].x *= fdf->screen->scale;
-		fdf->isomatrix[i].y *= fdf->screen->scale;
-		i++;
-	}
-}
-
-void	translate(t_fdf *fdf)
-{
-	size_t		i;
-
-	i = 0;
-	while (i < fdf->data.size)
-	{
-		fdf->isomatrix[i].x += fdf->screen->translate_x;
-		fdf->isomatrix[i].y += fdf->screen->translate_y;
-		i++;
-	}
-}
-
-int	to_view(t_fdf	*fdf)
-{
-	size_t		i;
-
-	i = 0;
-	while (i < fdf->data.size)
-	{
-		if (fdf->matrix[i].z != 0)
-		{
-			fdf->isomatrix[i].z = fdf->matrix[i].z + fdf->screen->alt;
-		}
-		else
-			fdf->isomatrix[i].z = fdf->matrix[i].z;
-		fdf->isomatrix[i].x = fdf->matrix[i].x;
-		fdf->isomatrix[i].y = fdf->matrix[i].y;
-		i++;
-	}
-	return (0);
-}
-
-void	change_origin(t_fdf	*fdf, int origin)
-{
-	size_t		i;
-
-	i = 0;
-	while (i < fdf->data.size)
-	{
-		if (origin != 0)
-		{
-			fdf->isomatrix[i].z = fdf->isomatrix[i].z;
-			fdf->isomatrix[i].x = fdf->isomatrix[i].x - (fdf->data.col / 2);
-			fdf->isomatrix[i].y = fdf->isomatrix[i].y - (fdf->data.row / 2);
-		}
-		else
-		{
-			fdf->isomatrix[i].z = fdf->isomatrix[i].z;
-			fdf->isomatrix[i].x = fdf->isomatrix[i].x + (fdf->data.col / 2);
-			fdf->isomatrix[i].y = fdf->isomatrix[i].y + (fdf->data.row / 2);
-		}
-		i++;
-	}
-}
-
-void	overlay(t_fdf	*fdf)
-{
-	mlx_string_put(fdf->vars.mlx, fdf->vars.win, (WIDTH / 2) - 200, 20, 16777215, "\'FdF\' Wireframe reading from ");
-	mlx_string_put(fdf->vars.mlx, fdf->vars.win, (WIDTH / 2) + 100, 20, 16711777, fdf->screen->file);
-	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 850, 1618992, "ZOOM with MOUSE WHEEL");
-	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 880, 16744704, "TRANSLATE with keypad arrows");
-	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 910, 16711935, "CHANGE Z with + and -");
-	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 940, 6318079, "ROTATE around X axis with A and D");
-	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 970, 16734464, "ROTATE around Y axis with S and W");
-	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 1000, 16776960, "ROTATE around Z axis with Q and E");
-	print_zoom(fdf);
-	print_translate(fdf);
-	print_alpha(fdf);
-	print_beta(fdf);
-	print_theta(fdf);
-}
+/*	Render Routine:
+*	Create the view of the graphic or re-render it after an event hook
+*/
 
 void	render(t_fdf *fdf)
 {
@@ -129,7 +26,7 @@ void	render(t_fdf *fdf)
 	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel,
 			&fdf->img.line_length, &fdf->img.endian);
-	to_view(fdf);
+	project(fdf);
 	change_origin(fdf, 1);
 	rotate(fdf);
 	change_origin(fdf, 0);
@@ -140,13 +37,20 @@ void	render(t_fdf *fdf)
 	overlay(fdf);
 }
 
-void	create_window(char **argv, t_fdf *fdf)
+/*	Window creation
+*	Screen  starting data initialisation
+*	First rendering
+*/
+
+static void	create_window(char **argv, t_fdf *fdf)
 {
 	fdf->screen = (t_screen *)ft_calloc(sizeof(t_screen), 1);
 	fdf->screen->file = argv[1] + 10;
-	fdf->screen->scale = 1;
-	fdf->screen->translate_x = (WIDTH / 2) - ((fdf->data.col / 2) * fdf->screen->scale);
-	fdf->screen->translate_y = (HEIGHT / 2) - ((fdf->data.row / 2) * fdf->screen->scale);
+	fdf->screen->scale = 10;
+	fdf->screen->translate_x = (WIDTH / 2) - ((fdf->data.col / 2)
+			* fdf->screen->scale);
+	fdf->screen->translate_y = (HEIGHT / 2) - ((fdf->data.row / 2)
+			* fdf->screen->scale);
 	fdf->screen->alt = 0;
 	fdf->screen->alpha = 0.9;
 	fdf->screen->beta = -0.8;
@@ -155,37 +59,23 @@ void	create_window(char **argv, t_fdf *fdf)
 	fdf->vars.win = mlx_new_window(fdf->vars.mlx, WIDTH, HEIGHT, "FdF");
 	fdf->isomatrix = (t_matrix *)ft_calloc(sizeof(t_matrix), fdf->data.size);
 	if (fdf->isomatrix == NULL)
-		//free_data_struct(fdf);
+	{
+		free_data(fdf);
 		return ;
+	}
 	render(fdf);
 	mlx_hook(fdf->vars.win, 2, 1L << 0, key_handler, fdf);
 	mlx_hook(fdf->vars.win, 4, 1L << 2, zoom, fdf);
 	mlx_loop(fdf->vars.mlx);
 }
 
-int	error_checker(int argc, char **argv, t_fdf *fdf)
-{
-	int	error;
-
-	error = 0;
-	if (argc != 2)
-		error = 1;
-	if (count_row_col(argv[1], fdf) == -1 && error == 0)
-		error = 1;
-	fdf->matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), fdf->data.size);
-	if (fdf->matrix == NULL)
-		error = 1;
-	if (store_data(argv[1], fdf, 0, 0) == -1 && error == 0)
-		error = 1;
-	if (error == 1)
-	{
-		//free_data_struct(fdf);
-		ft_putendl_fd("Error", 1);
-		return (-1);
-	}
-	else
-		return (0);
-}
+/*	Init the big data handler struct
+*	Read data in the matrix file, parse the data and store it
+*	Check for errors
+*	Init the graphi lib and the window
+*	Calculate the first view
+*	Render
+*/
 
 int	main(int argc, char **argv)
 {
@@ -196,8 +86,7 @@ int	main(int argc, char **argv)
 		return (-1);
 	if (error_checker(argc, argv, fdf) == -1)
 		return (-1);
-	ft_tester(fdf);
 	create_window(argv, fdf);
-	exit(EXIT_SUCCESS);
+	free_data(fdf);
 	return (0);
 }

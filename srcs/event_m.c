@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_events.c                                     :+:      :+:    :+:   */
+/*   event_m.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:09:42 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 14:57:08 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:31:04 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
-/* ZOOM with MOUSE WHEEL (scale factor) */
+/*	ZOOM with MOUSE WHEEL (SCALE the graph) */
 
-int	zoom(int keycode, int x, int y, t_fdf *fdf)
+void	zoom(int keycode, int x, int y, t_fdf *fdf)
 {
 	(void)x;
 	(void)y;
@@ -28,8 +28,11 @@ int	zoom(int keycode, int x, int y, t_fdf *fdf)
 	}
 	if (keycode == MOUSE_WHEEL_UP || keycode == MOUSE_WHEEL_DOWN)
 		render(fdf);
-	return (0);
+	else
+		return ;
 }
+
+/*	X AXIS rotation calulations */
 
 void	rotate_x(t_fdf *fdf)
 {
@@ -43,11 +46,15 @@ void	rotate_x(t_fdf *fdf)
 		y = fdf->isomatrix[i].y;
 		z = fdf->isomatrix[i].z;
 		fdf->isomatrix[i].x = fdf->isomatrix[i].x;
-		fdf->isomatrix[i].y = y * cos(fdf->screen->alpha) - z * sin(fdf->screen->alpha);
-		fdf->isomatrix[i].z = y * sin(fdf->screen->alpha) + z * cos(fdf->screen->alpha);
+		fdf->isomatrix[i].y = y * cos(fdf->screen->alpha)
+			- z * sin(fdf->screen->alpha);
+		fdf->isomatrix[i].z = y * sin(fdf->screen->alpha)
+			+ z * cos(fdf->screen->alpha);
 		i++;
 	}
 }
+
+/*	Y AXIS rotation calulations */
 
 void	rotate_y(t_fdf *fdf)
 {
@@ -60,12 +67,16 @@ void	rotate_y(t_fdf *fdf)
 	{
 		x = fdf->isomatrix[i].x;
 		z = fdf->isomatrix[i].z;
-		fdf->isomatrix[i].x = x * cos(fdf->screen->beta) + z * sin(fdf->screen->beta);
+		fdf->isomatrix[i].x = x * cos(fdf->screen->beta)
+			+ z * sin(fdf->screen->beta);
 		fdf->isomatrix[i].y = fdf->isomatrix[i].y;
-		fdf->isomatrix[i].z = z * cos(fdf->screen->beta) - x * sin(fdf->screen->beta);
+		fdf->isomatrix[i].z = z * cos(fdf->screen->beta)
+			- x * sin(fdf->screen->beta);
 		i++;
 	}
 }
+
+/*	Z AXIS rotation calulations */
 
 void	rotate_z(t_fdf *fdf)
 {
@@ -78,14 +89,23 @@ void	rotate_z(t_fdf *fdf)
 	{
 		x = fdf->isomatrix[i].x;
 		y = fdf->isomatrix[i].y;
-		fdf->isomatrix[i].x = x * cos(fdf->screen->theta) - y * sin(fdf->screen->theta);
-		fdf->isomatrix[i].y = x * sin(fdf->screen->theta) + y * cos(fdf->screen->theta);
+		fdf->isomatrix[i].x = x * cos(fdf->screen->theta)
+			- y * sin(fdf->screen->theta);
+		fdf->isomatrix[i].y = x * sin(fdf->screen->theta)
+			+ y * cos(fdf->screen->theta);
 		fdf->isomatrix[i].z = fdf->isomatrix[i].z;
 		i++;
 	}
 }
 
-int	event_rotate(int keycode, t_fdf *fdf)
+/*	Event hook for rotation
+*		By using:
+*			A or D: Rotate around X axis
+*			W or S: Rotate around Y axis
+*			E or Q: Rotate around Z axis
+*/
+
+int	angle(int keycode, t_fdf *fdf)
 {
 	if (keycode == D)
 		fdf->screen->alpha += 0.05;

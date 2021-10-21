@@ -6,13 +6,13 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:10:50 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 14:53:07 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:22:45 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
-/* Calculate the memory offset using the line length */
+/*	Calculate the memory offset using the line length */
 
 static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -22,7 +22,7 @@ static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-/* Draw line between points with Bresenham algorithm */
+/*	Draw line between two points with Bresenham algorithm */
 
 static void	bresenham(t_data *img, t_bresenham *p)
 {
@@ -32,13 +32,6 @@ static void	bresenham(t_data *img, t_bresenham *p)
 		{
 			if (p->x0 < WIDTH && p->y0 < HEIGHT)
 				my_mlx_pixel_put(img, p->x0, p->y0, 16777215);
-			//if (p->z0 != p->z1)
-			//	p->color0 += 2;
-			//if (p->z0 != p->z1)
-			//{
-			//	p->color0++;
-			//	//p->color1--;
-			//}
 		}
 		if (p->x0 == p->x1 && p->y0 == p->y1)
 			break ;
@@ -56,6 +49,8 @@ static void	bresenham(t_data *img, t_bresenham *p)
 	}
 }
 
+/*	Link (X, Y) to (X + 1, Y) */
+
 static void	link_x(t_matrix *isomatrix, t_bresenham *p)
 {
 	p->z0 = isomatrix[0].z;
@@ -64,12 +59,6 @@ static void	link_x(t_matrix *isomatrix, t_bresenham *p)
 	p->x1 = isomatrix[1].x;
 	p->y0 = isomatrix[0].y;
 	p->y1 = isomatrix[1].y;
-	/*
-	if (isomatrix[1].z != 0)
-		p->color = isomatrix[1].color;
-	else
-		p->color = isomatrix[0].color;
-	*/
 	p->color0 = isomatrix[0].color;
 	p->color1 = isomatrix[1].color;
 	p->dx = abs(p->x1 - p->x0);
@@ -85,6 +74,8 @@ static void	link_x(t_matrix *isomatrix, t_bresenham *p)
 	p->err = p->dx + p->dy;
 }
 
+/*	Link (X, Y) to (X, Y + 1) */
+
 static void	link_y(t_matrix *isomatrix, t_bresenham *p, size_t ncol)
 {
 	p->z0 = isomatrix[0].z;
@@ -93,12 +84,6 @@ static void	link_y(t_matrix *isomatrix, t_bresenham *p, size_t ncol)
 	p->x1 = isomatrix[ncol].x;
 	p->y0 = isomatrix[0].y;
 	p->y1 = isomatrix[ncol].y;
-	/*
-	if (isomatrix[0].z != 0)
-		p->color = isomatrix[0].color;
-	else
-		p->color = isomatrix[ncol].color;
-	*/
 	p->color0 = isomatrix[0].color;
 	p->color1 = isomatrix[ncol].color;
 	p->dx = abs(p->x1 - p->x0);
@@ -114,7 +99,9 @@ static void	link_y(t_matrix *isomatrix, t_bresenham *p, size_t ncol)
 	p->err = p->dx + p->dy;
 }
 
-/* Drawing line by using he Bresenham's algorithm */
+/*	Main Drawing algo, link X and link Y properly
+*	by drawking lines with bresenham algorithm
+*/
 
 void	draw(t_fdf	*fdf)
 {

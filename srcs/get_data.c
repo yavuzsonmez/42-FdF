@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 11:44:37 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/09/21 15:21:43 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:15:00 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,28 @@ int	store_data(char *str, t_fdf *fdf, size_t i, size_t e)
 	}
 	close(fd);
 	return (0);
+}
+
+int	error_checker(int argc, char **argv, t_fdf *fdf)
+{
+	int	error;
+
+	error = 0;
+	if (argc != 2)
+		error = 1;
+	if (count_row_col(argv[1], fdf) == -1 && error == 0)
+		error = 1;
+	fdf->matrix = (t_matrix *)ft_calloc(sizeof(t_matrix), fdf->data.size);
+	if (fdf->matrix == NULL)
+		error = 1;
+	if (store_data(argv[1], fdf, 0, 0) == -1 && error == 0)
+		error = 1;
+	if (error == 1)
+	{
+		free_data(fdf);
+		ft_putendl_fd("Error", 1);
+		return (-1);
+	}
+	else
+		return (0);
 }

@@ -6,21 +6,21 @@
 #    By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/19 11:02:47 by ysonmez           #+#    #+#              #
-#    Updated: 2021/10/20 15:14:33 by ysonmez          ###   ########.fr        #
+#    Updated: 2021/10/21 16:59:52 by ysonmez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=		fdf
 
-SRCS			=		srcs/get_next_line.c \
+SRCS			=		srcs/fdf.c \
 						srcs/get_data.c \
+						srcs/get_next_line.c \
+						srcs/utils.c \
 						srcs/transform_data.c \
 						srcs/draw.c \
-						srcs/key_events.c \
-						srcs/mouse_events.c \
-						srcs/utils.c \
-						srcs/fdf.c \
 						srcs/overlay.c \
+						srcs/event_k.c \
+						srcs/event_m.c \
 
 OBJS			=		$(SRCS:.c=.o)
 

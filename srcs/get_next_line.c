@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 13:32:38 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/08/27 18:28:57 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 15:22:03 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static char	*new_line(char **arr, t_gnl *gnl, int fd)
 		gnl->newline = ft_substr(arr[fd], 0, gnl->i + 1);
 		gnl->buff = ft_strdup(arr[fd] + gnl->i + 1);
 		free(arr[fd]);
-		arr[fd] = NULL;
 		arr[fd] = ft_strdup(gnl->buff);
 		free(gnl->buff);
 		if (arr[fd][0] == '\0')
@@ -61,7 +60,6 @@ static int	fd_nextcall(char **arr, t_gnl *gnl, int fd)
 	gnl->buff[gnl->r] = '\0';
 	gnl->newline = ft_strjoin(arr[fd], gnl->buff);
 	free(arr[fd]);
-	arr[fd] = NULL;
 	arr[fd] = ft_strdup(gnl->newline);
 	free(gnl->newline);
 	return (1);

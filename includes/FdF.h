@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 14:47:47 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:07:48 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,27 +140,32 @@ typedef struct s_fdf {
 
 
 /* -------- GET_DATA.C -------- */
-/* Convert and store data (from matrix to array of struct) */
+/* Convert store and parse the data (from matrix to array of struct) */
 int		count_row_col(char *str, t_fdf *fdf);
 int		store_data(char *str, t_fdf *fdf, size_t i, size_t e);
+int		error_checker(int argc, char **argv, t_fdf *fdf);
 
 /* -------- TRANSFORM_DATA.C -------- */
-/* Formulas application for isometric projection */
-
-int		to_isometric(t_fdf	*fdf);
+/* Render routine and Applied transformations in order */
+void	render(t_fdf *fdf);
+void	project(t_fdf	*fdf);
+void	change_origin(t_fdf	*fdf, int origin);
+void	rotate(t_fdf *fdf);
+void	scale(t_fdf *fdf);
+void	translate(t_fdf *fdf);
 
 /* -------- DRAW.C -------- */
-/* Link points of the matrix with Bresenham algorithm */
-void	render(t_fdf *fdf);
+/* Bresenham algorithm for the graphic and overlay functions */
+
 void	draw(t_fdf	*fdf);
-void	translate(t_fdf *fdf);
-void	scale(t_fdf *fdf);
 void	overlay(t_fdf	*fdf);
+void	print_zoom(t_fdf	*fdf);
+void	print_translate(t_fdf	*fdf);
+void	print_angles(t_fdf	*fdf);
 
 /* -------- KEY_EVENTS.C -------- */
 /* Keypress Events */
 
-int		change_view(int keycode, t_fdf *fdf);
 int		close_window(t_fdf *fdf);
 int		altitude(int keycode, t_fdf *fdf);
 int		move(int keycode, t_fdf *fdf);
@@ -169,7 +174,7 @@ int		key_handler(int keycode, t_fdf *fdf);
 /* --------> MOUSE_EVENTS.C <-------- */
 /* Mouse Events */
 int		zoom(int button, int x, int y, t_fdf *fdf);
-int		event_rotate(int keycode, t_fdf *fdf);
+int		angle(int keycode, t_fdf *fdf);
 void	rotate_x(t_fdf *fdf);
 void	rotate_y(t_fdf *fdf);
 void	rotate_z(t_fdf *fdf);
@@ -187,7 +192,7 @@ void	print_theta(t_fdf	*fdf);
 /* Initialize the data struct and free it (utils.c)*/
 
 void color_fade(t_fdf *fdf, size_t i);
-void	free_data_struct(t_fdf	*fdf);
+void	free_data(t_fdf	*fdf);
 int		from_hexa_to_dec(char *str, size_t i, int color);
 char	*check_base(char *str);
 

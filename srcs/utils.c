@@ -6,17 +6,17 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 18:45:48 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 11:43:16 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 16:58:29 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
-/* free everything malloc in the struct if something exist and is malloc and free the whole data struct at the end
-*  not finished
+/*	free everything malloc in the struct if something exist and is malloc
+*	and free the whole data struct at the end not finished
 */
 
-void	free_data_struct(t_fdf	*fdf)
+void	free_data(t_fdf	*fdf)
 {
 	size_t	i;
 
@@ -24,15 +24,17 @@ void	free_data_struct(t_fdf	*fdf)
 	while (i < fdf->data.size)
 	{
 		if (fdf->matrix != NULL)
-			ft_memfree((void *)fdf->matrix);
+			ft_memfreeall((void **)fdf->matrix);
 		if (fdf->isomatrix != NULL)
-			ft_memfree((void *)fdf->isomatrix);
+			ft_memfreeall((void **)fdf->isomatrix);
+		if (fdf->screen != NULL)
+			ft_memfree((void *)fdf->screen);
 		i++;
 	}
 	ft_memfree((void *)fdf);
 }
 
-/* Hexa to decimal converter + Base checker (upper or lowercase) */
+/*	Hexa to decimal converter + Base checker (upper or lowercase) */
 
 char	*check_base(char *str)
 {

@@ -6,15 +6,13 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:13:29 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 13:31:23 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:14:13 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
-/*	Graphical information overlay
-*	about Zoom, Translation, Rotation Angle..
-*/
+/*	Printing Zoom / Scale of the graphic informations */
 
 void	print_zoom(t_fdf	*fdf)
 {
@@ -33,6 +31,8 @@ void	print_zoom(t_fdf	*fdf)
 	free(scale);
 	free(alt);
 }
+
+/*	Printing X and Y Translation informations */
 
 void	print_translate(t_fdf	*fdf)
 {
@@ -54,9 +54,27 @@ void	print_translate(t_fdf	*fdf)
 	free(ty);
 }
 
-void	print_alpha(t_fdf	*fdf)
+/*	Enjoying the norm (freeing strings from print_angles) */
+
+static void	free_strings(char *str0, char *str1, char *str2)
+{
+	free(str0);
+	free(str1);
+	free(str2);
+}
+
+/*	Printing Alpha, Beta, Theta values in degree
+*		In order :
+*					X axis rotation angle
+*					Y axis rotation angle
+*					Z axis rotation angle
+*/
+
+void	print_angles(t_fdf	*fdf)
 {
 	char	*alpha;
+	char	*beta;
+	char	*theta;
 	int		angle;
 
 	angle = fdf->screen->alpha * (180 / M_PI);
@@ -66,32 +84,43 @@ void	print_alpha(t_fdf	*fdf)
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 10, 310, 16777215, "_______");
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 20, 330, 16777215, "X axis");
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 150, 330, 16711777, alpha);
-	free(alpha);
-}
-
-void	print_beta(t_fdf	*fdf)
-{
-	char	*beta;
-	int		angle;
-
 	angle = fdf->screen->beta * (180 / M_PI);
 	beta = ft_itoa(angle);
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 10, 340, 16777215, "_______");
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 20, 360, 16777215, "Y axis");
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 150, 360, 16711777, beta);
-	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 10, 370, 16777215, "_______");
-	free(beta);
-}
-
-void	print_theta(t_fdf	*fdf)
-{
-	char	*theta;
-	int		angle;
-
 	angle = fdf->screen->theta * (180 / M_PI);
 	theta = ft_itoa(angle);
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 10, 370, 16777215, "_______");
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 20, 390, 16777215, "Z axis");
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 150, 390, 16711777, theta);
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 10, 400, 16777215, "_______");
-	free(theta);
+	free_strings(alpha, beta, theta);
+}
+
+/*	Overlay main function
+*	Printing basics informations and graphic informations
+*/
+
+void	overlay(t_fdf	*fdf)
+{
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, (WIDTH / 2) - 200, 20,
+		16777215, "\'FdF\' Wireframe reading from ");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, (WIDTH / 2) + 100, 20,
+		16711777, fdf->screen->file);
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 850,
+		1618992, "ZOOM with MOUSE WHEEL");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 880,
+		16744704, "TRANSLATE with keypad arrows");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 910,
+		16711935, "CHANGE Z with + and -");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 940,
+		6318079, "ROTATE around X axis with A and D");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 970,
+		16734464, "ROTATE around Y axis with S and W");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 1000,
+		16776960, "ROTATE around Z axis with Q and E");
+	print_zoom(fdf);
+	print_translate(fdf);
+	print_angles(fdf);
 }

@@ -6,55 +6,107 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/20 13:50:37 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:15:44 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
-/*
-int	to_parallel(t_fdf	*fdf)
-{
-	size_t	i;
+/*	Create the starting isometric projection and apply the altitude value */
 
-	i = 0;
-	while (i < fdf->data.size)
-	{
-		fdf->isomatrix[i].x = fdf->matrix[i].x;
-		if (fdf->matrix[i].y == 0)
-			fdf->isomatrix[i].y = fdf->isomatrix[i].z * sin(0.8);
-		else if (fdf->matrix[i].y > 0 && fdf->matrix[i].z < 0)
-			fdf->isomatrix[i].y = sqrt(pow(fdf->matrix[i].y, 2) + pow(fdf->isomatrix[i].z, 2)) * cos(0.8 + atan(fdf->isomatrix[i].z / fdf->matrix[i].y) + M_PI);
-		else
-			fdf->isomatrix[i].y = sqrt(pow(fdf->matrix[i].y, 2) + pow(fdf->isomatrix[i].z, 2)) * cos(0.8 + atan(fdf->isomatrix[i].z / fdf->matrix[i].y));
-		i++;
-	}
-	fdf->screen.projection = PARALLEL;
-	return (0);
-}
-*/
-/*
-int	to_isometric(t_fdf	*fdf)
+void	project(t_fdf	*fdf)
 {
 	size_t		i;
 
 	i = 0;
 	while (i < fdf->data.size)
 	{
-		if (fdf->matrix[i].z > 0 && (fdf->matrix[i].z + fdf->screen->alt) >= 0)
-			fdf->isomatrix[i].z = fdf->matrix[i].z + fdf->screen->alt;
-		else if (fdf->matrix[i].z < 0 && (fdf->matrix[i].z + fdf->screen->alt) <= 0)
-			fdf->isomatrix[i].z = fdf->matrix[i].z - fdf->screen->alt;
-		else if (fdf->matrix[i].z > 0 && (fdf->matrix[i].z + fdf->screen->alt) < 0)
-			fdf->isomatrix[i].z = 0;
-		else if (fdf->matrix[i].z < 0 && (fdf->matrix[i].z - fdf->screen->alt) > 0)
-			fdf->isomatrix[i].z = 0;
+		if (fdf->matrix[i].z > 0)
+		{
+			if (fdf->matrix[i].z + fdf->screen->alt >= 0)
+				fdf->isomatrix[i].z = fdf->matrix[i].z + fdf->screen->alt;
+			else
+				fdf->isomatrix[i].z = 0;
+		}
+		else if (fdf->matrix[i].z < 0)
+		{
+			if (fdf->matrix[i].z + fdf->screen->alt <= 0
+				&& fdf->matrix[i].z + fdf->screen->alt >= fdf->matrix[i].z)
+				fdf->isomatrix[i].z = fdf->matrix[i].z + fdf->screen->alt;
+			else
+				fdf->isomatrix[i].z = 0;
+		}
 		else
 			fdf->isomatrix[i].z = fdf->matrix[i].z;
-		 fdf->isomatrix[i].x = (fdf->matrix[i].x - fdf->matrix[i].y) * cos(0.314);
-		 fdf->isomatrix[i].y = ((fdf->matrix[i].x + fdf->matrix[i].y) * sin(0.314) - fdf->isomatrix[i].z);
+		fdf->isomatrix[i].x = fdf->matrix[i].x;
+		fdf->isomatrix[i].y = fdf->matrix[i].y;
 		i++;
 	}
-	return (0);
 }
+
+/*	Translate the origin point to the middle of the graph
+*	in order to Rotate from the center and not from (0, 0)
+*	Translate back to (0, 0) after rotation
 */
+
+void	change_origin(t_fdf	*fdf, int origin)
+{
+	size_t		i;
+
+	i = 0;
+	while (i < fdf->data.size)
+	{
+		if (origin != 0)
+		{
+			fdf->isomatrix[i].z = fdf->isomatrix[i].z;
+			fdf->isomatrix[i].x = fdf->isomatrix[i].x - (fdf->data.col / 2);
+			fdf->isomatrix[i].y = fdf->isomatrix[i].y - (fdf->data.row / 2);
+		}
+		else
+		{
+			fdf->isomatrix[i].z = fdf->isomatrix[i].z;
+			fdf->isomatrix[i].x = fdf->isomatrix[i].x + (fdf->data.col / 2);
+			fdf->isomatrix[i].y = fdf->isomatrix[i].y + (fdf->data.row / 2);
+		}
+		i++;
+	}
+}
+
+/*	Apply rotation matrix for X, Y and Z axis */
+
+void	rotate(t_fdf *fdf)
+{
+	rotate_x(fdf);
+	rotate_y(fdf);
+	rotate_z(fdf);
+}
+
+/*	Scale the graph (make it bigger) with zoom */
+
+void	scale(t_fdf *fdf)
+{
+	size_t		i;
+
+	i = 0;
+	while (i < fdf->data.size)
+	{
+		fdf->isomatrix[i].x *= fdf->screen->scale;
+		fdf->isomatrix[i].y *= fdf->screen->scale;
+		i++;
+	}
+}
+
+/*	Translate the entire graph on the screen */
+
+void	translate(t_fdf *fdf)
+{
+	size_t		i;
+
+	i = 0;
+	while (i < fdf->data.size)
+	{
+		fdf->isomatrix[i].x += fdf->screen->translate_x;
+		fdf->isomatrix[i].y += fdf->screen->translate_y;
+		i++;
+	}
+}

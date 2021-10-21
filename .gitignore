@@ -1,5 +1,5 @@
 a.out
 libft/*.o
 *.o
-fdftest
 minilibx_macos/
+trash.c
