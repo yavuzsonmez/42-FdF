@@ -66,7 +66,13 @@ int	to_view(t_fdf	*fdf)
 	i = 0;
 	while (i < fdf->data.size)
 	{
-		fdf->isomatrix[i].z = fdf->matrix[i].z;
+		if (fdf->matrix[i].z != 0)
+		//{
+		//
+		//}
+			fdf->isomatrix[i].z = fdf->matrix[i].z + fdf->screen->alt;
+		else
+			fdf->isomatrix[i].z = fdf->matrix[i].z;
 		fdf->isomatrix[i].x = fdf->matrix[i].x;
 		fdf->isomatrix[i].y = fdf->matrix[i].y;
 		i++;
@@ -97,12 +103,16 @@ void	change_origin(t_fdf	*fdf, int origin)
 	}
 }
 
-
-
 void	overlay(t_fdf	*fdf)
 {
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, (WIDTH / 2) - 200, 20, 16777215, "\'FdF\' Wireframe reading from ");
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, (WIDTH / 2) + 100, 20, 16711777, fdf->screen->file);
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 850, 1618992, "ZOOM with MOUSE WHEEL");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 880, 16744704, "TRANSLATE with keypad arrows");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 910, 16711935, "CHANGE Z with + and -");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 940, 6318079, "ROTATE around X axis with A and D");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 970, 16734464, "ROTATE around Y axis with S and W");
+	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 1550, 1000, 16776960, "ROTATE around Z axis with Q and E");
 	print_zoom(fdf);
 	print_translate(fdf);
 	print_alpha(fdf);
@@ -135,13 +145,14 @@ void	create_window(char **argv, t_fdf *fdf)
 {
 	fdf->screen = (t_screen *)ft_calloc(sizeof(t_screen), 1);
 	fdf->screen->file = argv[1] + 10;
-	fdf->screen->scale = 10;
+	fdf->screen->scale = 30;
 	fdf->screen->translate_x = (WIDTH / 2) - ((fdf->data.col / 2) * fdf->screen->scale);
 	fdf->screen->translate_y = (HEIGHT / 2) - ((fdf->data.row / 2) * fdf->screen->scale);
 	fdf->screen->alt = 0;
 	fdf->screen->alpha = 0.9;
 	fdf->screen->beta = -0.8;
 	fdf->screen->theta = 0.2;
+	fdf->screen->ar = 0;
 	fdf->vars.mlx = mlx_init();
 	fdf->vars.win = mlx_new_window(fdf->vars.mlx, WIDTH, HEIGHT, "FdF");
 	fdf->isomatrix = (t_matrix *)ft_calloc(sizeof(t_matrix), fdf->data.size);
@@ -151,7 +162,6 @@ void	create_window(char **argv, t_fdf *fdf)
 	render(fdf);
 	mlx_hook(fdf->vars.win, 2, 1L << 0, key_handler, fdf);
 	mlx_hook(fdf->vars.win, 4, 1L << 2, zoom, fdf);
-	//mlx_hook(fdf->vars.win, 6, 1L << 6, rotate, fdf);
 	mlx_loop(fdf->vars.mlx);
 }
 

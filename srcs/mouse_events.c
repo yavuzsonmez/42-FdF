@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:09:42 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 11:10:59 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 13:27:08 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,17 @@ void	rotate_z(t_fdf *fdf)
 int	event_rotate(int keycode, t_fdf *fdf)
 {
 	if (keycode == D)
-		fdf->screen->alpha += 0.1;
+		fdf->screen->alpha += 0.01;
 	else if (keycode == A)
-		fdf->screen->alpha -= 0.1;
+		fdf->screen->alpha -= 0.01;
 	else if (keycode == W)
-		fdf->screen->beta += 0.1;
+		fdf->screen->beta += 0.01;
 	else if (keycode == S)
-		fdf->screen->beta -= 0.1;
+		fdf->screen->beta -= 0.01;
 	else if (keycode == E)
-		fdf->screen->theta += 0.1;
+		fdf->screen->theta += 0.01;
 	else if (keycode == Q)
-		fdf->screen->theta -= 0.1;
+		fdf->screen->theta -= 0.01;
 	else
 		return (-1);
 	render(fdf);
