@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 15:17:58 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 17:27:11 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:39:11 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	altitude(int keycode, t_fdf *fdf)
 
 /*	KEYPRESS HANDLER : event hook depending of pressed key */
 
-void	key_handler(int keycode, t_fdf *fdf)
+int	key_handler(int keycode, t_fdf *fdf)
 {
 	if (keycode == ESCAPE)
 		close_window(fdf);
@@ -67,5 +67,6 @@ void	key_handler(int keycode, t_fdf *fdf)
 	else if (keycode == Q || keycode == E)
 		angle(keycode, fdf);
 	else
-		return ;
+		return (-1);
+	return (0);
 }

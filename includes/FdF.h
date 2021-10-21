@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 17:07:48 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:41:02 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,15 +166,15 @@ void	print_angles(t_fdf	*fdf);
 /* -------- KEY_EVENTS.C -------- */
 /* Keypress Events */
 
-int		close_window(t_fdf *fdf);
-int		altitude(int keycode, t_fdf *fdf);
-int		move(int keycode, t_fdf *fdf);
-int		key_handler(int keycode, t_fdf *fdf);
+void		close_window(t_fdf *fdf);
+void		altitude(int keycode, t_fdf *fdf);
+void		move(int keycode, t_fdf *fdf);
+int			key_handler(int keycode, t_fdf *fdf);
 
 /* --------> MOUSE_EVENTS.C <-------- */
 /* Mouse Events */
 int		zoom(int button, int x, int y, t_fdf *fdf);
-int		angle(int keycode, t_fdf *fdf);
+int	angle(int keycode, t_fdf *fdf);
 void	rotate_x(t_fdf *fdf);
 void	rotate_y(t_fdf *fdf);
 void	rotate_z(t_fdf *fdf);

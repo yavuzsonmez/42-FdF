@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 15:09:42 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 17:31:04 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:40:36 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*	ZOOM with MOUSE WHEEL (SCALE the graph) */
 
-void	zoom(int keycode, int x, int y, t_fdf *fdf)
+int	zoom(int keycode, int x, int y, t_fdf *fdf)
 {
 	(void)x;
 	(void)y;
@@ -29,7 +29,8 @@ void	zoom(int keycode, int x, int y, t_fdf *fdf)
 	if (keycode == MOUSE_WHEEL_UP || keycode == MOUSE_WHEEL_DOWN)
 		render(fdf);
 	else
-		return ;
+		return (-1);
+	return (0);
 }
 
 /*	X AXIS rotation calulations */
