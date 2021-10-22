@@ -6,15 +6,13 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 18:45:48 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 16:58:29 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/22 10:32:35 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
 
-/*	free everything malloc in the struct if something exist and is malloc
-*	and free the whole data struct at the end not finished
-*/
+/*	Free all allocated var in the program	*/
 
 void	free_data(t_fdf	*fdf)
 {
@@ -36,7 +34,7 @@ void	free_data(t_fdf	*fdf)
 
 /*	Hexa to decimal converter + Base checker (upper or lowercase) */
 
-char	*check_base(char *str)
+static char	*check_base(char *str)
 {
 	size_t	i;
 	int		b;

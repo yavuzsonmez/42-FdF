@@ -6,11 +6,15 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 11:44:37 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 17:15:00 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/22 10:30:48 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FdF.h"
+
+/*	Get the adress where the color information of a point start
+*	and send it to a converter in order to get the integer value
+*/
 
 static int	get_color(char *str)
 {
@@ -25,6 +29,10 @@ static int	get_color(char *str)
 		color = from_hexa_to_dec(str + i, 0, 0);
 	return (color);
 }
+
+/*	First read in the file descriptor (Matrix)
+*	Count the number of column and row
+*/
 
 int	count_row_col(char *str, t_fdf *fdf)
 {
@@ -52,6 +60,11 @@ int	count_row_col(char *str, t_fdf *fdf)
 	close(fd);
 	return (0);
 }
+
+/*	Second read in the file descriptor (Matrix)
+*	Use thenumber of col and row to store all points coordinate
+*	in an array of struct matrix[i] with, x, y, z, color property
+*/
 
 int	store_data(char *str, t_fdf *fdf, size_t i, size_t e)
 {
@@ -82,6 +95,11 @@ int	store_data(char *str, t_fdf *fdf, size_t i, size_t e)
 	close(fd);
 	return (0);
 }
+
+/*	Read, parse and store the data related to the matrix
+*	Check if there are one or multiple errors during the process
+*	or in the inputs
+*/
 
 int	error_checker(int argc, char **argv, t_fdf *fdf)
 {
