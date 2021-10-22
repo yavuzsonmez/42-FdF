@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 18:45:48 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/22 12:49:21 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/22 14:36:23 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	free_data(t_fdf	*fdf)
 	while (i < fdf->data.size)
 	{
 		if (fdf->matrix != NULL)
-			ft_memfreeall((void **)fdf->matrix);
+			ft_memfreeall((void **)&fdf->matrix);
 		if (fdf->isomatrix != NULL)
-			ft_memfreeall((void **)fdf->isomatrix);
+			ft_memfreeall((void **)&fdf->isomatrix);
 		if (fdf->screen != NULL)
 			ft_memfree((void *)fdf->screen);
 		i++;
