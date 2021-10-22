@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/22 10:41:31 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/22 11:19:44 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,5 +184,7 @@ void	rotate_z(t_fdf *fdf);
 
 void	free_data(t_fdf	*fdf);
 int		from_hexa_to_dec(char *str, size_t i, int color);
+void	color_fade(t_fdf *fdf, size_t i);
+void	fill_colors(t_fdf *fdf);
 
 #endif

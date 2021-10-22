@@ -6,7 +6,7 @@
 #    By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/19 11:02:47 by ysonmez           #+#    #+#              #
-#    Updated: 2021/10/21 16:59:52 by ysonmez          ###   ########.fr        #
+#    Updated: 2021/10/22 11:04:46 by ysonmez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS			=		srcs/fdf.c \
 						srcs/overlay.c \
 						srcs/event_k.c \
 						srcs/event_m.c \
+						srcs/colors.c \
 
 OBJS			=		$(SRCS:.c=.o)
 

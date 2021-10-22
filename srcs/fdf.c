@@ -32,6 +32,7 @@ void	render(t_fdf *fdf)
 	change_origin(fdf, 0);
 	scale(fdf);
 	translate(fdf);
+	fill_colors(fdf);
 	draw(fdf);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
 	overlay(fdf);
