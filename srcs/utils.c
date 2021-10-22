@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 18:45:48 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/22 10:32:35 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/22 12:49:21 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,18 @@ int	from_hexa_to_dec(char *str, size_t i, int color)
 	}
 	ft_memfree((void *)base);
 	return (color);
+}
+
+/*	Fill color property of the transformed matrix */
+
+void	fill_colors(t_fdf *fdf)
+{
+	size_t		i;
+
+	i = 0;
+	while (i < fdf->data.size)
+	{
+		fdf->isomatrix[i].color = fdf->matrix[i].color;
+		i++;
+	}
 }
