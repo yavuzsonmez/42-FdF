@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:51:44 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/21 17:15:44 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/22 10:41:18 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 /*	Create the starting isometric projection and apply the altitude value */
 
-void	project(t_fdf	*fdf)
+void	project(t_fdf	*fdf, size_t i)
 {
-	size_t		i;
-
-	i = 0;
 	while (i < fdf->data.size)
 	{
 		if (fdf->matrix[i].z > 0)

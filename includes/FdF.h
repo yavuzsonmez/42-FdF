@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 18:56:05 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/22 10:33:11 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/22 10:41:31 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int		error_checker(int argc, char **argv, t_fdf *fdf);
 /* -------- TRANSFORM_DATA.C -------- */
 /*	Render routine and Applied transformations in order */
 void	render(t_fdf *fdf);
-void	project(t_fdf	*fdf);
+void	project(t_fdf	*fdf, size_t i);
 void	change_origin(t_fdf	*fdf, int origin);
 void	rotate(t_fdf *fdf);
 void	scale(t_fdf *fdf);

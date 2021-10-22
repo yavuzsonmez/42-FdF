@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 11:44:37 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/22 10:30:48 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/22 10:39:03 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ int	store_data(char *str, t_fdf *fdf, size_t i, size_t e)
 	while (i < fdf->data.row)
 	{
 		fdf->data.buf = get_next_line(fd);
-		if (fdf->data.buf == NULL)
-			return (-1);
 		fdf->data.arr = ft_split(fdf->data.buf, ' ');
 		k = 0;
 		while (k < fdf->data.col)

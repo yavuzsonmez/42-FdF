@@ -26,7 +26,7 @@ void	render(t_fdf *fdf)
 	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel,
 			&fdf->img.line_length, &fdf->img.endian);
-	project(fdf);
+	project(fdf, 0);
 	change_origin(fdf, 1);
 	rotate(fdf);
 	change_origin(fdf, 0);
