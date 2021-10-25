@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:13:29 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/22 14:07:04 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/25 11:17:22 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	print_translate(t_fdf	*fdf)
 
 /*	Enjoying the norm (freeing strings from print_angles) */
 
-static void	free_strings(char *str0, char *str1, char *str2)
+static void	free_strings(char **str0, char **str1, char **str2)
 {
-	free(str0);
-	free(str1);
-	free(str2);
+	free(*str0);
+	free(*str1);
+	free(*str2);
 }
 
 /*	Printing Alpha, Beta, Theta values in degree
@@ -95,7 +95,7 @@ void	print_angles(t_fdf	*fdf)
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 20, 390, 16777215, "Z axis");
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 150, 390, 16711777, theta);
 	mlx_string_put(fdf->vars.mlx, fdf->vars.win, 10, 400, 16777215, "_______");
-	free_strings(alpha, beta, theta);
+	free_strings(&alpha, &beta, &theta);
 }
 
 /*	Overlay main function

@@ -34,11 +34,6 @@ static void	init_screen_data(char **argv, t_fdf *fdf)
 
 void	render(t_fdf *fdf)
 {
-	if (fdf->img.img != NULL && fdf->img.addr != NULL)
-	{
-		ft_memfree((void *)fdf->img.img);
-		ft_memfree((void *)fdf->img.addr);
-	}
 	fdf->img.img = mlx_new_image(fdf->vars.mlx, WIDTH, HEIGHT);
 	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bits_per_pixel,
 			&fdf->img.line_length, &fdf->img.endian);
@@ -51,6 +46,7 @@ void	render(t_fdf *fdf)
 	fill_colors(fdf);
 	draw(fdf);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->img.img, 0, 0);
+	mlx_destroy_image (fdf->vars.mlx, fdf->img.img);
 	overlay(fdf);
 }
 
@@ -89,8 +85,9 @@ int	main(int argc, char **argv)
 	if (fdf == NULL)
 		return (-1);
 	if (error_checker(argc, argv, fdf) == -1)
-		return (-1);
+		exit(EXIT_FAILURE);
 	create_window(argv, fdf);
 	free_data(fdf);
+	exit(EXIT_SUCCESS);
 	return (0);
 }

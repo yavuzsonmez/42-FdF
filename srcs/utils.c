@@ -6,7 +6,7 @@
 /*   By: ysonmez <ysonmez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 18:45:48 by ysonmez           #+#    #+#             */
-/*   Updated: 2021/10/22 14:36:23 by ysonmez          ###   ########.fr       */
+/*   Updated: 2021/10/25 11:58:32 by ysonmez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,21 @@ void	free_data(t_fdf	*fdf)
 	size_t	i;
 
 	i = 0;
-	while (i < fdf->data.size)
+	if (fdf->matrix != NULL && fdf->isomatrix != NULL)
 	{
-		if (fdf->matrix != NULL)
-			ft_memfreeall((void **)&fdf->matrix);
-		if (fdf->isomatrix != NULL)
-			ft_memfreeall((void **)&fdf->isomatrix);
-		if (fdf->screen != NULL)
-			ft_memfree((void *)fdf->screen);
-		i++;
+		while (i < fdf->data.size)
+		{
+			free(&fdf->matrix[i]);
+			free(&fdf->isomatrix[i]);
+			i++;
+		}
 	}
-	ft_memfree((void *)fdf);
+	if (fdf->screen != NULL)
+		free(fdf->screen);
+	if (fdf != NULL)
+		free(fdf);
+	if (fdf->vars.win != NULL)
+		mlx_destroy_window(fdf->vars.mlx, fdf->vars.win);
 }
 
 /*	Hexa to decimal converter + Base checker (upper or lowercase) */
